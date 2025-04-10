@@ -50,9 +50,9 @@ BNHaNA offers a simple yet powerful solution for anyone dealing with large numbe
   - LUAJIT compatible
 
 ## Installation 📦
-For Roblox/Lua projects:
+For Lua projects(May not fully work with Roblox, since roblox uses other Lua type):
 1. Download [`BNHaNA.lua`](https://github.com/Artheriax/BNHaNA/releases)
-2. Place in ReplicatedStorage or appropriate location
+2. Place in appropriate location
 3. Require in your script:
 ```lua
 local Banana = require(path.to.BNHaNA)
