@@ -2,7 +2,7 @@
 -- Github: https://github.com/Artheriax/BNHaNA
 -- Took inspiration from Gigantix: https://github.com/DavldMA/Gigantix/tree/main
 
-local Gigantix = {}
+local Banana = {}
 
 -- Notation table for suffixes used in short notation
 
@@ -1249,7 +1249,7 @@ local function subtractNumbers(num1, num2)
 end
 
 --------------------------------------------------------------------------------
--- Function: Gigantix.notationToString
+-- Function: Banana.notationToString
 -- Purpose: Convert a number in short notation (like "1.5K") into a full number string ("1500").
 -- Explanation:
 --     The function splits the input into a numerical part and its suffix,
@@ -1260,14 +1260,14 @@ end
 --     Finds number "1.5" and suffix "K" (which corresponds to 3 zeros).
 --   Output: "1500"
 --------------------------------------------------------------------------------
-function Gigantix.notationToString(notation, isEncoded)
-    if isEncoded then notation = Gigantix.decodeNumber(notation) end
+function Banana.notationToString(notation, isEncoded)
+    if isEncoded then notation = Banana.decodeNumber(notation) end
     local number, suffix = notation:match("([%d%.]+)(%a+)")
     return suffix and number .. string_rep("0", suffixLookup[suffix:lower()] or 0) or number
 end
 
 --------------------------------------------------------------------------------
--- Function: Gigantix.stringToNumber
+-- Function: Banana.stringToNumber
 -- Purpose: Convert a full number string into an array of numeric blocks.
 -- Explanation:
 --     The function processes the string from right-to-left, grouping digits in blocks of 3.
@@ -1277,8 +1277,8 @@ end
 --     It groups "000" (last three) and then "15", resulting in the array {0, 15}.
 --   Output: {0, 15}
 --------------------------------------------------------------------------------
-function Gigantix.stringToNumber(str, isEncoded)
-    if isEncoded then str = Gigantix.decodeNumber(str) end
+function Banana.stringToNumber(str, isEncoded)
+    if isEncoded then str = Banana.decodeNumber(str) end
     local blocks, len = {}, #str
     for i = len, 1, -3 do
         table_insert(blocks, tonumber(str:sub(math.max(1, i-2), i)))
@@ -1287,7 +1287,7 @@ function Gigantix.stringToNumber(str, isEncoded)
 end
 
 --------------------------------------------------------------------------------
--- Function: Gigantix.getLong
+-- Function: Banana.getLong
 -- Purpose: Format a block array back into its full number string.
 -- Explanation:
 --     It concatenates blocks from the highest order to lowest,
@@ -1299,7 +1299,7 @@ end
 --     while the lower block "0" is padded to "000" if needed.
 --   Output: "15000"
 --------------------------------------------------------------------------------
-function Gigantix.getLong(num)
+function Banana.getLong(num)
     local parts = {}
     for i = #num, 1, -1 do
         table_insert(parts, (i == #num and "%d" or "%03d"):format(num[i]))
@@ -1308,7 +1308,7 @@ function Gigantix.getLong(num)
 end
 
 --------------------------------------------------------------------------------
--- Function: Gigantix.getShort
+-- Function: Banana.getShort
 -- Purpose: Format a block array into a compact, abbreviated notation string.
 -- Explanation:
 --     It uses a suffix (such as "K" for thousands) based on how many blocks the number has.
@@ -1319,7 +1319,7 @@ end
 --     The highest block "15" and the fraction derived from "0" lead to "15K".
 --   Output: "15K"
 --------------------------------------------------------------------------------
-function Gigantix.getShort(num)
+function Banana.getShort(num)
     if #num == 0 then return "0" end
     local suffixIndex = #num
     if suffixIndex > #NOTATION then return "Infinity" end
@@ -1334,7 +1334,7 @@ function Gigantix.getShort(num)
 end
 
 --------------------------------------------------------------------------------
--- Function: Gigantix.add
+-- Function: Banana.add
 -- Purpose: A high-level addition function for two numbers in block array format.
 -- Explanation:
 --     It compares both numbers (ignoring sign), then adds the blocks accordingly.
@@ -1344,13 +1344,13 @@ end
 --     Since 15 >= 5, it calls addNumbers to compute the sum.
 --   Output: {20}
 --------------------------------------------------------------------------------
-function Gigantix.add(a, b)
+function Banana.add(a, b)
     local cmp = compareAbsolute(a, b)
     return cmp >= 0 and addNumbers(a, b) or addNumbers(b, a)
 end
 
 --------------------------------------------------------------------------------
--- Function: Gigantix.difference
+-- Function: Banana.difference
 -- Purpose: Compute the absolute difference between two numbers represented as block arrays.
 -- Explanation:
 --     It subtracts the smaller number from the larger one.
@@ -1358,34 +1358,34 @@ end
 --   Input: {15} - {5}
 --   Output: {10}
 --------------------------------------------------------------------------------
-function Gigantix.difference(a, b)
+function Banana.difference(a, b)
     return compareAbsolute(a, b) >= 0 and subtractNumbers(a, b) or subtractNumbers(b, a)
 end
 
 --------------------------------------------------------------------------------
--- Function: Gigantix.isGreaterOrEquals
+-- Function: Banana.isGreaterOrEquals
 -- Purpose: Check if the first number is greater than or equal to the second.
 -- Example:
 --   Input: Compare {15} with {15}
 --   Output: true (since they are equal)
 --------------------------------------------------------------------------------
-function Gigantix.isGreaterOrEquals(a, b)
+function Banana.isGreaterOrEquals(a, b)
     return compareNumbers(a, b) >= 0
 end
 
 --------------------------------------------------------------------------------
--- Function: Gigantix.isLesserOrEquals
+-- Function: Banana.isLesserOrEquals
 -- Purpose: Check if the first number is less than or equal to the second.
 -- Example:
 --   Input: Compare {10} with {15}
 --   Output: true (because 10 is less than 15)
 --------------------------------------------------------------------------------
-function Gigantix.isLesserOrEquals(a, b)
+function Banana.isLesserOrEquals(a, b)
     return compareNumbers(a, b) <= 0
 end
 
 --------------------------------------------------------------------------------
--- Function: Gigantix.encodeNumber
+-- Function: Banana.encodeNumber
 -- Purpose: Encode a long number (in string format) into a compact, custom base representation.
 -- Explanation:
 --     It processes the number as a string and converts it into a new base defined by CHARACTERS.
@@ -1395,7 +1395,7 @@ end
 --     The function converts the number to a base-N value and maps each digit to a character.
 --   Output: A string like "1xFa" (dependent on the mapping in CHARACTERS)
 --------------------------------------------------------------------------------
-function Gigantix.encodeNumber(value)
+function Banana.encodeNumber(value)
     local chars, index = {}, 1
     local num = value:gsub("%D", "")
     while #num > 0 do
@@ -1413,7 +1413,7 @@ function Gigantix.encodeNumber(value)
 end
 
 --------------------------------------------------------------------------------
--- Function: Gigantix.decodeNumber
+-- Function: Banana.decodeNumber
 -- Purpose: Decode a compact encoded number string back into a regular number string.
 -- Explanation:
 --     It converts each character back into its corresponding numeric value and reconstructs the number.
@@ -1423,7 +1423,7 @@ end
 --     The encoded string is processed character by character, converting back into a decimal number.
 --   Output: "1000000"
 --------------------------------------------------------------------------------
-function Gigantix.decodeNumber(value)
+function Banana.decodeNumber(value)
     local num, power = {0}, 1
     for c in value:gmatch"." do
         local digit = numbers[c] or 0
@@ -1441,4 +1441,4 @@ function Gigantix.decodeNumber(value)
     return table_concat(num):reverse()
 end
 
-return Gigantix
+return Banana
