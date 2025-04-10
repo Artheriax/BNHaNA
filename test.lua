@@ -91,3 +91,39 @@ print("\n=== Test 7: notationToString ===")
     print(Banana.notationToString("0.0001T"))
     print(Banana.notationToString("123.456"))
     print(Banana.notationToString("1.234e3"))
+
+print("\n=== Test 8: Encode/Decode Round Trip ===")
+    local function testEncodeDecode(value)
+        local encoded = Banana.encodeNumber(value)
+        local decoded = Banana.decodeNumber(encoded)
+        print(string.format("Encode '%s' → '%s'; Decode → '%s'", value, encoded, decoded))
+    end
+    testEncodeDecode("0")
+    testEncodeDecode("10")
+    testEncodeDecode("90")
+    testEncodeDecode("12345")
+    testEncodeDecode("987654321")
+    testEncodeDecode("-123456789")
+    
+-- print("\n=== Test 9: configureNotation ===")
+--     -- Backup original notation (hypothetical since NOTATION isn't exposed)
+--     Banana.configureNotation({"", "k", "m", "b"})
+--     local testNum = Banana.stringToNumber("2500") 
+--     print("Formatted with custom notation: " .. Banana.getShort(testNum)) -- Should show "2.5k"
+--     Banana.configureNotation() -- Reset to default
+    
+print("\n=== Test 10: Comparison Functions ===")
+    local a = Banana.stringToNumber("1000")
+    local b = Banana.stringToNumber("500")
+    local c = Banana.stringToNumber("-500")
+    print("IsGreater(1000, 500):", Banana.IsGreater(a, b)) -- true
+    print("IsLesser(500, 1000):", Banana.IsLesser(b, a))   -- true
+    print("IsEqual(1000, 1000):", Banana.IsEqual(a, a))    -- true
+    print("IsGreater(500, -500):", Banana.IsGreater(b, c)) -- true
+    print("IsLesser(-500, 500):", Banana.IsLesser(c, b))   -- true
+    
+print("\n=== Test 11: notationToString Edge Cases ===")
+    print("Invalid suffix:", Banana.notationToString("1.2X")) -- "1.2X"
+    print("No suffix:", Banana.notationToString("123"))       -- "123"
+    print("Precision overflow:", Banana.notationToString("1.234567K")) -- "1.234567K"
+    print("Large suffix:", Banana.notationToString("1NoOgUCe")) -- Handled if suffix exists

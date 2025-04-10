@@ -1436,23 +1436,39 @@ function Banana.notationToString(str)
     -- Count the digits after the decimal.
     local fractionalDigits = #fractionalPart
 
-    -- Calculate how many zeros must be appended.
+    -- Calculate how many zeros must be appended or adjust decimal placement.
     local effectiveExponent = exponent - fractionalDigits
-    if effectiveExponent < 0 then
-        -- If the exponent is less than the digits after the decimal, the notation may be too precise.
-        return sign .. str
-    end
-    
-    -- Remove any leading zeros from the combined number parts.
+
+    -- Combine integer and fractional parts, removing leading zeros.
     local combined = (integerPart or "") .. fractionalPart
     combined = combined:gsub("^0+", "")
     if combined == "" then combined = "0" end
 
-    -- Append zeros to complete the full number.
-    local result = combined .. string.rep("0", effectiveExponent)
+    if effectiveExponent < 0 then
+        -- Handle negative effectiveExponent by inserting decimal point
+        local totalDigits = #combined
+        local decimalPosition = totalDigits + effectiveExponent
 
-    -- Reattach the negative sign if necessary.
-    return sign .. result
+        if decimalPosition <= 0 then
+            -- Case where we need leading zeros: e.g., "0.00123"
+            combined = "0." .. string.rep("0", -decimalPosition) .. combined
+        else
+            -- Insert decimal point within the combined digits
+            combined = combined:sub(1, decimalPosition) .. "." .. combined:sub(decimalPosition + 1)
+        end
+
+        -- Trim trailing zeros after decimal
+        combined = combined:gsub("%.?0+$", "")
+        if combined:sub(-1) == "." then
+            combined = combined:sub(1, -2)
+        end
+    else
+        -- Append zeros for positive effectiveExponent
+        combined = combined .. string.rep("0", effectiveExponent)
+    end
+
+    -- Reattach the negative sign if necessary
+    return sign .. combined
 end
 
 --------------------------------------------------------------------------------
@@ -1608,6 +1624,101 @@ function Banana.encodeNumber(value)
     end
 
     return (num.sign < 0 and "-" or "") .. table_concat(chars)
+end
+
+function Banana.decodeNumber(encodedStr)
+    if encodedStr == "0" then
+        return "0"
+    end
+
+    local sign = 1
+    local str = encodedStr
+    if str:sub(1, 1) == "-" then
+        sign = -1
+        str = str:sub(2)
+        if str == "" then
+            return "0"
+        end
+    end
+
+    local blocks = {0}
+
+    for i = 1, #str do
+        local c = str:sub(i, i)
+        local charIndex
+        for idx, ch in ipairs(CHARACTERS) do
+            if ch == c then
+                charIndex = idx
+                break
+            end
+        end
+        if not charIndex then
+            error("Invalid character in encoded string: " .. c)
+        end
+        local value = charIndex - 1
+
+        -- Multiply current blocks by 90
+        local newBlocks = {}
+        local carry = 0
+        for j = 1, #blocks do
+            local product = blocks[j] * 90 + carry
+            carry = math_floor(product / 1000)
+            newBlocks[j] = product % 1000
+        end
+        local len = #newBlocks
+        while carry > 0 do
+            len = len + 1
+            newBlocks[len] = carry % 1000
+            carry = math_floor(carry / 1000)
+        end
+        blocks = newBlocks
+
+        -- Add value to the first block and handle carry
+        if #blocks == 0 then
+            blocks[1] = value
+        else
+            blocks[1] = blocks[1] + value
+            carry = math_floor(blocks[1] / 1000)
+            blocks[1] = blocks[1] % 1000
+            local j = 2
+            while carry > 0 and j <= #blocks do
+                blocks[j] = blocks[j] + carry
+                carry = math_floor(blocks[j] / 1000)
+                blocks[j] = blocks[j] % 1000
+                j = j + 1
+            end
+            if carry > 0 then
+                blocks[j] = carry
+            end
+        end
+    end
+
+    -- Convert blocks to string
+    local reversedBlocks = {}
+    for i = #blocks, 1, -1 do
+        table_insert(reversedBlocks, blocks[i])
+    end
+
+    local parts = {}
+    for i, block in ipairs(reversedBlocks) do
+        if i == 1 then
+            table_insert(parts, string_format("%d", block))
+        else
+            table_insert(parts, string_format("%03d", block))
+        end
+    end
+
+    local numberStr = table_concat(parts)
+    numberStr = numberStr:gsub("^0+", "")
+    if numberStr == "" then
+        numberStr = "0"
+    end
+
+    if sign == -1 and numberStr ~= "0" then
+        numberStr = "-" .. numberStr
+    end
+
+    return numberStr
 end
 
 --------------------------------------------------------------------------------
