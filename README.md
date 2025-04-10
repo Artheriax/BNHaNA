@@ -12,7 +12,7 @@ BNHaNA (Banana) is a robust Lua module for handling extremely large numbers with
 - ✅ **Massive Range**: Handle numbers up to 10³⁰⁰³ and beyond
 - ✅ **Human-Friendly Formatting**: Automatic abbreviation system (K, M, B, ...)
 - ✅ **Base-90 Encoding**: 30% more compact than hexadecimal
-- ✅ **Roblox Compatible**: Works with Lua 5.1/LuaJIT
+- ✅ **Compatibility**: Works with Lua 5.1/LuaJIT
 
 ---
 
