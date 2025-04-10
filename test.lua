@@ -58,7 +58,7 @@ local neg_add = Banana.add(neg, Banana.stringToNumber("123456789"))
 printNumber("Negative + Positive", neg_add)
 print("Magnitude:", neg_add.magnitude)
 
-print("\n=== Test 6: GetShort, GetMedium, GetDetailed ===")
+print("\n=== Test 6: getShort, getMedium, getDetailed ===")
 
 -- Helper to display all formats for a given number
 local function testDisplayFormats(label, str)
@@ -81,3 +81,13 @@ testDisplayFormats("Test F", "-98765432109876543210")
 -- Edge cases
 testDisplayFormats("Zero", "0")
 testDisplayFormats("Negative Small", "-1234")
+
+print("\n=== Test 7: notationToString ===")
+
+    print(Banana.notationToString("1M"))
+    print(Banana.notationToString("2.5B"))
+    print(Banana.notationToString("3.1415K"))
+    print(Banana.notationToString("-4.2Qa"))
+    print(Banana.notationToString("0.0001T"))
+    print(Banana.notationToString("123.456"))
+    print(Banana.notationToString("1.234e3"))

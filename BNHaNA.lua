@@ -1377,6 +1377,84 @@ function Banana.stringToNumber(str)
     return Banana.normalizeNumber({ sign = sign, blocks = blocks, magnitude = magnitude })
 end
 
+--[[
+  Function: Banana.notationToString
+  Purpose:  Convert a shorthand number notation into its full string representation.
+            For example, "1.5K" becomes "1500", and "-2.3M" becomes "-2300000".
+  Parameters:
+    str - A shorthand notation string (e.g., "-1.5K").
+  
+  Returns:
+    A string representing the full number in decimal notation.
+    If the input format is not as expected or the suffix is unknown, returns the input unmodified.
+--]]
+function Banana.notationToString(str)
+    -- Remove spaces and commas for easy parsing.
+    str = str:gsub("[%s,]", "")
+    
+    -- Check for and extract an optional leading negative sign.
+    local sign = ""
+    if str:sub(1, 1) == "-" then
+        sign = "-"
+        str = str:sub(2)
+    end
+    
+    -- Extract the numeric part (which can include a decimal point) and the suffix.
+    local numberPart, suffix = str:match("^([%d%.]+)(%a+)$")
+    if not numberPart or not suffix then
+        -- If the pattern doesn't match, return the original string (with sign reattached).
+        return sign .. str
+    end
+
+    -- Normalize the suffix to lower-case.
+    suffix = suffix:lower()
+
+    -- Find the index of the suffix in the NOTATION table.
+    local index
+    if NOTATION and type(NOTATION) == "table" then
+        for i, s in ipairs(NOTATION) do
+            -- Compare case-insensitively.
+            if s:lower() == suffix then
+                index = i
+                break
+            end
+        end
+    end
+
+    -- If suffix not found in NOTATION, return the original string.
+    if not index then
+        return sign .. str
+    end
+
+    -- Each tier (index-1) represents a factor of 10^3 (i.e., three orders of magnitude).
+    local exponent = (index - 1) * 3
+
+    -- Separate the number part into integer and fractional components.
+    local integerPart, fractionalPart = numberPart:match("^(%d*)%.?(%d*)$")
+    fractionalPart = fractionalPart or ""
+    
+    -- Count the digits after the decimal.
+    local fractionalDigits = #fractionalPart
+
+    -- Calculate how many zeros must be appended.
+    local effectiveExponent = exponent - fractionalDigits
+    if effectiveExponent < 0 then
+        -- If the exponent is less than the digits after the decimal, the notation may be too precise.
+        return sign .. str
+    end
+    
+    -- Remove any leading zeros from the combined number parts.
+    local combined = (integerPart or "") .. fractionalPart
+    combined = combined:gsub("^0+", "")
+    if combined == "" then combined = "0" end
+
+    -- Append zeros to complete the full number.
+    local result = combined .. string.rep("0", effectiveExponent)
+
+    -- Reattach the negative sign if necessary.
+    return sign .. result
+end
+
 --------------------------------------------------------------------------------
 -- Formatting Helper: getSuffix
 -- Purpose: Return the appropriate suffix based on the number of blocks.
