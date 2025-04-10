@@ -67,7 +67,7 @@ print(Banana.getDetailed(bigNum)) --> "1.234T"
 ### Encode (Decode soon)
 ```lua
 local encoded = Banana.encodeNumber("9876543210") --> "2nZ4q"
--- (Decoding coming in future updates)
+local decoded = Banana.decodeNumber("2nZ4q") --> 9876543210
 ```
 ## Notation System 🔢
 BNHaNA supports an extensive notation system with 500+ prefixes:
@@ -111,6 +111,7 @@ Full notation list available in [NOTATION.lua](NOTATION.lua)
 | Function         | Parameters | Returns | Description             |
 |------------------|------------|---------|-------------------------|
 | encodeNumber     | string     | string  | Encode number (base-90) |
+| decodeNumber     | string     | string  | Decode number (base-90) |
 
 ## Performance 💨
 
