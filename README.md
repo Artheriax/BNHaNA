@@ -102,9 +102,9 @@ Full notation list available in [NOTATION.lua](NOTATION.lua)
 
 | Function    | Parameters | Returns |           Description           |
 |-------------|------------|---------|---------------------------------|
-| getShort    | (blocks)   | string  | Compact notation(1 decimal)     |
-| getMedium   | (blocks)   | string  | Compact notation(2 decimals)    |
-| getDetailed | (blocks)   | string  | Compact notation(3 decimals)    |
+| getShort    | string     | string  | Compact notation(1 decimal)     |
+| getMedium   | string     | string  | Compact notation(2 decimals)    |
+| getDetailed | string     | string  | Compact notation(3 decimals)    |
 
 ### Encoding
 
