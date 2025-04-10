@@ -1110,7 +1110,7 @@ local NOTATION = {
     "Mi", -- 10^3003
 }
 
--- Define a set of available characters used in number encoding/decoding.
+-- Base character set for custom encoding (94 characters total)
 local CHARACTERS = {
     "0","1","2","3","4","5","6","7","8","9",
     "a","b","c","d","e","f","g","h","i","j","k","l","m","n","o","p","q","r","s","t","u","v","w","x","y","z",
@@ -1118,206 +1118,202 @@ local CHARACTERS = {
     "!","#","$","%","&","'","(",")","","+",".","/",":",";","<","=",">","?","@","[","]","^","_","`","{","}","|","~"
 }
 
--- Precompute frequently used functions and values for performance
+-- Performance optimizations: Cache frequently used functions and values
 local math_floor = math.floor
+local math_abs = math.abs
 local string_rep = string.rep
 local string_format = string.format
+local string_sub = string.sub
+local string_gsub = string.gsub
+local string_match = string.match
+local string_gmatch = string.gmatch
 local table_concat = table.concat
-local table_create = table.create
 local table_insert = table.insert
+local table_create = table.create or function(size) return {} end
 
-local base = #CHARACTERS
+local base = #CHARACTERS  -- Base-94 encoding
 
--- Create a lookup table for notation suffixes. It assumes that a global NOTATION table exists.
--- For each suffix in NOTATION, we map the lowercase version to an exponent multiplier.
+-- Notation suffix mapping (assumes global NOTATION table exists)
+-- Example: NOTATION = {"", "K", "M", "B", "T"} → K=3 zeros, M=6 zeros, etc.
 local suffixLookup = {}
 for i, v in ipairs(NOTATION) do
     suffixLookup[v:lower()] = (i - 1) * 3
 end
 
--- Build a reverse lookup table for numbers based on the CHARACTERS array.
--- For instance, numbers["a"] will return 10.
+-- Reverse lookup table for character values
 local numbers = {}
 for i, c in ipairs(CHARACTERS) do
     numbers[c] = i - 1
 end
 
 --------------------------------------------------------------------------------
--- Function: absBlocks
--- Purpose: Create a new array containing the absolute values of a given array.
--- Example:
---   Input: {-15, 0}
---   Output: {15, 0}
+-- Utility function: absBlocks
+-- Purpose:    Create absolute values of all blocks while preserving structure
+-- Parameters: blocks (table) - Array of numeric blocks
+-- Returns:    (table) New array with absolute values
 --------------------------------------------------------------------------------
 local function absBlocks(blocks)
-    local absArr = {}
+    local absArr = table_create(#blocks, 0)
     for i, v in ipairs(blocks) do
-        absArr[i] = math.abs(v)
+        absArr[i] = math_abs(v)
     end
     return absArr
 end
 
 --------------------------------------------------------------------------------
--- Function: compareAbsolute
--- Purpose: Compare two arrays of blocks representing absolute numeric values.
---          The function compares from the most significant block (highest index)
---          to the least and returns:
---           - 1 if arr1 is greater than arr2
---           - -1 if arr1 is less than arr2
---           - 0 if they are equal
--- Example:
---   Input: {15} vs. {20}
---   Explanation: Since 15 < 20, the function returns -1.
+-- Utility function: compareAbsolute
+-- Purpose:    Compare magnitude of two absolute block arrays
+-- Parameters: arr1, arr2 (tables) - Block arrays to compare
+-- Returns:    1 if arr1 > arr2, -1 if arr1 < arr2, 0 if equal
+-- Optimization: Checks array lengths first for quick comparison
 --------------------------------------------------------------------------------
 local function compareAbsolute(arr1, arr2)
-    local maxLength = math.max(#arr1, #arr2)
-    for i = maxLength, 1, -1 do
-        local a = arr1[i] or 0
-        local b = arr2[i] or 0
-        if a > b then return 1 end
-        if a < b then return -1 end
+    local len1, len2 = #arr1, #arr2
+    if len1 ~= len2 then
+        return len1 > len2 and 1 or -1
+    end
+    for i = len1, 1, -1 do  -- Compare from most significant block
+        if arr1[i] > arr2[i] then return 1 end
+        if arr1[i] < arr2[i] then return -1 end
     end
     return 0
 end
 
 --------------------------------------------------------------------------------
--- Function: compareNumbers
--- Purpose: Compare two numbers represented as arrays of blocks, taking into
---          account the sign of each number.
---          - It uses the last block’s sign to determine if the number is negative.
--- Example:
---   Input: {-15} vs. {20}
---   Explanation:
---     The first number has a negative sign (-15) and the second a positive one (20),
---     so the function returns -1 indicating the first is smaller.
+-- Utility function: compareNumbers
+-- Purpose:    Compare signed numbers represented as block arrays
+-- Parameters: num1, num2 (tables) - Numbers to compare
+-- Returns:    1, -1, or 0 based on comparison result
+-- Note:       Determines sign from last block's sign
 --------------------------------------------------------------------------------
 local function compareNumbers(num1, num2)
     local sign1 = num1[#num1] < 0 and -1 or 1
     local sign2 = num2[#num2] < 0 and -1 or 1
     if sign1 ~= sign2 then
-        -- If signs differ, the negative number is lesser.
         return sign1 < sign2 and -1 or 1
     end
-    -- When numbers have the same sign, compare their absolute values.
     return compareAbsolute(absBlocks(num1), absBlocks(num2)) * sign1
 end
 
 --------------------------------------------------------------------------------
--- Function: addNumbers
--- Purpose: Add two large numbers represented as arrays of blocks.
--- Explanation:
---     The function loops through each block (of up to 1000) adding them with any carry.
--- Example:
---   Input: {999} plus {2}
---   Process:
---     999 + 2 = 1001 → writes 1 in the current block and carries over 1 to a new block.
---   Output: {1, 1001} (where 1 is the carry in a new higher block)
+-- Core arithmetic: addNumbers
+-- Purpose:    Add two block-based numbers
+-- Parameters: num1, num2 (tables) - Numbers to add
+-- Returns:    (table) Resulting sum as block array
+-- Process:    Handles carry propagation between blocks (base-1000)
+-- Optimization: Preallocates result table for better performance
 --------------------------------------------------------------------------------
 local function addNumbers(num1, num2)
-    local result, carry = {}, 0
-    for i = 1, math.max(#num1, #num2) do
+    local maxLen = math.max(#num1, #num2)
+    local result = table_create(maxLen + 1, 0)
+    local carry = 0
+    
+    for i = 1, maxLen do
         local sum = (num1[i] or 0) + (num2[i] or 0) + carry
-        result[i] = sum % 1000  -- each block holds up to 3 digits
+        result[i] = sum % 1000  -- Store 3-digit block
         carry = math_floor(sum / 1000)
     end
-    if carry > 0 then result[#result+1] = carry end
+    
+    result[maxLen + 1] = carry  -- Handle final carry
+    if carry == 0 then
+        result[maxLen + 1] = nil  -- Trim unnecessary block
+    end
+    
     return result
 end
 
 --------------------------------------------------------------------------------
--- Function: subtractNumbers
--- Purpose: Subtract one large number from another; both numbers are given as block arrays.
--- Explanation:
---     The algorithm works block-by-block, borrowing when the top block is less than the subtrahend.
--- Example:
---   Input: {1000} minus {999}
---   Process:
---     1000 - 999 = 1 (after handling the borrow)
---   Output: {1}
+-- Core arithmetic: subtractNumbers
+-- Purpose:    Subtract num2 from num1 (num1 >= num2 required)
+-- Parameters: num1, num2 (tables) - Numbers to subtract
+-- Returns:    (table) Resulting difference as block array
+-- Process:    Handles borrow propagation between blocks
+-- Note:       Requires num1 >= num2 (absolute values)
+-- Optimization: Efficient zero trimming from result
 --------------------------------------------------------------------------------
 local function subtractNumbers(num1, num2)
-    local result, borrow = {}, 0
-    for i = 1, math.max(#num1, #num2) do
+    local maxLen = math.max(#num1, #num2)
+    local result = table_create(maxLen, 0)
+    local borrow = 0
+    
+    for i = 1, maxLen do
         local diff = (num1[i] or 0) - (num2[i] or 0) - borrow
         borrow = diff < 0 and 1 or 0
         result[i] = diff < 0 and (diff + 1000) or diff
     end
-    while #result > 1 and result[#result] == 0 do
-        result[#result] = nil
+    
+    -- Trim leading zeros from most significant end
+    local i = #result
+    while i > 1 and result[i] == 0 do
+        result[i] = nil
+        i = i - 1
     end
+    
     return result
 end
 
 --------------------------------------------------------------------------------
--- Function: Banana.notationToString
--- Purpose: Convert a number in short notation (like "1.5K") into a full number string ("1500").
--- Explanation:
---     The function splits the input into a numerical part and its suffix,
---     then appends the appropriate number of zeros based on the suffix.
--- Example:
---   Input: "1.5K"
---   Process:
---     Finds number "1.5" and suffix "K" (which corresponds to 3 zeros).
---   Output: "1500"
+-- Conversion: notationToString
+-- Purpose:    Convert short notation to full numeric string
+-- Parameters: notation (string) - e.g., "1.5M"
+--             isEncoded (bool) - If true, decode first
+-- Returns:    (string) Expanded numeric string
+-- Example:    "1.5K" → "1500", "2.3M" → "2300000"
 --------------------------------------------------------------------------------
 function Banana.notationToString(notation, isEncoded)
     if isEncoded then notation = Banana.decodeNumber(notation) end
-    local number, suffix = notation:match("([%d%.]+)(%a+)")
-    return suffix and number .. string_rep("0", suffixLookup[suffix:lower()] or 0) or number
+    local number, suffix = notation:match("^([%d%.]+)(%a*)$")
+    if not number then return "0" end
+    local zeros = suffix ~= "" and (suffixLookup[suffix:lower()] or 0) or 0
+    return number..string_rep("0", zeros)
 end
 
 --------------------------------------------------------------------------------
--- Function: Banana.stringToNumber
--- Purpose: Convert a full number string into an array of numeric blocks.
--- Explanation:
---     The function processes the string from right-to-left, grouping digits in blocks of 3.
--- Example:
---   Input: "15000"
---   Process:
---     It groups "000" (last three) and then "15", resulting in the array {0, 15}.
---   Output: {0, 15}
+-- Conversion: stringToNumber
+-- Purpose:    Convert numeric string to block array
+-- Parameters: str (string) - Numeric string
+--             isEncoded (bool) - If true, decode first
+-- Returns:    (table) Block array representation
+-- Process:    Groups digits in 3s from right, converts to numbers
+-- Example:    "1234567" → {567, 234, 1}
 --------------------------------------------------------------------------------
 function Banana.stringToNumber(str, isEncoded)
     if isEncoded then str = Banana.decodeNumber(str) end
-    local blocks, len = {}, #str
-    for i = len, 1, -3 do
-        table_insert(blocks, tonumber(str:sub(math.max(1, i-2), i)))
+    str = string_gsub(str, "[^%d]", "")  -- Remove non-digits
+    local blocks = table_create(math.ceil(#str/3), 0)
+    local len = #str
+    
+    for i = len, 1, -3 do  -- Process right-to-left
+        local start = math.max(1, i-2)
+        table_insert(blocks, 1, tonumber(string_sub(str, start, i)))
     end
+    
     return blocks
 end
 
 --------------------------------------------------------------------------------
--- Function: Banana.getLong
--- Purpose: Format a block array back into its full number string.
--- Explanation:
---     It concatenates blocks from the highest order to lowest,
---     formatting each block to ensure that lower blocks have exactly 3 digits.
--- Example:
---   Input: {0, 15} 
---   Process:
---     The most significant block "15" is not padded,
---     while the lower block "0" is padded to "000" if needed.
---   Output: "15000"
+-- Formatting: getLong
+-- Purpose:    Convert block array to full numeric string
+-- Parameters: num (table) - Block array
+-- Returns:    (string) Full numeric representation
+-- Example:    {15, 123} → "15123"
 --------------------------------------------------------------------------------
 function Banana.getLong(num)
-    local parts = {}
-    for i = #num, 1, -1 do
-        table_insert(parts, (i == #num and "%d" or "%03d"):format(num[i]))
+    if #num == 0 then return "0" end
+    local parts = table_create(#num, "")
+    for i = #num, 1, -1 do  -- Process most significant block first
+        parts[#num - i + 1] = (i == #num and "%d" or "%03d"):format(num[i])
     end
     return table_concat(parts)
 end
 
 --------------------------------------------------------------------------------
--- Function: Banana.getShort
--- Purpose: Format a block array into a compact, abbreviated notation string.
--- Explanation:
---     It uses a suffix (such as "K" for thousands) based on how many blocks the number has.
---     It also rounds the most significant block combined with a fraction from the next block.
--- Example:
---   Input: {0, 15} (which is "15000")
---   Process:
---     The highest block "15" and the fraction derived from "0" lead to "15K".
---   Output: "15K"
+-- Formatting: getShort
+-- Purpose:    Format number in compact notation
+-- Parameters: num (table) - Block array
+-- Returns:    (string) Compact notation string
+-- Example:    {15, 123} → "15.1K" (assuming 3-digit blocks)
+-- Note:       Uses global NOTATION table for suffixes
 --------------------------------------------------------------------------------
 function Banana.getShort(num)
     if #num == 0 then return "0" end
@@ -1325,120 +1321,134 @@ function Banana.getShort(num)
     if suffixIndex > #NOTATION then return "Infinity" end
     
     local main = num[#num]
-    local sub = #num > 1 and num[#num-1] or 0
-    local value = main + sub / 1000
-    local rounded = math_floor(value * 10 + 0.5) / 10
+    local sub = num[#num-1] or 0
+    local value = main + sub / 1000  -- Combine two blocks
+    local rounded = math_floor(value * 10 + 0.5) / 10  -- Round to 1 decimal
     
     return (rounded % 1 == 0 and "%.0f%s" or "%.1f%s")
         :format(rounded, NOTATION[suffixIndex])
 end
 
 --------------------------------------------------------------------------------
--- Function: Banana.add
--- Purpose: A high-level addition function for two numbers in block array format.
--- Explanation:
---     It compares both numbers (ignoring sign), then adds the blocks accordingly.
--- Example:
---   Input: {15} + {5}
---   Process:
---     Since 15 >= 5, it calls addNumbers to compute the sum.
---   Output: {20}
---------------------------------------------------------------------------------
-function Banana.add(a, b)
-    local cmp = compareAbsolute(a, b)
-    return cmp >= 0 and addNumbers(a, b) or addNumbers(b, a)
-end
-
---------------------------------------------------------------------------------
--- Function: Banana.difference
--- Purpose: Compute the absolute difference between two numbers represented as block arrays.
--- Explanation:
---     It subtracts the smaller number from the larger one.
--- Example:
---   Input: {15} - {5}
---   Output: {10}
---------------------------------------------------------------------------------
-function Banana.difference(a, b)
-    return compareAbsolute(a, b) >= 0 and subtractNumbers(a, b) or subtractNumbers(b, a)
-end
-
---------------------------------------------------------------------------------
--- Function: Banana.isGreaterOrEquals
--- Purpose: Check if the first number is greater than or equal to the second.
--- Example:
---   Input: Compare {15} with {15}
---   Output: true (since they are equal)
---------------------------------------------------------------------------------
-function Banana.isGreaterOrEquals(a, b)
-    return compareNumbers(a, b) >= 0
-end
-
---------------------------------------------------------------------------------
--- Function: Banana.isLesserOrEquals
--- Purpose: Check if the first number is less than or equal to the second.
--- Example:
---   Input: Compare {10} with {15}
---   Output: true (because 10 is less than 15)
---------------------------------------------------------------------------------
-function Banana.isLesserOrEquals(a, b)
-    return compareNumbers(a, b) <= 0
-end
-
---------------------------------------------------------------------------------
--- Function: Banana.encodeNumber
--- Purpose: Encode a long number (in string format) into a compact, custom base representation.
--- Explanation:
---     It processes the number as a string and converts it into a new base defined by CHARACTERS.
--- Example:
---   Input: "1000000"
---   Process:
---     The function converts the number to a base-N value and maps each digit to a character.
---   Output: A string like "1xFa" (dependent on the mapping in CHARACTERS)
---------------------------------------------------------------------------------
-function Banana.encodeNumber(value)
-    local chars, index = {}, 1
-    local num = value:gsub("%D", "")
-    while #num > 0 do
-        local carry = 0
-        -- Process each digit in the current num string.
-        for i = 1, #num do
-            local digit = carry * 10 + tonumber(num:sub(i, i))
-            carry = digit % base
-            num = num:sub(1, i-1) .. math_floor(digit / base) .. num:sub(i+1)
-        end
-        table_insert(chars, 1, CHARACTERS[carry + 1])
-        num = num:gsub("^0+", "")
-    end
-    return (value:sub(1,1) == "-" and "-" or "") .. table_concat(chars)
-end
-
---------------------------------------------------------------------------------
--- Function: Banana.decodeNumber
--- Purpose: Decode a compact encoded number string back into a regular number string.
--- Explanation:
---     It converts each character back into its corresponding numeric value and reconstructs the number.
--- Example:
---   Input: "1xFa"
---   Process:
---     The encoded string is processed character by character, converting back into a decimal number.
---   Output: "1000000"
+-- Base Conversion: decodeNumber
+-- Purpose:    Convert custom base-94 string to decimal string
+-- Parameters: value (string) - Encoded string
+-- Returns:    (string) Decimal numeric string
+-- Process:    Reverses encoding process using character lookup
+-- Example:    "a1" → 10*94 + 1 = 941
 --------------------------------------------------------------------------------
 function Banana.decodeNumber(value)
-    local num, power = {0}, 1
-    for c in value:gmatch"." do
-        local digit = numbers[c] or 0
-        for i = 1, #num do
-            num[i] = num[i] + digit * power
-            digit = math_floor(num[i] / 10)
-            num[i] = num[i] % 10
-        end
-        while digit > 0 do
-            table_insert(num, digit % 10)
-            digit = math_floor(digit / 10)
-        end
-        power = power * base
+    local sign = 1
+    if string_sub(value, 1, 1) == "-" then
+        sign = -1
+        value = string_sub(value, 2)
     end
-    return table_concat(num):reverse()
+    
+    value = string_gsub(value, "[^%w%p]", "")  -- Remove invalid characters
+    value = value:reverse()  -- Process least significant digit first
+    
+    local num = {0}
+    local power = 1
+    
+    for c in string_gmatch(value, ".") do
+        local digit = numbers[c] or 0
+        local carry = 0
+        
+        -- Multiply existing number by base and add new digit
+        for i = 1, #num do
+            local total = num[i] + digit * power + carry
+            num[i] = total % 10
+            carry = math_floor(total / 10)
+        end
+        
+        while carry > 0 do
+            table_insert(num, carry % 10)
+            carry = math_floor(carry / 10)
+        end
+        
+        power = power * base  -- Next power of base
+    end
+    
+    local result = table_concat(num):reverse()
+    return sign == -1 and "-"..result or result
+end
+
+--------------------------------------------------------------------------------
+-- Base Conversion: encodeNumber
+-- Purpose:    Convert decimal string to custom base-94
+-- Parameters: value (string) - Decimal numeric string
+-- Returns:    (string) Encoded string
+-- Process:    Repeated division by base while tracking remainders
+-- Example:    941 → 941 ÷ 94 = 10 rem 1 → "a1"
+--------------------------------------------------------------------------------
+function Banana.encodeNumber(value)
+    local sign = ""
+    if string_sub(value, 1, 1) == "-" then
+        sign = "-"
+        value = string_sub(value, 2)
+    end
+    value = string_gsub(value, "[^%d]", "")  -- Clean non-digits
+    if value == "" then return "0" end
+    
+    local chars = {}
+    while #value > 0 do
+        local carry = 0
+        local newValue = ""
+        
+        -- Divide number by base
+        for i = 1, #value do
+            local digit = tonumber(string_sub(value, i, i)) + carry * 10
+            carry = digit % base
+            newValue = newValue..math_floor(digit / base)
+        end
+        
+        table_insert(chars, 1, CHARACTERS[carry + 1])
+        value = string_gsub(newValue, "^0+", "")  -- Remove leading zeros
+    end
+    
+    return sign..table_concat(chars)
+end
+
+--------------------------------------------------------------------------------
+-- Core arithmetic: multiply
+-- Purpose:    Multiply two block-based numbers
+-- Parameters: a, b (tables) - Numbers to multiply
+-- Returns:    (table) Product as block array
+-- Process:    Uses grade-school multiplication algorithm
+-- Optimization: Reuses addNumbers for intermediate sums
+--------------------------------------------------------------------------------
+function Banana.multiply(a, b)
+    local result = {0}
+    local sign = 1
+    if (#a > 0 and a[#a] < 0) ~= (#b > 0 and b[#b] < 0) then
+        sign = -1  -- Handle negative signs
+    end
+    local absA = absBlocks(a)
+    local absB = absBlocks(b)
+    
+    for i = 1, #absB do
+        local carry = 0
+        local temp = table_create(i + #absA, 0)
+        
+        -- Multiply absA with current digit of absB
+        for j = 1, #absA do
+            local product = absA[j] * absB[i] + carry
+            temp[j + i - 1] = product % 1000
+            carry = math_floor(product / 1000)
+        end
+        
+        if carry > 0 then
+            temp[#absA + i] = carry
+        end
+        
+        result = addNumbers(result, temp)
+    end
+    
+    if sign == -1 then
+        result[#result] = -result[#result]  -- Apply sign
+    end
+    
+    return result
 end
 
 return Banana
