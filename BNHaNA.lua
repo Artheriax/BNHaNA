@@ -1,5 +1,6 @@
 -- Made by Artheriax
 -- Github: https://github.com/Artheriax/BNHaNA
+-- Took inspiration from Gigantix: https://github.com/DavldMA/Gigantix/tree/main
 
 local Gigantix = {}
 
