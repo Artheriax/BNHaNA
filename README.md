@@ -93,9 +93,10 @@ Full notation list available in [NOTATION.lua](NOTATION.lua)
 
 ### Conversion
 
-| Function         | Parameters | Returns | Description             |
-|------------------|------------|---------|-------------------------|
-| stringToNumber   | string     | blocks  | Parse numeric string    |
+| Function         | Parameters | Returns | Description                           |
+|------------------|------------|---------|---------------------------------------|
+| stringToNumber   | string     | blocks  | Parse numeric string                  |
+| notationToString | string     | string  | Converts notation to string number    |
 
 ### Formatting
 
