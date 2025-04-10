@@ -3,7 +3,7 @@
 BNHaNA (Banana) is a robust Lua module for handling extremely large numbers with precision and efficiency. Originally created for Roblox game development, it now supports numbers up to 10^3003 and beyond with extensive notation support.
 
 **Github**: https://github.com/Artheriax/BNHaNA  
-**Inspired by**: Gigantix (https://github.com/DavldMA/Gigantix)
+**Inspired by**: [Gigantix](https://github.com/DavldMA/Gigantix)
 
 ## Why Use BNHaNA?
 
