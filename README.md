@@ -1,6 +1,6 @@
 # BNHaNA (Big Number Handlers and Number Abbreviations)
 
-BNHaNA is a lightweight utility module designed to handle large numbers and abbreviate them for easy display. The project started as a need for a Roblox game where large number handling was essential, but it quickly evolved into a side project that I continue to refine and expand on occasionally.
+BNHaNA or as I like to call it, Banana, is a lightweight utility module designed to handle large numbers and abbreviate them for easy display. The project started as a need for a Roblox game where large number handling was essential, but it quickly evolved into a side project that I continue to refine and expand on occasionally.
 
 ## Table of Contents
 
