@@ -52,7 +52,7 @@ To use BNHaNA in your Lua project:
 1. **Simply download the release of the coding language you need**
 2. **Place it into desired path**
 3. **Include the module in the way your desired coding language allows.** <br>
-   LUA example: ``local Gigantix = require("path.to.BNHaNA")``
+   LUA example: ``local Banana = require("path.to.BNHaNA")``
 
 ## Usage
 Here are some basic examples of how to use BNHaNA in your Lua projects:
