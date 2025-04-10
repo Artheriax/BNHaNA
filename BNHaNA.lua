@@ -1557,4 +1557,59 @@ function Banana.configureNotation(newNotation, suffixMap)
     end
 end
 
+--------------------------------------------------------------------------------
+-- Comparison: IsGreater
+-- Purpose: Check if the first number is greater than the second.
+-- Parameters:
+--   a, b - normalized number tables.
+-- Returns: true if a > b, false otherwise.
+--------------------------------------------------------------------------------
+function Banana.IsGreater(a, b)
+    return Banana.compare(a, b) == 1
+end
+
+--------------------------------------------------------------------------------
+-- Comparison: IsLesser
+-- Purpose: Check if the first number is less than the second.
+-- Parameters:
+--   a, b - normalized number tables.
+-- Returns: true if a < b, false otherwise.
+--------------------------------------------------------------------------------
+function Banana.IsLesser(a, b)
+    return Banana.compare(a, b) == -1
+end
+
+--------------------------------------------------------------------------------
+-- Comparison: IsEqual
+-- Purpose: Check if two numbers are equal.
+-- Parameters:
+--   a, b - normalized number tables.
+-- Returns: true if a == b, false otherwise.
+--------------------------------------------------------------------------------
+function Banana.IsEqual(a, b)
+    return Banana.compare(a, b) == 0
+end
+
+--------------------------------------------------------------------------------
+-- Comparison: IsGreaterThanOrEqual
+-- Purpose: Check if the first number is greater than or equal to the second.
+-- Parameters:
+--   a, b - normalized number tables.
+-- Returns: true if a >= b, false otherwise.
+--------------------------------------------------------------------------------
+function Banana.IsGreaterThanOrEqual(a, b)
+    return Banana.compare(a, b) >= 0
+end
+
+--------------------------------------------------------------------------------
+-- Comparison: IsLesserThanOrEqual
+-- Purpose: Check if the first number is less than or equal to the second.
+-- Parameters:
+--   a, b - normalized number tables.
+-- Returns: true if a <= b, false otherwise.
+--------------------------------------------------------------------------------
+function Banana.IsLesserThanOrEqual(a, b)
+    return Banana.compare(a, b) <= 0
+end
+
 return Banana
