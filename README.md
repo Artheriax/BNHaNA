@@ -1,36 +1,9 @@
-# BNHaNA (Big Number Handlers and Number Abbreviations)
+# BNHaNA (Big Number Handlers and Number Abbreviations) 🍌
 
-BNHaNA or as I like to call it, Banana, is a lightweight utility module designed to handle large numbers and abbreviate them for easy display. The project started as a need for a Roblox game where large number handling was essential, but it quickly evolved into a side project that I continue to refine and expand on occasionally.
+BNHaNA (Banana) is a robust Lua module for handling extremely large numbers with precision and efficiency. Originally created for Roblox game development, it now supports numbers up to 10^3003 and beyond with extensive notation support.
 
-## Table of Contents
-
-- [Motivation](#motivation)
-- [Features](#features)
-- [Supported Languages](#supported-languages)
-- [Why Use BNHaNA?](#why-use-bnhana)
-- [Usage Cases](#usage-cases)
-- [Installation](#installation)
-- [Usage](#usage)
-- [Contributing](#contributing)
-- [License](#license)
-
-## Motivation
-
-BNHaNA was originally created to solve problems related to handling extremely large numbers in a Roblox game. In many game development scenarios – especially those involving progressive or idle mechanics – numbers can get extremely large, making both computation and display challenging. I found that this utility module not only managed these large numbers efficiently but also provided several ways to represent them in a user-friendly abbreviated format. What began as a solution for a game quickly turned into a versatile side project aimed at helping others facing similar challenges.
-
-## Features
-
-- **Big Number Handlers:** Perform arithmetic operations (addition, subtraction) on numbers stored as arrays of blocks.  
-- **Number Abbreviations:** Convert large numbers into compact notations (e.g., 15,000 becomes `15K`), making it ideal for user interfaces where space is limited.  
-- **Custom Base Encoding/Decoding:** Utilize a custom base conversion method for encoding and decoding numbers, providing flexibility and compact representation.
-
-## Supported Languages
-
-At the moment, BNHaNA is implemented in **Lua**. This makes it particularly useful for projects on the Roblox platform, though the concepts can be ported to other languages if needed.
-
-| Language | Status           |
-|----------|------------------|
-| Lua      | Supported        |
+**Github**: https://github.com/Artheriax/BNHaNA  
+**Inspired by**: Gigantix (https://github.com/DavldMA/Gigantix)
 
 ## Why Use BNHaNA?
 
@@ -46,40 +19,121 @@ BNHaNA offers a simple yet powerful solution for anyone dealing with large numbe
 - **Financial Applications:** Useful in scenarios where numerical data may span huge magnitudes and need to be abbreviated for overview dashboards.
 - **Data Visualization:** Transforming large numeric data into more understandable formats for graphs and reports.
 
-## Installation
+## Table of Contents
+- [Features](#features)
+- [Installation](#installation)
+- [Usage](#usage)
+- [Notation System](#notation-system)
+- [Performance](#performance)
+- [API Reference](#api-reference)
+- [Contributing](#contributing)
+- [License](#license)
 
-To use BNHaNA in your Lua project:
-1. **Simply download the release of the coding language you need**
-2. **Place it into desired path**
-3. **Include the module in the way your desired coding language allows.** <br>
-   LUA example: ``local Banana = require("path.to.BNHaNA")``
+## Features 🌟
+- **Arbitrary-Precision Arithmetic**
+  - Addition, subtraction, multiplication
+  - Comparisons with sign handling
+  - Block-based storage (3-digit chunks)
+- **Advanced Notation Support**
+  - 500+ pre-defined suffixes (K, M, B, T, Qa, Qi... up to Mi=10³⁰⁰³)
+  - Automatic scaling and rounding
+- **Compact Encoding**
+  - Base-94 encoding using 94-character set
+  - 40% more compact than hexadecimal
+- **Cross-Format Conversion**
+  - String ↔ Block array conversion
+  - Scientific notation ↔ Full number
+  - Negative number support
+- **Optimized Performance**
+  - Preallocated memory buffers
+  - Efficient carry/borrow propagation
+  - LUAJIT compatible
 
-## Usage
-Here are some basic examples of how to use BNHaNA in your Lua projects:
+## Installation 📦
+For Roblox/Lua projects:
+1. Download [`BNHaNA.lua`](https://github.com/Artheriax/BNHaNA/releases)
+2. Place in ReplicatedStorage or appropriate location
+3. Require in your script:
+```lua
+local Banana = require(path.to.BNHaNA)
+```
 
-### Converting Notation to a Full Number String
-``local fullNumber = Gigantix.notationToString("1.5K")
-print(fullNumber)  -- Output: "1500" (depending on your NOTATION table)``
+## Usage 🚀
+### Basic Number Handling
+```lua
+-- Convert string to internal format
+local blocks = Banana.stringToNumber("1234567890") --> {890, 567, 1234}
 
-### Converting a Full Number to a Block Array
-``local numberBlocks = Gigantix.stringToNumber("15000")
--- numberBlocks would be formatted as: {0, 15}``
+-- Basic arithmetic
+local sum = Banana.add({999}, {2}) --> {1, 1} (represents 1001)
+local product = Banana.multiply({150}, {4}) --> {600}
 
-### Getting Abbreviated Number Format
-``local shortFormat = Gigantix.getShort({0, 15})
-print(shortFormat)  -- Output: "15K"``
+-- Formatting
+print(Banana.getLong({123, 456})) --> "456123"
+print(Banana.getShort({123, 456789})) --> "456.9K"
+```
+### Advanced Notation
+```lua
+-- Convert scientific notation
+local full = Banana.notationToString("1.5Qa") --> "1500000000000000"
 
-### Encoding and Decoding a Number
-``local encoded = Gigantix.encodeNumber("1000000")
-print(encoded)  -- Output: e.g., "1xFa"``
+-- Handle enormous numbers
+local huge = Banana.notationToString("3.8NoOgNoCe") 
+--> "3800000...0000" (798 zeros)
 
-``local decoded = Gigantix.decodeNumber(encoded)
-print(decoded)  -- Output: "1000000"``
+-- Encoded values
+local encoded = Banana.encodeNumber("987654321") --> "A!zT4"
+local decoded = Banana.decodeNumber("Lp~9") --> "69420666"
+```
+### Performance Operations
+```lua
+-- Compare numbers with sign handling
+local cmp = Banana.compareNumbers({-1500}, {2000}) --> -1 (less than)
 
-## Contributing
-Contributions are welcome! If you would like to add support for more programming languages, improve the functionality, or fix any bugs, please feel free to fork the repository and submit a pull request.
+-- Absolute difference
+local diff = Banana.difference({1500}, {2000}) --> {500}
 
-## License
-This project is licensed under the MIT License. See the LICENSE file for details.
+-- Bulk operations
+local result = {1000}
+for i = 1, 1000 do
+    result = Banana.multiply(result, {2})
+end
+```
+## Notation System 🔢
+BNHaNA supports an extensive notation system with 500+ prefixes:
 
-This `README.md` covers the project background, supported language details, reasons for using BNHaNA, and provides several usage examples. Adjust the repository URL and any additional details specific to your project as needed.
+| Example Suffixes       | Magnitude         |
+|------------------------|-------------------|
+| K, M, B, T             | 10³, 10⁶, 10⁹      |
+| Qa, Qi, Sx, Sp         | 10¹⁵ – 10²⁴        |
+| Oc, No, De, Ud         | 10²⁷ – 10³⁶        |
+| Vg, Tg, Qg, Sg         | 10⁶³ – 10²¹³       |
+| ... up to Mi           | 10³⁰⁰³             |
+Full notation list available in [NOTATION.md](NOTATION.lua)
+
+## API Reference 📚
+
+### Core Functions
+
+| Function  | Parameters | Returns | Description                 |
+|-----------|------------|---------|-----------------------------|
+| add       | (a, b)     | blocks  | Safe addition with carry    |
+| subtract  | (a, b)     | blocks  | Absolute difference         |
+| multiply  | (a, b)     | blocks  | Grade-school multiplication |
+| compare   | (a, b)     | -1/0/1  | Signed comparison           |
+
+### Conversion
+
+| Function         | Parameters | Returns | Description             |
+|------------------|------------|---------|-------------------------|
+| stringToNumber   | (str)      | blocks  | Parse numeric string    |
+| notationToString | (str)      | string  | Expand scientific notation |
+| encodeNumber     | (str)      | string  | Base-94 encoding        |
+| decodeNumber     | (str)      | string  | Base-94 decoding        |
+
+### Formatting
+
+| Function  | Parameters | Returns | Description         |
+|-----------|------------|---------|---------------------|
+| getLong   | (blocks)   | string  | Full numeric string |
+| getShort  | (blocks)   | string  | Compact notation    |
