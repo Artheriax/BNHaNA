@@ -40,7 +40,7 @@ BNHaNA (Banana) is a robust Lua module for handling extremely large numbers with
 2. Place in your project directory
 3. Require in your code:
 ```lua
-local Banana = require(game.ReplicatedStorage.BNHaNA)
+local Banana = require(BNHaNA)
 ```
 
 ## Usage 🚀
