@@ -15,7 +15,8 @@ local NOTATION = {
     "Sp",   -- 10^24   (Septillion)
     "Oc",   -- 10^27   (Octillion)
     "No",   -- 10^30   (Nonillion)
-    "Dc",   -- 10^33   (Decillion)
+
+    "De",   -- 10^33   (Decillion)
     "UD",   -- 10^36   (Undecillion)
     "DD",   -- 10^39   (Duodecillion)
     "TD",   -- 10^42   (Tredecillion)
@@ -24,8 +25,9 @@ local NOTATION = {
     "SxD",  -- 10^51   (Sexdecillion)
     "SpD",  -- 10^54   (Septendecillion)
     "OcD",  -- 10^57   (Octodecillion)
-    "NnD",  -- 10^60   (Novemdecillion)
-    "Vi",   -- 10^63   (Vigintillion)
+    "NoD",  -- 10^60   (Novemdecillion)
+
+    "Vg",   -- 10^63   (Vggintillion)
     "UVg",  -- 10^66   (Unvigintillion)
     "DVg",  -- 10^69   (Duovigintillion)
     "TVg",  -- 10^72   (Trevigintillion)
@@ -46,112 +48,113 @@ local NOTATION = {
     "SxTg",  -- 10^111  (Sextrigintillion)
     "SpTg",  -- 10^114  (Septentrigintillion)
     "OcTg",  -- 10^117  (Octotrigintillion)
-    "NnTg",  -- 10^120  (Novemtrigintillion),
+    "NoTg",  -- 10^120  (Novemtrigintillion),
 
     -- Quadragintillion family (10^123 to 10^150):
-    "Qag",   -- 10^123  (Quadragintillion)
-    "UQag",  -- 10^126  (Unquadragintillion)
-    "DQag",  -- 10^129  (Duoquadragintillion)
-    "TQag",  -- 10^132  (Trequadragintillion)
-    "QaQag", -- 10^135  (Quattuorquadragintillion)
-    "QiQag", -- 10^138  (Quinquadragintillion)
-    "SxQag", -- 10^141  (Sexquadragintillion)
-    "SpQag", -- 10^144  (Septenquadragintillion)
-    "OcQag", -- 10^147  (Octoquadragintillion)
-    "NnQag", -- 10^150  (Novemquadragintillion),
+    "qg",   -- 10^123  (Quadragintillion)
+    "Uqg",  -- 10^126  (Unquadragintillion)
+    "Dqg",  -- 10^129  (Duoquadragintillion)
+    "Tqg",  -- 10^132  (Trequadragintillion)
+    "Qaqg", -- 10^135  (Quattuorquadragintillion)
+    "Qiqg", -- 10^138  (Quinquadragintillion)
+    "Sxqg", -- 10^141  (Sexquadragintillion)
+    "Spqg", -- 10^144  (Septenquadragintillion)
+    "Ocqg", -- 10^147  (Octoquadragintillion)
+    "Noqg", -- 10^150  (Novemquadragintillion),
 
     -- Quinquagintillion family (10^153 to 10^180):
-    "Qig",   -- 10^153  (Quinquagintillion)
-    "UQig",  -- 10^156  (Unquinquagintillion)
-    "DQig",  -- 10^159  (Duoquinquagintillion)
-    "TQig",  -- 10^162  (Trequinquagintillion)
-    "QaQig", -- 10^165  (Quattuorquinquagintillion)
-    "QiQig", -- 10^168  (Quinquinquagintillion)
-    "SxQig", -- 10^171  (Sexquinquagintillion)
-    "SpQig", -- 10^174  (Septenquinquagintillion)
-    "OcQig", -- 10^177  (Octoquinquagintillion)
-    "NnQig", -- 10^180  (Novemquinquagintillion),
+    "Qg",   -- 10^153  (Quinquagintillion)
+    "UQg",  -- 10^156  (Unquinquagintillion)
+    "DQg",  -- 10^159  (Duoquinquagintillion)
+    "TQg",  -- 10^162  (Trequinquagintillion)
+    "QaQg", -- 10^165  (Quattuorquinquagintillion)
+    "QiQg", -- 10^168  (Quinquinquagintillion)
+    "SxQg", -- 10^171  (Sexquinquagintillion)
+    "SpQg", -- 10^174  (Septenquinquagintillion)
+    "OcQg", -- 10^177  (Octoquinquagintillion)
+    "NoQg", -- 10^180  (Novemquinquagintillion),
 
     -- Sexagintillion family (10^183 to 10^210):
-    "Sxg",   -- 10^183  (Sexagintillion)
-    "USxg",  -- 10^186  (Unsexagintillion)
-    "DSxg",  -- 10^189  (Duosexagintillion)
-    "TSxg",  -- 10^192  (Tresexagintillion)
-    "QaSxg", -- 10^195  (Quattuorsexagintillion)
-    "QiSxg", -- 10^198  (Quinsexagintillion)
-    "SxSxg", -- 10^201  (Sexsexagintillion)
-    "SpSxg", -- 10^204  (Septensexagintillion)
-    "OcSxg", -- 10^207  (Octosexagintillion)
-    "NnSxg", -- 10^210  (Novemsexagintillion),
+    "sg",   -- 10^183  (Sexagintillion)
+    "Usg",  -- 10^186  (Unsexagintillion)
+    "Dsg",  -- 10^189  (Duosexagintillion)
+    "Tsg",  -- 10^192  (Tresexagintillion)
+    "Qasg", -- 10^195  (Quattuorsexagintillion)
+    "Qisg", -- 10^198  (Quinsexagintillion)
+    "Sxsg", -- 10^201  (Sexsexagintillion)
+    "Spsg", -- 10^204  (Septensexagintillion)
+    "Ocsg", -- 10^207  (Octosexagintillion)
+    "Nosg", -- 10^210  (Novemsexagintillion),
 
     -- Septuagintillion family (10^213 to 10^240):
-    "Spg",    -- 10^213  (Septuagintillion)
-    "USpg",   -- 10^216  (Unseptuagintillion)
-    "DSpg",   -- 10^219  (Duoseptuagintillion)
-    "TSpg",   -- 10^222  (Treseptuagintillion)
-    "QaSpg",  -- 10^225  (Quattuorseptuagintillion)
-    "QiSpg",  -- 10^228  (Quinseptuagintillion)
-    "SxSpg",  -- 10^231  (Sexseptuagintillion)
-    "SpSpg",  -- 10^234  (Septenseptuagintillion)
-    "OcSpg",  -- 10^237  (Octoseptuagintillion)
-    "NnSpg",  -- 10^240  (Novemseptuagintillion),
+    "Sg",    -- 10^213  (Septuagintillion)
+    "USg",   -- 10^216  (Unseptuagintillion)
+    "DSg",   -- 10^219  (Duoseptuagintillion)
+    "TSg",   -- 10^222  (Treseptuagintillion)
+    "QaSg",  -- 10^225  (Quattuorseptuagintillion)
+    "QiSg",  -- 10^228  (Quinseptuagintillion)
+    "SxSg",  -- 10^231  (Sexseptuagintillion)
+    "SpSg",  -- 10^234  (Septenseptuagintillion)
+    "OcSg",  -- 10^237  (Octoseptuagintillion)
+    "NoSg",  -- 10^240  (Novemseptuagintillion),
 
     -- Octogintillion family (10^243 to 10^270):
-    "Ocg",    -- 10^243  (Octogintillion)
-    "UOcg",   -- 10^246  (Unoctogintillion)
-    "DOcg",   -- 10^249  (Duooctogintillion)
-    "TOcg",   -- 10^252  (Treoctogintillion)
-    "QaOcg",  -- 10^255  (Quattuoroctogintillion)
-    "QiOcg",  -- 10^258  (Quinoctogintillion)
-    "SxOcg",  -- 10^261  (Sexoctogintillion)
-    "SpOcg",  -- 10^264  (Septenoctogintillion)
-    "OcOcg",  -- 10^267  (Octooctogintillion)
-    "NnOcg",  -- 10^270  (Novemoctogintillion),
+    "Og",    -- 10^243  (Octogintillion)
+    "UOg",   -- 10^246  (Unoctogintillion)
+    "DOg",   -- 10^249  (Duooctogintillion)
+    "TOg",   -- 10^252  (Treoctogintillion)
+    "QaOg",  -- 10^255  (Quattuoroctogintillion)
+    "QiOg",  -- 10^258  (Quinoctogintillion)
+    "SxOg",  -- 10^261  (Sexoctogintillion)
+    "SpOg",  -- 10^264  (Septenoctogintillion)
+    "OcOg",  -- 10^267  (Octooctogintillion)
+    "NoOg",  -- 10^270  (Novemoctogintillion),
 
     -- Nonagintillion family (10^273 to 10^300):
-    "Nog",    -- 10^273  (Nonagintillion)
-    "UNog",   -- 10^276  (Unnonagintillion)
-    "DNog",   -- 10^279  (Duononagintillion)
-    "TNog",   -- 10^282  (Trenonagintillion)
-    "QaNog",  -- 10^285  (Quattuornonagintillion)
-    "QiNog",  -- 10^288  (Quinnonagintillion)
-    "SxNog",  -- 10^291  (Sexnonagintillion)
-    "SpNog",  -- 10^294  (Septennonagintillion)
-    "OcNog",  -- 10^297  (Octononagintillion)
-    "NnNog",  -- 10^300  (Novemnonagintillion),
+    "Ng",    -- 10^273  (Nonagintillion)
+    "UNg",   -- 10^276  (Unnonagintillion)
+    "DNg",   -- 10^279  (Duononagintillion)
+    "TNg",   -- 10^282  (Trenonagintillion)
+    "QaNg",  -- 10^285  (Quattuornonagintillion)
+    "QiNg",  -- 10^288  (Quinnonagintillion)
+    "SxNg",  -- 10^291  (Sexnonagintillion)
+    "SpNg",  -- 10^294  (Septennonagintillion)
+    "OcNg",  -- 10^297  (Octononagintillion)
+    "NoNg",  -- 10^300  (Novemnonagintillion),
 
     -- Centillion family (10^303 to 10^360):
     "Ce",    -- 10^303  (Centillion)
     "UCe",   -- 10^306  (Uncentillion)
     "DCe",   -- 10^309  (Duocentillion)
-    "TCe",   -- 10^312  (Trescentillion)
+    "TgCe",   -- 10^312  (Trescentillion)
     "QaCe",  -- 10^315  (Quattuorcentillion)
     "QiCe",  -- 10^318  (Quincentillion)
     "SxCe",  -- 10^321  (Sexcentillion)
     "SpCe",  -- 10^324  (Septencentillion)
     "OcCe",  -- 10^327  (Octocentillion)
-    "NvCe",  -- 10^330  (Novemcentillion)
-    "DcCe",  -- 10^333  (Decicentillion)
-    "UDcCe", -- 10^336  (Undecicentillion)
-    "TDcCe", -- 10^339  (Tredecicentillion)
-    "QaDcCe",-- 10^342  (Quattuordecicentillion)
-    "QiDcCe",-- 10^345  (Quindecicentillion)
-    "SxDcCe",-- 10^348  (Sedecicentillion)
-    "SpDcCe",-- 10^351  (Septendecicentillion)
-    "OcDcCe",-- 10^354  (Octodecicentillion)
-    "NvDcCe",-- 10^357  (Novemdecicentillion)
-    "ViCe",  -- 10^360  (Viginticentillion),
+    "NoCe",  -- 10^330  (Novemcentillion)
+
+    "DeCe",  -- 10^333  (Decicentillion)
+    "UDeCe", -- 10^336  (Undecicentillion)
+    "TDeCe", -- 10^339  (Tredecicentillion)
+    "QaDeCe",-- 10^342  (Quattuordecicentillion)
+    "QiDeCe",-- 10^345  (Quindecicentillion)
+    "SxDeCe",-- 10^348  (Sedecicentillion)
+    "SpDeCe",-- 10^351  (Septendecicentillion)
+    "OcDeCe",-- 10^354  (Octodecicentillion)
+    "NoDeCe",-- 10^357  (Novemdecicentillion)
 
     -- Viginticentillion group (10^363 to 10^390):
-    "UViCe",  -- 10^363  (Unviginticentillion)
-    "DViCe",  -- 10^366  (Duoviginticentillion)
-    "TViCe",  -- 10^369  (Treviginticentillion)
-    "QaViCe", -- 10^372  (Quattuorviginticentillion)
-    "QiViCe", -- 10^375  (Quinviginticentillion)
-    "SxViCe", -- 10^378  (Sexviginticentillion)
-    "SpViCe", -- 10^381  (Septenviginticentillion)
-    "OcViCe", -- 10^384  (Octoviginticentillion)
-    "NnViCe", -- 10^387  (Novemviginticentillion),
+    "VgCe",  -- 10^360  (Vgginticentillion),
+    "UVgCe",  -- 10^363  (Unviginticentillion)
+    "DVgCe",  -- 10^366  (Duoviginticentillion)
+    "TVgCe",  -- 10^369  (Treviginticentillion)
+    "QaVgCe", -- 10^372  (Quattuorviginticentillion)
+    "QiVgCe", -- 10^375  (Quinviginticentillion)
+    "SxVgCe", -- 10^378  (Sexviginticentillion)
+    "SpVgCe", -- 10^381  (Septenviginticentillion)
+    "OcVgCe", -- 10^384  (Octoviginticentillion)
+    "NoVgCe", -- 10^387  (Novemviginticentillion),
 
     -- Triginticentillion group (10^393 to 10^420):
     "TgCe",    -- 10^393  (Triginticentillion)
@@ -163,1040 +166,1070 @@ local NOTATION = {
     "SxTgCe",  -- 10^411  (Sextriginticentillion)
     "SpTgCe",  -- 10^414  (Septentriginticentillion)
     "OcTgCe",  -- 10^417  (Octotriginticentillion)
-    "NnTgCe",  -- 10^420  (Novemtriginticentillion),
+    "NoTgCe",  -- 10^420  (Novemtriginticentillion),
 
     -- Quadragintacentillion group (10^423 to 10^450):
-    "QagCe",   -- 10^423  (Quadragintacentillion)
-    "UQagCe",  -- 10^426  (Unquadragintacentillion)
-    "DQagCe",  -- 10^429  (Duoquadragintacentillion)
-    "TQagCe",  -- 10^432  (Trequadragintacentillion)
-    "QaQagCe", -- 10^435  (Quattuorquadragintacentillion)
-    "QiQagCe", -- 10^438  (Quinquadragintacentillion)
-    "SxQagCe", -- 10^441  (Sexquadragintacentillion)
-    "SpQagCe", -- 10^444  (Septenquadragintacentillion)
-    "OcQagCe", -- 10^447  (Octoquadragintacentillion)
-    "NnQagCe", -- 10^450  (Novemquadragintacentillion),
+    "qgCe",   -- 10^423  (Quadragintacentillion)
+    "UqgCe",  -- 10^426  (Unquadragintacentillion)
+    "DqgCe",  -- 10^429  (Duoquadragintacentillion)
+    "TqgCe",  -- 10^432  (Trequadragintacentillion)
+    "QaqgCe", -- 10^435  (Quattuorquadragintacentillion)
+    "QiqgCe", -- 10^438  (Quinquadragintacentillion)
+    "SxqgCe", -- 10^441  (Sexquadragintacentillion)
+    "SpqgCe", -- 10^444  (Septenquadragintacentillion)
+    "OcqgCe", -- 10^447  (Octoquadragintacentillion)
+    "NoqgCe", -- 10^450  (Novemquadragintacentillion),
 
     -- Quinquagintacentillion group (10^453 to 10^480):
-    "QigCe",   -- 10^453  (Quinquagintacentillion)
-    "UQigCe",  -- 10^456  (Unquinquagintacentillion)
-    "DQigCe",  -- 10^459  (Duoquinquagintacentillion)
-    "TQigCe",  -- 10^462  (Trequinquagintacentillion)
-    "QaQigCe", -- 10^465  (Quattuorquinquagintacentillion)
-    "QiQigCe", -- 10^468  (Quinquinquagintacentillion)
-    "SxQigCe", -- 10^471  (Sexquinquagintacentillion)
-    "SpQigCe", -- 10^474  (Septenquinquagintacentillion)
-    "OcQigCe", -- 10^477  (Octoquinquagintacentillion)
-    "NnQigCe", -- 10^480  (Novemquinquagintacentillion),
+    "QgCe",   -- 10^453  (Quinquagintacentillion)
+    "UQgCe",  -- 10^456  (Unquinquagintacentillion)
+    "DQgCe",  -- 10^459  (Duoquinquagintacentillion)
+    "TQgCe",  -- 10^462  (Trequinquagintacentillion)
+    "QaQgCe", -- 10^465  (Quattuorquinquagintacentillion)
+    "QiQgCe", -- 10^468  (Quinquinquagintacentillion)
+    "SxQgCe", -- 10^471  (Sexquinquagintacentillion)
+    "SpQgCe", -- 10^474  (Septenquinquagintacentillion)
+    "OcQgCe", -- 10^477  (Octoquinquagintacentillion)
+    "NoQgCe", -- 10^480  (Novemquinquagintacentillion),
 
     -- Sexagintacentillion group (10^483 to 10^510):
-    "SxgCe",   -- 10^483  (Sexagintacentillion)
-    "USxgCe",  -- 10^486  (Unsexagintacentillion)
-    "DSxgCe",  -- 10^489  (Duosexagintacentillion)
-    "TSxgCe",  -- 10^492  (Tresexagintacentillion)
-    "QaSxgCe", -- 10^495  (Quattuorsexagintacentillion)
-    "QiSxgCe", -- 10^498  (Quinsexagintacentillion)
-    "SxSxgCe", -- 10^501  (Sexsexagintacentillion)
-    "SpSxgCe", -- 10^504  (Septensexagintacentillion)
-    "OcSxgCe", -- 10^507  (Octosexagintacentillion)
-    "NnSxgCe", -- 10^510  (Novemsexagintacentillion),
+    "sgCe",   -- 10^483  (Sexagintacentillion)
+    "UsgCe",  -- 10^486  (Unsexagintacentillion)
+    "DsgCe",  -- 10^489  (Duosexagintacentillion)
+    "TsgCe",  -- 10^492  (Tresexagintacentillion)
+    "QasgCe", -- 10^495  (Quattuorsexagintacentillion)
+    "QisgCe", -- 10^498  (Quinsexagintacentillion)
+    "SxsgCe", -- 10^501  (Sexsexagintacentillion)
+    "SpsgCe", -- 10^504  (Septensexagintacentillion)
+    "OcsgCe", -- 10^507  (Octosexagintacentillion)
+    "NosgCe", -- 10^510  (Novemsexagintacentillion),
 
     -- Septuacentillion group (10^513 to 10^540):
-    "SpgCe",   -- 10^513  (Septuacentillion)
-    "USpgCe",  -- 10^516  (Unseptuacentillion)
-    "DSpgCe",  -- 10^519  (Duoseptuacentillion)
-    "TSpgCe",  -- 10^522  (Treseptuacentillion)
-    "QaSpgCe", -- 10^525  (Quattuorseptuacentillion)
-    "QiSpgCe", -- 10^528  (Quinseptuacentillion)
-    "SxSpgCe", -- 10^531  (Sexseptuacentillion)
-    "SpSpgCe", -- 10^534  (Septenseptuacentillion)
-    "OcSpgCe", -- 10^537  (Octoseptuacentillion)
-    "NnSpgCe", -- 10^540  (Novemseptuacentillion),
+    "SgCe",   -- 10^513  (Septuacentillion)
+    "USgCe",  -- 10^516  (Unseptuacentillion)
+    "DSgCe",  -- 10^519  (Duoseptuacentillion)
+    "TSgCe",  -- 10^522  (Treseptuacentillion)
+    "QaSgCe", -- 10^525  (Quattuorseptuacentillion)
+    "QiSgCe", -- 10^528  (Quinseptuacentillion)
+    "SxSgCe", -- 10^531  (Sexseptuacentillion)
+    "SpSgCe", -- 10^534  (Septenseptuacentillion)
+    "OcSgCe", -- 10^537  (Octoseptuacentillion)
+    "NoSgCe", -- 10^540  (Novemseptuacentillion),
 
     -- Octogintacentillion group (10^543 to 10^570):
-    "OcgCe",   -- 10^543  (Octogintacentillion)
-    "UOcgCe",  -- 10^546  (Unoctogintacentillion)
-    "DOcgCe",  -- 10^549  (Duooctogintacentillion)
-    "TOcgCe",  -- 10^552  (Treoctogintacentillion)
-    "QaOcgCe", -- 10^555  (Quattuoroctogintacentillion)
-    "QiOcgCe", -- 10^558  (Quinoctogintacentillion)
-    "SxOcgCe", -- 10^561  (Sexoctogintacentillion)
-    "SpOcgCe", -- 10^564  (Septenoctogintacentillion)
-    "OcOcgCe", -- 10^567  (Octooctogintacentillion)
-    "NnOcgCe", -- 10^570  (Novemoctogintacentillion),
+    "OgCe",   -- 10^543  (Octogintacentillion)
+    "UOgCe",  -- 10^546  (Unoctogintacentillion)
+    "DOgCe",  -- 10^549  (Duooctogintacentillion)
+    "TOgCe",  -- 10^552  (Treoctogintacentillion)
+    "QaOgCe", -- 10^555  (Quattuoroctogintacentillion)
+    "QiOgCe", -- 10^558  (Quinoctogintacentillion)
+    "SxOgCe", -- 10^561  (Sexoctogintacentillion)
+    "SpOgCe", -- 10^564  (Septenoctogintacentillion)
+    "OcOgCe", -- 10^567  (Octooctogintacentillion)
+    "NoOgCe", -- 10^570  (Novemoctogintacentillion),
 
     -- Nonagintacentillion group (10^573 to 10^600):
-    "NogCe",   -- 10^573  (Nonagintacentillion)
-    "UNogCe",  -- 10^576  (Unnonagintacentillion)
-    "DNogCe",  -- 10^579  (Duononagintacentillion)
-    "TNogCe",  -- 10^582  (Trenonagintacentillion)
-    "QaNogCe", -- 10^585  (Quattuornonagintacentillion)
-    "QiNogCe", -- 10^588  (Quinnonagintacentillion)
-    "SxNogCe", -- 10^591  (Sexnonagintacentillion)
-    "SpNogCe", -- 10^594  (Septennonagintacentillion)
-    "OcNogCe", -- 10^597  (Octononagintacentillion)
-    "NnNogCe", -- 10^600  (Novemnonagintacentillion),
+    "NgCe",   -- 10^573  (Nonagintacentillion)
+    "UNgCe",  -- 10^576  (Unnonagintacentillion)
+    "DNgCe",  -- 10^579  (Duononagintacentillion)
+    "TNgCe",  -- 10^582  (Trenonagintacentillion)
+    "QaNgCe", -- 10^585  (Quattuornonagintacentillion)
+    "QiNgCe", -- 10^588  (Quinnonagintacentillion)
+    "SxNgCe", -- 10^591  (Sexnonagintacentillion)
+    "SpNgCe", -- 10^594  (Septennonagintacentillion)
+    "OcNgCe", -- 10^597  (Octononagintacentillion)
+    "NoNgCe", -- 10^600  (Novemnonagintacentillion),
 
-    -- Ducentillion group (10^603 to 10^630):
-    "Dc",     -- 10^603  (Ducentillion)
-    "UDc",    -- 10^606  (Unducentillion)
-    "DDc",    -- 10^609  (Duoducentillion)
-    "TDc",    -- 10^612  (Treducentillion)
-    "QaDc",   -- 10^615  (Quattuorducentillion)
-    "QiDc",   -- 10^618  (Quinducentillion)
-    "SxDc",   -- 10^621  (Sexducentillion)
-    "SpDc",   -- 10^624  (Septenducentillion)
-    "OcDc",   -- 10^627  (Octoducentillion)
-    "NnDc",   -- 10^630  (Novemducentillion),
+    "UCe",    -- 10^303  (Centillion)
+    "UUCe",   -- 10^306  (Uncentillion)
+    "DUCe",   -- 10^309  (Duocentillion)
+    "TgUCe",   -- 10^312  (Trescentillion)
+    "QaUCe",  -- 10^315  (Quattuorcentillion)
+    "QiUCe",  -- 10^318  (Quincentillion)
+    "SxUCe",  -- 10^321  (Sexcentillion)
+    "SpUCe",  -- 10^324  (Septencentillion)
+    "OcUCe",  -- 10^327  (Octocentillion)
+    "NoUCe",  -- 10^330  (Novemcentillion)
+
+    "DeUCe",  -- 10^333  (Decicentillion)
+    "UDeUCe", -- 10^336  (Undecicentillion)
+    "TDeUCe", -- 10^339  (Tredecicentillion)
+    "QaDeUCe",-- 10^342  (Quattuordecicentillion)
+    "QiDeUCe",-- 10^345  (Quindecicentillion)
+    "SxDeUCe",-- 10^348  (Sedecicentillion)
+    "SpDeUCe",-- 10^351  (Septendecicentillion)
+    "OcDeUCe",-- 10^354  (Octodecicentillion)
+    "NoDeUCe",-- 10^357  (Novemdecicentillion)
+
+    -- Viginticentillion group (10^363 to 10^390):
+    "VgUCe",  -- 10^360  (Vgginticentillion),
+    "UVgUCe",  -- 10^363  (Unviginticentillion)
+    "DVgUCe",  -- 10^366  (Duoviginticentillion)
+    "TVgUCe",  -- 10^369  (Treviginticentillion)
+    "QaVgUCe", -- 10^372  (Quattuorviginticentillion)
+    "QiVgUCe", -- 10^375  (Quinviginticentillion)
+    "SxVgUCe", -- 10^378  (Sexviginticentillion)
+    "SpVgUCe", -- 10^381  (Septenviginticentillion)
+    "OcVgUCe", -- 10^384  (Octoviginticentillion)
+    "NoVgUCe", -- 10^387  (Novemviginticentillion),
+
+    -- Triginticentillion group (10^393 to 10^420):
+    "TgUCe",    -- 10^393  (Triginticentillion)
+    "UTgUCe",   -- 10^396  (Untriginticentillion)
+    "DTgUCe",   -- 10^399  (Duotriginticentillion)
+    "TTgUCe",   -- 10^402  (Tretriginticentillion)
+    "QaTgUCe",  -- 10^405  (Quattuortriginticentillion)
+    "QiTgUCe",  -- 10^408  (Quintriginticentillion)
+    "SxTgUCe",  -- 10^411  (Sextriginticentillion)
+    "SpTgUCe",  -- 10^414  (Septentriginticentillion)
+    "OcTgUCe",  -- 10^417  (Octotriginticentillion)
+    "NoTgUCe",  -- 10^420  (Novemtriginticentillion),
+
+    -- Quadragintacentillion group (10^423 to 10^450):
+    "qgUCe",   -- 10^423  (Quadragintacentillion)
+    "UqgUCe",  -- 10^426  (Unquadragintacentillion)
+    "DqgUCe",  -- 10^429  (Duoquadragintacentillion)
+    "TqgUCe",  -- 10^432  (Trequadragintacentillion)
+    "QaqgUCe", -- 10^435  (Quattuorquadragintacentillion)
+    "QiqgUCe", -- 10^438  (Quinquadragintacentillion)
+    "SxqgUCe", -- 10^441  (Sexquadragintacentillion)
+    "SpqgUCe", -- 10^444  (Septenquadragintacentillion)
+    "OcqgUCe", -- 10^447  (Octoquadragintacentillion)
+    "NoqgUCe", -- 10^450  (Novemquadragintacentillion),
+
+    -- Quinquagintacentillion group (10^453 to 10^480):
+    "QgUCe",   -- 10^453  (Quinquagintacentillion)
+    "UQgUCe",  -- 10^456  (Unquinquagintacentillion)
+    "DQgUCe",  -- 10^459  (Duoquinquagintacentillion)
+    "TQgUCe",  -- 10^462  (Trequinquagintacentillion)
+    "QaQgUCe", -- 10^465  (Quattuorquinquagintacentillion)
+    "QiQgUCe", -- 10^468  (Quinquinquagintacentillion)
+    "SxQgUCe", -- 10^471  (Sexquinquagintacentillion)
+    "SpQgUCe", -- 10^474  (Septenquinquagintacentillion)
+    "OcQgUCe", -- 10^477  (Octoquinquagintacentillion)
+    "NoQgUCe", -- 10^480  (Novemquinquagintacentillion),
+
+    -- Sexagintacentillion group (10^483 to 10^510):
+    "sgUCe",   -- 10^483  (Sexagintacentillion)
+    "UsgUCe",  -- 10^486  (Unsexagintacentillion)
+    "DsgUCe",  -- 10^489  (Duosexagintacentillion)
+    "TsgUCe",  -- 10^492  (Tresexagintacentillion)
+    "QasgUCe", -- 10^495  (Quattuorsexagintacentillion)
+    "QisgUCe", -- 10^498  (Quinsexagintacentillion)
+    "SxsgUCe", -- 10^501  (Sexsexagintacentillion)
+    "SpsgUCe", -- 10^504  (Septensexagintacentillion)
+    "OcsgUCe", -- 10^507  (Octosexagintacentillion)
+    "NosgUCe", -- 10^510  (Novemsexagintacentillion),
+
+    -- Septuacentillion group (10^513 to 10^540):
+    "SgUCe",   -- 10^513  (Septuacentillion)
+    "USgUCe",  -- 10^516  (Unseptuacentillion)
+    "DSgUCe",  -- 10^519  (Duoseptuacentillion)
+    "TSgUCe",  -- 10^522  (Treseptuacentillion)
+    "QaSgUCe", -- 10^525  (Quattuorseptuacentillion)
+    "QiSgUCe", -- 10^528  (Quinseptuacentillion)
+    "SxSgUCe", -- 10^531  (Sexseptuacentillion)
+    "SpSgUCe", -- 10^534  (Septenseptuacentillion)
+    "OcSgUCe", -- 10^537  (Octoseptuacentillion)
+    "NoSgUCe", -- 10^540  (Novemseptuacentillion),
+
+    -- Octogintacentillion group (10^543 to 10^570):
+    "OgUCe",   -- 10^543  (Octogintacentillion)
+    "UOgUCe",  -- 10^546  (Unoctogintacentillion)
+    "DOgUCe",  -- 10^549  (Duooctogintacentillion)
+    "TOgUCe",  -- 10^552  (Treoctogintacentillion)
+    "QaOgUCe", -- 10^555  (Quattuoroctogintacentillion)
+    "QiOgUCe", -- 10^558  (Quinoctogintacentillion)
+    "SxOgUCe", -- 10^561  (Sexoctogintacentillion)
+    "SpOgUCe", -- 10^564  (Septenoctogintacentillion)
+    "OcOgUCe", -- 10^567  (Octooctogintacentillion)
+    "NoOgUCe", -- 10^570  (Novemoctogintacentillion),
+
+    -- Nonagintacentillion group (10^573 to 10^600):
+    "NgUCe",   -- 10^573  (Nonagintacentillion)
+    "UNgUCe",  -- 10^576  (Unnonagintacentillion)
+    "DNgUCe",  -- 10^579  (Duononagintacentillion)
+    "TNgUCe",  -- 10^582  (Trenonagintacentillion)
+    "QaNgUCe", -- 10^585  (Quattuornonagintacentillion)
+    "QiNgUCe", -- 10^588  (Quinnonagintacentillion)
+    "SxNgUCe", -- 10^591  (Sexnonagintacentillion)
+    "SpNgUCe", -- 10^594  (Septennonagintacentillion)
+    "OcNgUCe", -- 10^597  (Octononagintacentillion)
+    "NoNgUCe", -- 10^600  (Novemnonagintacentillion),
+
+    "DCe",    -- 10^303  (Centillion)
+    "UDCe",   -- 10^306  (Uncentillion)
+    "DDCe",   -- 10^309  (Duocentillion)
+    "TgDCe",   -- 10^312  (Trescentillion)
+    "QaDCe",  -- 10^315  (Quattuorcentillion)
+    "QiDCe",  -- 10^318  (Quincentillion)
+    "SxDCe",  -- 10^321  (Sexcentillion)
+    "SpDCe",  -- 10^324  (Septencentillion)
+    "OcDCe",  -- 10^327  (Octocentillion)
+    "NoDCe",  -- 10^330  (Novemcentillion)
+
+    "DeDCe",  -- 10^333  (Decicentillion)
+    "UDeDCe", -- 10^336  (Undecicentillion)
+    "TDeDCe", -- 10^339  (Tredecicentillion)
+    "QaDeDCe",-- 10^342  (Quattuordecicentillion)
+    "QiDeDCe",-- 10^345  (Quindecicentillion)
+    "SxDeDCe",-- 10^348  (Sedecicentillion)
+    "SpDeDCe",-- 10^351  (Septendecicentillion)
+    "OcDeDCe",-- 10^354  (Octodecicentillion)
+    "NoDeDCe",-- 10^357  (Novemdecicentillion)
+
+    -- Viginticentillion group (10^363 to 10^390):
+    "VgDCe",  -- 10^360  (Vgginticentillion),
+    "UVgDCe",  -- 10^363  (Unviginticentillion)
+    "DVgDCe",  -- 10^366  (Duoviginticentillion)
+    "TVgDCe",  -- 10^369  (Treviginticentillion)
+    "QaVgDCe", -- 10^372  (Quattuorviginticentillion)
+    "QiVgDCe", -- 10^375  (Quinviginticentillion)
+    "SxVgDCe", -- 10^378  (Sexviginticentillion)
+    "SpVgDCe", -- 10^381  (Septenviginticentillion)
+    "OcVgDCe", -- 10^384  (Octoviginticentillion)
+    "NoVgDCe", -- 10^387  (Novemviginticentillion),
+
+    -- Triginticentillion group (10^393 to 10^420):
+    "TgDCe",    -- 10^393  (Triginticentillion)
+    "UTgDCe",   -- 10^396  (Untriginticentillion)
+    "DTgDCe",   -- 10^399  (Duotriginticentillion)
+    "TTgDCe",   -- 10^402  (Tretriginticentillion)
+    "QaTgDCe",  -- 10^405  (Quattuortriginticentillion)
+    "QiTgDCe",  -- 10^408  (Quintriginticentillion)
+    "SxTgDCe",  -- 10^411  (Sextriginticentillion)
+    "SpTgDCe",  -- 10^414  (Septentriginticentillion)
+    "OcTgDCe",  -- 10^417  (Octotriginticentillion)
+    "NoTgDCe",  -- 10^420  (Novemtriginticentillion),
+
+    -- Quadragintacentillion group (10^423 to 10^450):
+    "qgDCe",   -- 10^423  (Quadragintacentillion)
+    "UqgDCe",  -- 10^426  (Unquadragintacentillion)
+    "DqgDCe",  -- 10^429  (Duoquadragintacentillion)
+    "TqgDCe",  -- 10^432  (Trequadragintacentillion)
+    "QaqgDCe", -- 10^435  (Quattuorquadragintacentillion)
+    "QiqgDCe", -- 10^438  (Quinquadragintacentillion)
+    "SxqgDCe", -- 10^441  (Sexquadragintacentillion)
+    "SpqgDCe", -- 10^444  (Septenquadragintacentillion)
+    "OcqgDCe", -- 10^447  (Octoquadragintacentillion)
+    "NoqgDCe", -- 10^450  (Novemquadragintacentillion),
+
+    -- Quinquagintacentillion group (10^453 to 10^480):
+    "QgDCe",   -- 10^453  (Quinquagintacentillion)
+    "UQgDCe",  -- 10^456  (Unquinquagintacentillion)
+    "DQgDCe",  -- 10^459  (Duoquinquagintacentillion)
+    "TQgDCe",  -- 10^462  (Trequinquagintacentillion)
+    "QaQgDCe", -- 10^465  (Quattuorquinquagintacentillion)
+    "QiQgDCe", -- 10^468  (Quinquinquagintacentillion)
+    "SxQgDCe", -- 10^471  (Sexquinquagintacentillion)
+    "SpQgDCe", -- 10^474  (Septenquinquagintacentillion)
+    "OcQgDCe", -- 10^477  (Octoquinquagintacentillion)
+    "NoQgDCe", -- 10^480  (Novemquinquagintacentillion),
+
+    -- Sexagintacentillion group (10^483 to 10^510):
+    "sgDCe",   -- 10^483  (Sexagintacentillion)
+    "UsgDCe",  -- 10^486  (Unsexagintacentillion)
+    "DsgDCe",  -- 10^489  (Duosexagintacentillion)
+    "TsgDCe",  -- 10^492  (Tresexagintacentillion)
+    "QasgDCe", -- 10^495  (Quattuorsexagintacentillion)
+    "QisgDCe", -- 10^498  (Quinsexagintacentillion)
+    "SxsgDCe", -- 10^501  (Sexsexagintacentillion)
+    "SpsgDCe", -- 10^504  (Septensexagintacentillion)
+    "OcsgDCe", -- 10^507  (Octosexagintacentillion)
+    "NosgDCe", -- 10^510  (Novemsexagintacentillion),
+
+    -- Septuacentillion group (10^513 to 10^540):
+    "SgDCe",   -- 10^513  (Septuacentillion)
+    "USgDCe",  -- 10^516  (Unseptuacentillion)
+    "DSgDCe",  -- 10^519  (Duoseptuacentillion)
+    "TSgDCe",  -- 10^522  (Treseptuacentillion)
+    "QaSgDCe", -- 10^525  (Quattuorseptuacentillion)
+    "QiSgDCe", -- 10^528  (Quinseptuacentillion)
+    "SxSgDCe", -- 10^531  (Sexseptuacentillion)
+    "SpSgDCe", -- 10^534  (Septenseptuacentillion)
+    "OcSgDCe", -- 10^537  (Octoseptuacentillion)
+    "NoSgDCe", -- 10^540  (Novemseptuacentillion),
+
+    -- Octogintacentillion group (10^543 to 10^570):
+    "OgDCe",   -- 10^543  (Octogintacentillion)
+    "UOgDCe",  -- 10^546  (Unoctogintacentillion)
+    "DOgDCe",  -- 10^549  (Duooctogintacentillion)
+    "TOgDCe",  -- 10^552  (Treoctogintacentillion)
+    "QaOgDCe", -- 10^555  (Quattuoroctogintacentillion)
+    "QiOgDCe", -- 10^558  (Quinoctogintacentillion)
+    "SxOgDCe", -- 10^561  (Sexoctogintacentillion)
+    "SpOgDCe", -- 10^564  (Septenoctogintacentillion)
+    "OcOgDCe", -- 10^567  (Octooctogintacentillion)
+    "NoOgDCe", -- 10^570  (Novemoctogintacentillion),
+
+    -- Nonagintacentillion group (10^573 to 10^600):
+    "NgDCe",   -- 10^573  (Nonagintacentillion)
+    "UNgDCe",  -- 10^576  (Unnonagintacentillion)
+    "DNgDCe",  -- 10^579  (Duononagintacentillion)
+    "TNgDCe",  -- 10^582  (Trenonagintacentillion)
+    "QaNgDCe", -- 10^585  (Quattuornonagintacentillion)
+    "QiNgDCe", -- 10^588  (Quinnonagintacentillion)
+    "SxNgDCe", -- 10^591  (Sexnonagintacentillion)
+    "SpNgDCe", -- 10^594  (Septennonagintacentillion)
+    "OcNgDCe", -- 10^597  (Octononagintacentillion)
+    "NoNgDCe", -- 10^600  (Novemnonagintacentillion),
 
     -- Trecentillion family (10^633 to 10^660)
-    "Tc",     -- 10^633  (Trecentillion)
-    "UTc",    -- 10^636  (Untrecentillion)
-    "DTc",    -- 10^639  (Duotrecentillion)
-    "TTc",    -- 10^642  (Tretrecentillion)
-    "QaTc",   -- 10^645  (Quattuortrecentillion)
-    "QiTc",   -- 10^648  (Quintrecentillion)
-    "SxTc",   -- 10^651  (Sextrecentillion)
-    "SpTc",   -- 10^654  (Septentrecentillion)
-    "OcTc",   -- 10^657  (Octotrecentillion)
-    "NnTc",   -- 10^660  (Novemtrecentillion),
+    "TCe",     -- 10^633  (Trecentillion)
+    "UTCe",    -- 10^636  (Untrecentillion)
+    "DTCe",    -- 10^639  (Duotrecentillion)
+    "TTCe",    -- 10^642  (Tretrecentillion)
+    "QaTCe",   -- 10^645  (Quattuortrecentillion)
+    "QiTCe",   -- 10^648  (Quintrecentillion)
+    "SxTCe",   -- 10^651  (Sextrecentillion)
+    "SpTCe",   -- 10^654  (Septentrecentillion)
+    "OcTCe",   -- 10^657  (Octotrecentillion)
+    "NoTCe",   -- 10^660  (Novemtrecentillion),
 
-    -- Vigintitrecentillion group (10^663 to 10^690)
-    "ViTc",   -- 10^663  (Vigintitrecentillion)
-    "UViTc",  -- 10^666  (Unvigintitrecentillion)
-    "DViTc",  -- 10^669  (Duovigintitrecentillion)
-    "TViTc",  -- 10^672  (Trevigintitrecentillion)
-    "QaViTc", -- 10^675  (Quattuorvigintitrecentillion)
-    "QiViTc", -- 10^678  (Quinvigintitrecentillion)
-    "SxViTc", -- 10^681  (Sexvigintitrecentillion)
-    "SpViTc", -- 10^684  (Septenvigintitrecentillion)
-    "OcViTc", -- 10^687  (Octovigintitrecentillion)
-    "NnViTc", -- 10^690  (Novemvigintitrecentillion),
+    -- Vggintitrecentillion group (10^663 to 10^690)
+    "VgTCe",   -- 10^663  (Vggintitrecentillion)
+    "UVgTCe",  -- 10^666  (Unvigintitrecentillion)
+    "DVgTCe",  -- 10^669  (Duovigintitrecentillion)
+    "TVgTCe",  -- 10^672  (Trevigintitrecentillion)
+    "QaVgTCe", -- 10^675  (Quattuorvigintitrecentillion)
+    "QiVgTCe", -- 10^678  (Quinvigintitrecentillion)
+    "SxVgTCe", -- 10^681  (Sexvigintitrecentillion)
+    "SpVgTCe", -- 10^684  (Septenvigintitrecentillion)
+    "OcVgTCe", -- 10^687  (Octovigintitrecentillion)
+    "NoVgTCe", -- 10^690  (Novemvigintitrecentillion),
 
     -- Trigintitrecentillion group (10^693 to 10^720)
-    "TgTc",    -- 10^693  (Trigintitrecentillion)
-    "UTgTc",   -- 10^696  (Untrigintitrecentillion)
-    "DTgTc",   -- 10^699  (Duotrigintitrecentillion)
-    "TTgTc",   -- 10^702  (Tretrigintitrecentillion)
-    "QaTgTc",  -- 10^705  (Quattuortrigintitrecentillion)
-    "QiTgTc",  -- 10^708  (Quintrigintitrecentillion)
-    "SxTgTc",  -- 10^711  (Sextrigintitrecentillion)
-    "SpTgTc",  -- 10^714  (Septentrigintitrecentillion)
-    "OcTgTc",  -- 10^717  (Octotrigintitrecentillion)
-    "NnTgTc",  -- 10^720  (Novemtrigintitrecentillion),
+    "TgTCe",    -- 10^693  (Trigintitrecentillion)
+    "UTgTCe",   -- 10^696  (Untrigintitrecentillion)
+    "DTgTCe",   -- 10^699  (Duotrigintitrecentillion)
+    "TTgTCe",   -- 10^702  (Tretrigintitrecentillion)
+    "QaTgTCe",  -- 10^705  (Quattuortrigintitrecentillion)
+    "QiTgTCe",  -- 10^708  (Quintrigintitrecentillion)
+    "SxTgTCe",  -- 10^711  (Sextrigintitrecentillion)
+    "SpTgTCe",  -- 10^714  (Septentrigintitrecentillion)
+    "OcTgTCe",  -- 10^717  (Octotrigintitrecentillion)
+    "NoTgTCe",  -- 10^720  (Novemtrigintitrecentillion),
 
     -- Quadragintitrecentillion group (10^723 to 10^750)
-    "QagTc",   -- 10^723  (Quadragintitrecentillion)
-    "UQagTc",  -- 10^726  (Unquadragintitrecentillion)
-    "DQagTc",  -- 10^729  (Duoquadragintitrecentillion)
-    "TQagTc",  -- 10^732  (Trequadragintitrecentillion)
-    "QaQagTc", -- 10^735  (Quattuorquadragintitrecentillion)
-    "QiQagTc", -- 10^738  (Quinquadragintitrecentillion)
-    "SxQagTc", -- 10^741  (Sexquadragintitrecentillion)
-    "SpQagTc", -- 10^744  (Septenquadragintitrecentillion)
-    "OcQagTc", -- 10^747  (Octoquadragintitrecentillion)
-    "NnQagTc", -- 10^750  (Novemquadragintitrecentillion),
+    "qgTCe",   -- 10^723  (Quadragintitrecentillion)
+    "UqgTCe",  -- 10^726  (Unquadragintitrecentillion)
+    "DqgTCe",  -- 10^729  (Duoquadragintitrecentillion)
+    "TqgTCe",  -- 10^732  (Trequadragintitrecentillion)
+    "QaqgTCe", -- 10^735  (Quattuorquadragintitrecentillion)
+    "QiqgTCe", -- 10^738  (Quinquadragintitrecentillion)
+    "SxqgTCe", -- 10^741  (Sexquadragintitrecentillion)
+    "SpqgTCe", -- 10^744  (Septenquadragintitrecentillion)
+    "OcqgTCe", -- 10^747  (Octoquadragintitrecentillion)
+    "NoqgTCe", -- 10^750  (Novemquadragintitrecentillion),
 
     -- Quinquagintitrecentillion group (10^753 to 10^780)
-    "QigTc",   -- 10^753  (Quinquagintitrecentillion)
-    "UQigTc",  -- 10^756  (Unquinquagintitrecentillion)
-    "DQigTc",  -- 10^759  (Duoquinquagintitrecentillion)
-    "TQigTc",  -- 10^762  (Trequinquagintitrecentillion)
-    "QaQigTc", -- 10^765  (Quattuorquinquagintitrecentillion)
-    "QiQigTc", -- 10^768  (Quinquinquagintitrecentillion)
-    "SxQigTc", -- 10^771  (Sexquinquagintitrecentillion)
-    "SpQigTc", -- 10^774  (Septenquinquagintitrecentillion)
-    "OcQigTc", -- 10^777  (Octoquinquagintitrecentillion)
-    "NnQigTc", -- 10^780  (Novemquinquagintitrecentillion),
+    "QgTCe",   -- 10^753  (Quinquagintitrecentillion)
+    "UQgTCe",  -- 10^756  (Unquinquagintitrecentillion)
+    "DQgTCe",  -- 10^759  (Duoquinquagintitrecentillion)
+    "TQgTCe",  -- 10^762  (Trequinquagintitrecentillion)
+    "QaQgTCe", -- 10^765  (Quattuorquinquagintitrecentillion)
+    "QiQgTCe", -- 10^768  (Quinquinquagintitrecentillion)
+    "SxQgTCe", -- 10^771  (Sexquinquagintitrecentillion)
+    "SpQgTCe", -- 10^774  (Septenquinquagintitrecentillion)
+    "OcQgTCe", -- 10^777  (Octoquinquagintitrecentillion)
+    "NoQgTCe", -- 10^780  (Novemquinquagintitrecentillion),
 
     -- Sexagintitrecentillion group (10^783 to 10^810)
-    "SxgTc",   -- 10^783  (Sexagintitrecentillion)
-    "USxgTc",  -- 10^786  (Unsexagintitrecentillion)
-    "DSxgTc",  -- 10^789  (Duosexagintitrecentillion)
-    "TSxgTc",  -- 10^792  (Tresexagintitrecentillion)
-    "QaSxgTc", -- 10^795  (Quattuorsexagintitrecentillion)
-    "QiSxgTc", -- 10^798  (Quinsexagintitrecentillion)
-    "SxSxgTc", -- 10^801  (Sexsexagintitrecentillion)
-    "SpSxgTc", -- 10^804  (Septensexagintitrecentillion)
-    "OcSxgTc", -- 10^807  (Octosexagintitrecentillion)
-    "NnSxgTc", -- 10^810  (Novemsexagintitrecentillion),
+    "sgTCe",   -- 10^783  (Sexagintitrecentillion)
+    "UsgTCe",  -- 10^786  (Unsexagintitrecentillion)
+    "DsgTCe",  -- 10^789  (Duosexagintitrecentillion)
+    "TsgTCe",  -- 10^792  (Tresexagintitrecentillion)
+    "QasgTCe", -- 10^795  (Quattuorsexagintitrecentillion)
+    "QisgTCe", -- 10^798  (Quinsexagintitrecentillion)
+    "SxsgTCe", -- 10^801  (Sexsexagintitrecentillion)
+    "SpsgTCe", -- 10^804  (Septensexagintitrecentillion)
+    "OcsgTCe", -- 10^807  (Octosexagintitrecentillion)
+    "NosgTCe", -- 10^810  (Novemsexagintitrecentillion),
 
     -- Septuagintitrecentillion group (10^813 to 10^840)
-    "SpgTc",    -- 10^813  (Septuagintitrecentillion)
-    "USpgTc",   -- 10^816  (Unseptuagintitrecentillion)
-    "DSpgTc",   -- 10^819  (Duoseptuagintitrecentillion)
-    "TSpgTc",   -- 10^822  (Treseptuagintitrecentillion)
-    "QaSpgTc",  -- 10^825  (Quattuorseptuagintitrecentillion)
-    "QiSpgTc",  -- 10^828  (Quinseptuagintitrecentillion)
-    "SxSpgTc",  -- 10^831  (Sexseptuagintitrecentillion)
-    "SpSpgTc",  -- 10^834  (Septenseptuagintitrecentillion)
-    "OcSpgTc",  -- 10^837  (Octoseptuagintitrecentillion)
-    "NnSpgTc",  -- 10^840  (Novemseptuagintitrecentillion),
+    "SgTCe",    -- 10^813  (Septuagintitrecentillion)
+    "USgTCe",   -- 10^816  (Unseptuagintitrecentillion)
+    "DSgTCe",   -- 10^819  (Duoseptuagintitrecentillion)
+    "TSgTCe",   -- 10^822  (Treseptuagintitrecentillion)
+    "QaSgTCe",  -- 10^825  (Quattuorseptuagintitrecentillion)
+    "QiSgTCe",  -- 10^828  (Quinseptuagintitrecentillion)
+    "SxSgTCe",  -- 10^831  (Sexseptuagintitrecentillion)
+    "SpSgTCe",  -- 10^834  (Septenseptuagintitrecentillion)
+    "OcSgTCe",  -- 10^837  (Octoseptuagintitrecentillion)
+    "NoSgTCe",  -- 10^840  (Novemseptuagintitrecentillion),
 
     -- Octogintitrecentillion group (10^843 to 10^870)
-    "OcgTc",    -- 10^843  (Octogintitrecentillion)
-    "UOcgTc",   -- 10^846  (Unoctogintitrecentillion)
-    "DOcgTc",   -- 10^849  (Duooctogintitrecentillion)
-    "TOcgTc",   -- 10^852  (Treoctogintitrecentillion)
-    "QaOcgTc",  -- 10^855  (Quattuoroctogintitrecentillion)
-    "QiOcgTc",  -- 10^858  (Quinoctogintitrecentillion)
-    "SxOcgTc",  -- 10^861  (Sexoctogintitrecentillion)
-    "SpOcgTc",  -- 10^864  (Septenoctogintitrecentillion)
-    "OcOcgTc",  -- 10^867  (Octooctogintitrecentillion)
-    "NnOcgTc",  -- 10^870  (Novemoctogintitrecentillion),
+    "OgTCe",    -- 10^843  (Octogintitrecentillion)
+    "UOgTCe",   -- 10^846  (Unoctogintitrecentillion)
+    "DOgTCe",   -- 10^849  (Duooctogintitrecentillion)
+    "TOgTCe",   -- 10^852  (Treoctogintitrecentillion)
+    "QaOgTCe",  -- 10^855  (Quattuoroctogintitrecentillion)
+    "QiOgTCe",  -- 10^858  (Quinoctogintitrecentillion)
+    "SxOgTCe",  -- 10^861  (Sexoctogintitrecentillion)
+    "SpOgTCe",  -- 10^864  (Septenoctogintitrecentillion)
+    "OcOgTCe",  -- 10^867  (Octooctogintitrecentillion)
+    "NoOgTCe",  -- 10^870  (Novemoctogintitrecentillion),
 
     -- Nonagintitrecentillion group (10^873 to 10^900)
-    "NogTc",    -- 10^873  (Nonagintitrecentillion)
-    "UNogTc",   -- 10^876  (Unnonagintitrecentillion)
-    "DNogTc",   -- 10^879  (Duononagintitrecentillion)
-    "TNogTc",   -- 10^882  (Trenonagintitrecentillion)
-    "QaNogTc",  -- 10^885  (Quattuornonagintitrecentillion)
-    "QiNogTc",  -- 10^888  (Quinnonagintitrecentillion)
-    "SxNogTc",  -- 10^891  (Sexnonagintitrecentillion)
-    "SpNogTc",  -- 10^894  (Septennonagintitrecentillion)
-    "OcNogTc",  -- 10^897  (Octononagintitrecentillion)
-    "NnNogTc",  -- 10^900  (Novemnonagintitrecentillion),
+    "NgTCe",    -- 10^873  (Nonagintitrecentillion)
+    "UNgTCe",   -- 10^876  (Unnonagintitrecentillion)
+    "DNgTCe",   -- 10^879  (Duononagintitrecentillion)
+    "TNgTCe",   -- 10^882  (Trenonagintitrecentillion)
+    "QaNgTCe",  -- 10^885  (Quattuornonagintitrecentillion)
+    "QiNgTCe",  -- 10^888  (Quinnonagintitrecentillion)
+    "SxNgTCe",  -- 10^891  (Sexnonagintitrecentillion)
+    "SpNgTCe",  -- 10^894  (Septennonagintitrecentillion)
+    "OcNgTCe",  -- 10^897  (Octononagintitrecentillion)
+    "NoNgTCe",  -- 10^900  (Novemnonagintitrecentillion),
 
     -- Quadringentillion family (10^903 to 10^930)
-    "QaC",     -- 10^903  (Quadringentillion)
-    "UQaC",    -- 10^906  (Unquadringentillion)
-    "DQaC",    -- 10^909  (Duoquadringentillion)
-    "TQaC",    -- 10^912  (Trequadringentillion)
-    "QaQaC",   -- 10^915  (Quattuorquadringentillion)
-    "QiQaC",   -- 10^918  (Quinquadringentillion)
-    "SxQaC",   -- 10^921  (Sexquadringentillion)
-    "SpQaC",   -- 10^924  (Septenquadringentillion)
-    "OcQaC",   -- 10^927  (Octoquadringentillion)
-    "NnQaC",   -- 10^930  (Novemquadringentillion),
+    "QaCe",     -- 10^903  (Quadringentillion)
+    "UQaCe",    -- 10^906  (Unquadringentillion)
+    "DQaCe",    -- 10^909  (Duoquadringentillion)
+    "TQaCe",    -- 10^912  (Trequadringentillion)
+    "QaQaCe",   -- 10^915  (Quattuorquadringentillion)
+    "QiQaCe",   -- 10^918  (Quinquadringentillion)
+    "SxQaCe",   -- 10^921  (Sexquadringentillion)
+    "SpQaCe",   -- 10^924  (Septenquadringentillion)
+    "OcQaCe",   -- 10^927  (Octoquadringentillion)
+    "NoQaCe",   -- 10^930  (Novemquadringentillion),
 
-    -- Vigintiquadringentillion group (10^933 to 10^960)
-    "ViQaC",   -- 10^933  (Vigintiquadringentillion)
-    "UViQaC",  -- 10^936  (Unvigintiquadringentillion)
-    "DViQaC",  -- 10^939  (Duovigintiquadringentillion)
-    "TViQaC",  -- 10^942  (Trevigintiquadringentillion)
-    "QaViQaC", -- 10^945  (Quattuorvigintiquadringentillion)
-    "QiViQaC", -- 10^948  (Quinvigintiquadringentillion)
-    "SxViQaC", -- 10^951  (Sexvigintiquadringentillion)
-    "SpViQaC", -- 10^954  (Septenvigintiquadringentillion)
-    "OcViQaC", -- 10^957  (Octovigintiquadringentillion)
-    "NnViQaC", -- 10^960  (Novemvigintiquadringentillion),
+    -- Vggintiquadringentillion group (10^933 to 10^960)
+    "VgQaCe",   -- 10^933  (Vggintiquadringentillion)
+    "UVgQaCe",  -- 10^936  (Unvigintiquadringentillion)
+    "DVgQaCe",  -- 10^939  (Duovigintiquadringentillion)
+    "TVgQaCe",  -- 10^942  (Trevigintiquadringentillion)
+    "QaVgQaCe", -- 10^945  (Quattuorvigintiquadringentillion)
+    "QiVgQaCe", -- 10^948  (Quinvigintiquadringentillion)
+    "SxVgQaCe", -- 10^951  (Sexvigintiquadringentillion)
+    "SpVgQaCe", -- 10^954  (Septenvigintiquadringentillion)
+    "OcVgQaCe", -- 10^957  (Octovigintiquadringentillion)
+    "NoVgQaCe", -- 10^960  (Novemvigintiquadringentillion),
 
     -- Trigintiquadringentillion group (10^963 to 10^990)
-    "TgQaC",    -- 10^963  (Trigintiquadringentillion)
-    "UTgQaC",   -- 10^966  (Untrigintiquadringentillion)
-    "DTgQaC",   -- 10^969  (Duotrigintiquadringentillion)
-    "TTgQaC",   -- 10^972  (Tretrigintiquadringentillion)
-    "QaTgQaC",  -- 10^975  (Quattuortrigintiquadringentillion)
-    "QiTgQaC",  -- 10^978  (Quintrigintiquadringentillion)
-    "SxTgQaC",  -- 10^981  (Sextrigintiquadringentillion)
-    "SpTgQaC",  -- 10^984  (Septentrigintiquadringentillion)
-    "OcTgQaC",  -- 10^987  (Octotrigintiquadringentillion)
-    "NnTgQaC",  -- 10^990  (Novemtrigintiquadringentillion),
+    "TgQaCe",    -- 10^963  (Trigintiquadringentillion)
+    "UTgQaCe",   -- 10^966  (Untrigintiquadringentillion)
+    "DTgQaCe",   -- 10^969  (Duotrigintiquadringentillion)
+    "TTgQaCe",   -- 10^972  (Tretrigintiquadringentillion)
+    "QaTgQaCe",  -- 10^975  (Quattuortrigintiquadringentillion)
+    "QiTgQaCe",  -- 10^978  (Quintrigintiquadringentillion)
+    "SxTgQaCe",  -- 10^981  (Sextrigintiquadringentillion)
+    "SpTgQaCe",  -- 10^984  (Septentrigintiquadringentillion)
+    "OcTgQaCe",  -- 10^987  (Octotrigintiquadringentillion)
+    "NoTgQaCe",  -- 10^990  (Novemtrigintiquadringentillion),
 
     -- Quadragintiquadringentillion group (10^993 to 10^1020)
-    "QagQaC",   -- 10^993  (Quadragintiquadringentillion)
-    "UQagQaC",  -- 10^996  (Unquadragintiquadringentillion)
-    "DQagQaC",  -- 10^999  (Duoquadragintiquadringentillion)
-    "TQagQaC",  -- 10^1002 (Trequadragintiquadringentillion)
-    "QaQagQaC", -- 10^1005 (Quattuorquadragintiquadringentillion)
-    "QiQagQaC", -- 10^1008 (Quinquadragintiquadringentillion)
-    "SxQagQaC", -- 10^1011 (Sexquadragintiquadringentillion)
-    "SpQagQaC", -- 10^1014 (Septenquadragintiquadringentillion)
-    "OcQagQaC", -- 10^1017 (Octoquadragintiquadringentillion)
-    "NnQagQaC", -- 10^1020 (Novemquadragintiquadringentillion),
+    "qgQaCe",   -- 10^993  (Quadragintiquadringentillion)
+    "UqgQaCe",  -- 10^996  (Unquadragintiquadringentillion)
+    "DqgQaCe",  -- 10^999  (Duoquadragintiquadringentillion)
+    "TqgQaCe",  -- 10^1002 (Trequadragintiquadringentillion)
+    "QaqgQaCe", -- 10^1005 (Quattuorquadragintiquadringentillion)
+    "QiqgQaCe", -- 10^1008 (Quinquadragintiquadringentillion)
+    "SxqgQaCe", -- 10^1011 (Sexquadragintiquadringentillion)
+    "SpqgQaCe", -- 10^1014 (Septenquadragintiquadringentillion)
+    "OcqgQaCe", -- 10^1017 (Octoquadragintiquadringentillion)
+    "NoqgQaCe", -- 10^1020 (Novemquadragintiquadringentillion),
 
     -- Quinquagintiquadringentillion group (10^1023 to 10^1050)
-    "QigQaC",   -- 10^1023 (Quinquagintiquadringentillion)
-    "UQigQaC",  -- 10^1026 (Unquinquagintiquadringentillion)
-    "DQigQaC",  -- 10^1029 (Duoquinquagintiquadringentillion)
-    "TQigQaC",  -- 10^1032 (Trequinquagintiquadringentillion)
-    "QaQigQaC", -- 10^1035 (Quattuorquinquagintiquadringentillion)
-    "QiQigQaC", -- 10^1038 (Quinquinquagintiquadringentillion)
-    "SxQigQaC", -- 10^1041 (Sexquinquagintiquadringentillion)
-    "SpQigQaC", -- 10^1044 (Septenquinquagintiquadringentillion)
-    "OcQigQaC", -- 10^1047 (Octoquinquagintiquadringentillion)
-    "NnQigQaC", -- 10^1050 (Novemquinquagintiquadringentillion),
+    "QgQaCe",   -- 10^1023 (Quinquagintiquadringentillion)
+    "UQgQaCe",  -- 10^1026 (Unquinquagintiquadringentillion)
+    "DQgQaCe",  -- 10^1029 (Duoquinquagintiquadringentillion)
+    "TQgQaCe",  -- 10^1032 (Trequinquagintiquadringentillion)
+    "QaQgQaCe", -- 10^1035 (Quattuorquinquagintiquadringentillion)
+    "QiQgQaCe", -- 10^1038 (Quinquinquagintiquadringentillion)
+    "SxQgQaCe", -- 10^1041 (Sexquinquagintiquadringentillion)
+    "SpQgQaCe", -- 10^1044 (Septenquinquagintiquadringentillion)
+    "OcQgQaCe", -- 10^1047 (Octoquinquagintiquadringentillion)
+    "NoQgQaCe", -- 10^1050 (Novemquinquagintiquadringentillion),
 
     -- Sexagintiquadringentillion group (10^1053 to 10^1080)
-    "SxgQaC",   -- 10^1053 (Sexagintiquadringentillion)
-    "USxgQaC",  -- 10^1056 (Unsexagintiquadringentillion)
-    "DSxgQaC",  -- 10^1059 (Duosexagintiquadringentillion)
-    "TSxgQaC",  -- 10^1062 (Tresexagintiquadringentillion)
-    "QaSxgQaC", -- 10^1065 (Quattuorsexagintiquadringentillion)
-    "QiSxgQaC", -- 10^1068 (Quinsexagintiquadringentillion)
-    "SxSxgQaC", -- 10^1071 (Sexsexagintiquadringentillion)
-    "SpSxgQaC", -- 10^1074 (Septensexagintiquadringentillion)
-    "OcSxgQaC", -- 10^1077 (Octosexagintiquadringentillion)
-    "NnSxgQaC", -- 10^1080 (Novemsexagintiquadringentillion),
+    "sgQaCe",   -- 10^1053 (Sexagintiquadringentillion)
+    "UsgQaCe",  -- 10^1056 (Unsexagintiquadringentillion)
+    "DsgQaCe",  -- 10^1059 (Duosexagintiquadringentillion)
+    "TsgQaCe",  -- 10^1062 (Tresexagintiquadringentillion)
+    "QasgQaCe", -- 10^1065 (Quattuorsexagintiquadringentillion)
+    "QisgQaCe", -- 10^1068 (Quinsexagintiquadringentillion)
+    "SxsgQaCe", -- 10^1071 (Sexsexagintiquadringentillion)
+    "SpsgQaCe", -- 10^1074 (Septensexagintiquadringentillion)
+    "OcsgQaCe", -- 10^1077 (Octosexagintiquadringentillion)
+    "NosgQaCe", -- 10^1080 (Novemsexagintiquadringentillion),
 
     -- Septuagintiquadringentillion group (10^1083 to 10^1110)
-    "SpgQaC",   -- 10^1083 (Septuagintiquadringentillion)
-    "USpgQaC",  -- 10^1086 (Unseptuagintiquadringentillion)
-    "DSpgQaC",  -- 10^1089 (Duoseptuagintiquadringentillion)
-    "TSpgQaC",  -- 10^1092 (Treseptuagintiquadringentillion)
-    "QaSpgQaC", -- 10^1095 (Quattuorseptuagintiquadringentillion)
-    "QiSpgQaC", -- 10^1098 (Quinseptuagintiquadringentillion)
-    "SxSpgQaC", -- 10^1101 (Sexseptuagintiquadringentillion)
-    "SpSpgQaC", -- 10^1104 (Septenseptuagintiquadringentillion)
-    "OcSpgQaC", -- 10^1107 (Octoseptuagintiquadringentillion)
-    "NnSpgQaC", -- 10^1110 (Novemseptuagintiquadringentillion),
+    "SgQaCe",   -- 10^1083 (Septuagintiquadringentillion)
+    "USgQaCe",  -- 10^1086 (Unseptuagintiquadringentillion)
+    "DSgQaCe",  -- 10^1089 (Duoseptuagintiquadringentillion)
+    "TSgQaCe",  -- 10^1092 (Treseptuagintiquadringentillion)
+    "QaSgQaCe", -- 10^1095 (Quattuorseptuagintiquadringentillion)
+    "QiSgQaCe", -- 10^1098 (Quinseptuagintiquadringentillion)
+    "SxSgQaCe", -- 10^1101 (Sexseptuagintiquadringentillion)
+    "SpSgQaCe", -- 10^1104 (Septenseptuagintiquadringentillion)
+    "OcSgQaCe", -- 10^1107 (Octoseptuagintiquadringentillion)
+    "NoSgQaCe", -- 10^1110 (Novemseptuagintiquadringentillion),
 
     -- Octogintiquadringentillion group (10^1113 to 10^1140)
-    "OcgQaC",   -- 10^1113 (Octogintiquadringentillion)
-    "UOcgQaC",  -- 10^1116 (Unoctogintiquadringentillion)
-    "DOcgQaC",  -- 10^1119 (Duooctogintiquadringentillion)
-    "TOcgQaC",  -- 10^1122 (Treoctogintiquadringentillion)
-    "QaOcgQaC", -- 10^1125 (Quattuoroctogintiquadringentillion)
-    "QiOcgQaC", -- 10^1128 (Quinoctogintiquadringentillion)
-    "SxOcgQaC", -- 10^1131 (Sexoctogintiquadringentillion)
-    "SpOcgQaC", -- 10^1134 (Septenoctogintiquadringentillion)
-    "OcOcgQaC", -- 10^1137 (Octooctogintiquadringentillion)
-    "NnOcgQaC", -- 10^1140 (Novemoctogintiquadringentillion),
+    "OgQaCe",   -- 10^1113 (Octogintiquadringentillion)
+    "UOgQaCe",  -- 10^1116 (Unoctogintiquadringentillion)
+    "DOgQaCe",  -- 10^1119 (Duooctogintiquadringentillion)
+    "TOgQaCe",  -- 10^1122 (Treoctogintiquadringentillion)
+    "QaOgQaCe", -- 10^1125 (Quattuoroctogintiquadringentillion)
+    "QiOgQaCe", -- 10^1128 (Quinoctogintiquadringentillion)
+    "SxOgQaCe", -- 10^1131 (Sexoctogintiquadringentillion)
+    "SpOgQaCe", -- 10^1134 (Septenoctogintiquadringentillion)
+    "OcOgQaCe", -- 10^1137 (Octooctogintiquadringentillion)
+    "NoOgQaCe", -- 10^1140 (Novemoctogintiquadringentillion),
 
     -- Nonagintiquadringentillion group (10^1143 to 10^1170)
-    "NogQaC",   -- 10^1143 (Nonagintiquadringentillion)
-    "UNogQaC",  -- 10^1146 (Unnonagintiquadringentillion)
-    "DNogQaC",  -- 10^1149 (Duononagintiquadringentillion)
-    "TNogQaC",  -- 10^1152 (Trenonagintiquadringentillion)
-    "QaNogQaC", -- 10^1155 (Quattuornonagintiquadringentillion)
-    "QiNogQaC", -- 10^1158 (Quinnonagintiquadringentillion)
-    "SxNogQaC", -- 10^1161 (Sexnonagintiquadringentillion)
-    "SpNogQaC", -- 10^1164 (Septennonagintiquadringentillion)
-    "OcNogQaC", -- 10^1167 (Octononagintiquadringentillion)
-    "NnNogQaC", -- 10^1170 (Novemnonagintiquadringentillion),
-
-    -- Centiquadringentillion group (10^1173 to 10^1200)
-    "CeQaC",    -- 10^1173 (Centiquadringentillion)
-    "UCeQaC",   -- 10^1176 (Uncentiquadringentillion)
-    "DCeQaC",   -- 10^1179 (Duocentiquadringentillion)
-    "TCeQaC",   -- 10^1182 (Trescentiquadringentillion)
-    "QaCeQaC",  -- 10^1185 (Quattuorcentiquadringentillion)
-    "QiCeQaC",  -- 10^1188 (Quincentiquadringentillion)
-    "SxCeQaC",  -- 10^1191 (Sexcentiquadringentillion)
-    "SpCeQaC",  -- 10^1194 (Septencentiquadringentillion)
-    "OcCeQaC",  -- 10^1197 (Octocentiquadringentillion)
-    "NvCeQaC",  -- 10^1200 (Novemcentiquadringentillion),
+    "NgQaCe",   -- 10^1143 (Nonagintiquadringentillion)
+    "UNgQaCe",  -- 10^1146 (Unnonagintiquadringentillion)
+    "DNgQaCe",  -- 10^1149 (Duononagintiquadringentillion)
+    "TNgQaCe",  -- 10^1152 (Trenonagintiquadringentillion)
+    "QaNgQaCe", -- 10^1155 (Quattuornonagintiquadringentillion)
+    "QiNgQaCe", -- 10^1158 (Quinnonagintiquadringentillion)
+    "SxNgQaCe", -- 10^1161 (Sexnonagintiquadringentillion)
+    "SpNgQaCe", -- 10^1164 (Septennonagintiquadringentillion)
+    "OcNgQaCe", -- 10^1167 (Octononagintiquadringentillion)
+    "NoNgQaCe", -- 10^1170 (Novemnonagintiquadringentillion),
 
     -- Quingentillion family (10^1203 to 10^1230) --
-    "QiC",     -- 10^1203 (Quingentillion)
-    "UQiC",    -- 10^1206 (Unquingentillion)
-    "DQiC",    -- 10^1209 (Duoquingentillion)
-    "TQiC",    -- 10^1212 (Trequingentillion)
-    "QaQiC",   -- 10^1215 (Quattuorquingentillion)
-    "QiQiC",   -- 10^1218 (Quinquingentillion)
-    "SxQiC",   -- 10^1221 (Sexquingentillion)
-    "SpQiC",   -- 10^1224 (Septenquingentillion)
-    "OcQiC",   -- 10^1227 (Octoquingentillion)
-    "NnQiC",   -- 10^1230 (Novemquingentillion),
+    "QiCe",     -- 10^1203 (Quingentillion)
+    "UQiCe",    -- 10^1206 (Unquingentillion)
+    "DQiCe",    -- 10^1209 (Duoquingentillion)
+    "TQiCe",    -- 10^1212 (Trequingentillion)
+    "QaQiCe",   -- 10^1215 (Quattuorquingentillion)
+    "QiQiCe",   -- 10^1218 (Quinquingentillion)
+    "SxQiCe",   -- 10^1221 (Sexquingentillion)
+    "SpQiCe",   -- 10^1224 (Septenquingentillion)
+    "OcQiCe",   -- 10^1227 (Octoquingentillion)
+    "NoQiCe",   -- 10^1230 (Novemquingentillion),
 
-    -- Vigintiquingentillion group (10^1233 to 10^1260)
-    "ViQiC",   -- 10^1233 (Vigintiquingentillion)
-    "UViQiC",  -- 10^1236 (Unvigintiquingentillion)
-    "DViQiC",  -- 10^1239 (Duovigintiquingentillion)
-    "TViQiC",  -- 10^1242 (Trevigintiquingentillion)
-    "QaViQiC", -- 10^1245 (Quattuorvigintiquingentillion)
-    "QiViQiC", -- 10^1248 (Quinvigintiquingentillion)
-    "SxViQiC", -- 10^1251 (Sexvigintiquingentillion)
-    "SpViQiC", -- 10^1254 (Septenvigintiquingentillion)
-    "OcViQiC", -- 10^1257 (Octovigintiquingentillion)
-    "NnViQiC", -- 10^1260 (Novemvigintiquingentillion),
+    -- Vggintiquingentillion group (10^1233 to 10^1260)
+    "VgQiCe",   -- 10^1233 (Vggintiquingentillion)
+    "UVgQiCe",  -- 10^1236 (Unvigintiquingentillion)
+    "DVgQiCe",  -- 10^1239 (Duovigintiquingentillion)
+    "TVgQiCe",  -- 10^1242 (Trevigintiquingentillion)
+    "QaVgQiCe", -- 10^1245 (Quattuorvigintiquingentillion)
+    "QiVgQiCe", -- 10^1248 (Quinvigintiquingentillion)
+    "SxVgQiCe", -- 10^1251 (Sexvigintiquingentillion)
+    "SpVgQiCe", -- 10^1254 (Septenvigintiquingentillion)
+    "OcVgQiCe", -- 10^1257 (Octovigintiquingentillion)
+    "NoVgQiCe", -- 10^1260 (Novemvigintiquingentillion),
 
     -- Trigintiquingentillion Group (10^1263-10^1290)
-    "TgQg",    -- 10^1263 (Trigintiquingentillion)
-    "UTgQg",   -- 10^1266 (Untrigintiquingentillion)
-    "DTgQg",   -- 10^1269 (Duotrigintiquingentillion)
-    "TTgQg",   -- 10^1272 (Tretrigintiquingentillion)
-    "QaTgQg",  -- 10^1275 (Quattuortrigintiquingentillion)
-    "QiTgQg",  -- 10^1278 (Quintrigintiquingentillion)
-    "SxTgQg",  -- 10^1281 (Sextrigintiquingentillion)
-    "SpTgQg",  -- 10^1284 (Septentrigintiquingentillion)
-    "OcTgQg",  -- 10^1287 (Octotrigintiquingentillion)
-    "NnTgQg",  -- 10^1290 (Novemtrigintiquingentillion),
+    "TgQiCe",    -- 10^1263 (Trigintiquingentillion)
+    "UTgQiCe",   -- 10^1266 (Untrigintiquingentillion)
+    "DTgQiCe",   -- 10^1269 (Duotrigintiquingentillion)
+    "TTgQiCe",   -- 10^1272 (Tretrigintiquingentillion)
+    "QaTgQiCe",  -- 10^1275 (Quattuortrigintiquingentillion)
+    "QiTgQiCe",  -- 10^1278 (Quintrigintiquingentillion)
+    "SxTgQiCe",  -- 10^1281 (Sextrigintiquingentillion)
+    "SpTgQiCe",  -- 10^1284 (Septentrigintiquingentillion)
+    "OcTgQiCe",  -- 10^1287 (Octotrigintiquingentillion)
+    "NoTgQiCe",  -- 10^1290 (Novemtrigintiquingentillion),
 
     -- Quadragintiquingentillion Group (10^1293-10^1320)
-    "QagQg",   -- 10^1293 (Quadragintiquingentillion)
-    "UQagQg",  -- 10^1296 (Unquadragintiquingentillion)
-    "DQagQg",  -- 10^1299 (Duoquadragintiquingentillion)
-    "TQagQg",  -- 10^1302 (Trequadragintiquingentillion)
-    "QaQagQg", -- 10^1305 (Quattuorquadragintiquingentillion)
-    "QiQagQg", -- 10^1308 (Quinquadragintiquingentillion)
-    "SxQagQg", -- 10^1311 (Sexquadragintiquingentillion)
-    "SpQagQg", -- 10^1314 (Septenquadragintiquingentillion)
-    "OcQagQg", -- 10^1317 (Octoquadragintiquingentillion)
-    "NnQagQg", -- 10^1320 (Novemquadragintiquingentillion),
+    "qgQiCe",   -- 10^1293 (Quadragintiquingentillion)
+    "UqgQiCe",  -- 10^1296 (Unquadragintiquingentillion)
+    "DqgQiCe",  -- 10^1299 (Duoquadragintiquingentillion)
+    "TqgQiCe",  -- 10^1302 (Trequadragintiquingentillion)
+    "QaqgQiCe", -- 10^1305 (Quattuorquadragintiquingentillion)
+    "QiqgQiCe", -- 10^1308 (Quinquadragintiquingentillion)
+    "SxqgQiCe", -- 10^1311 (Sexquadragintiquingentillion)
+    "SpqgQiCe", -- 10^1314 (Septenquadragintiquingentillion)
+    "OcqgQiCe", -- 10^1317 (Octoquadragintiquingentillion)
+    "NoqgQiCe", -- 10^1320 (Novemquadragintiquingentillion),
 
     -- Quinquagintiquingentillion Group (10^1323-10^1350)
-    "QigQg",   -- 10^1323 (Quinquagintiquingentillion)
-    "UQigQg",  -- 10^1326 (Unquinquagintiquingentillion)
-    "DQigQg",  -- 10^1329 (Duoquinquagintiquingentillion)
-    "TQigQg",  -- 10^1332 (Trequinquagintiquingentillion)
-    "QaQigQg", -- 10^1335 (Quattuorquinquagintiquingentillion)
-    "QiQigQg", -- 10^1338 (Quinquinquagintiquingentillion)
-    "SxQigQg", -- 10^1341 (Sexquinquagintiquingentillion)
-    "SpQigQg", -- 10^1344 (Septenquinquagintiquingentillion)
-    "OcQigQg", -- 10^1347 (Octoquinquagintiquingentillion)
-    "NnQigQg", -- 10^1350 (Novemquinquagintiquingentillion),
+    "QgQiCe",   -- 10^1323 (Quinquagintiquingentillion)
+    "UQgQiCe",  -- 10^1326 (Unquinquagintiquingentillion)
+    "DQgQiCe",  -- 10^1329 (Duoquinquagintiquingentillion)
+    "TQgQiCe",  -- 10^1332 (Trequinquagintiquingentillion)
+    "QaQgQiCe", -- 10^1335 (Quattuorquinquagintiquingentillion)
+    "QiQgQiCe", -- 10^1338 (Quinquinquagintiquingentillion)
+    "SxQgQiCe", -- 10^1341 (Sexquinquagintiquingentillion)
+    "SpQgQiCe", -- 10^1344 (Septenquinquagintiquingentillion)
+    "OcQgQiCe", -- 10^1347 (Octoquinquagintiquingentillion)
+    "NoQgQiCe", -- 10^1350 (Novemquinquagintiquingentillion),
 
     -- Sexagintiquingentillion Group (10^1353-10^1380)
-    "SxgQg",   -- 10^1353 (Sexagintiquingentillion)
-    "USxgQg",  -- 10^1356 (Unsexagintiquingentillion)
-    "DSxgQg",  -- 10^1359 (Duosexagintiquingentillion)
-    "TSxgQg",  -- 10^1362 (Tresexagintiquingentillion)
-    "QaSxgQg", -- 10^1365 (Quattuorsexagintiquingentillion)
-    "QiSxgQg", -- 10^1368 (Quinsexagintiquingentillion)
-    "SxSxgQg", -- 10^1371 (Sexsexagintiquingentillion)
-    "SpSxgQg", -- 10^1374 (Septensexagintiquingentillion)
-    "OcSxgQg", -- 10^1377 (Octosexagintiquingentillion)
-    "NnSxgQg", -- 10^1380 (Novemsexagintiquingentillion),
+    "sgQiCe",   -- 10^1353 (Sexagintiquingentillion)
+    "UsgQiCe",  -- 10^1356 (Unsexagintiquingentillion)
+    "DsgQiCe",  -- 10^1359 (Duosexagintiquingentillion)
+    "TsgQiCe",  -- 10^1362 (Tresexagintiquingentillion)
+    "QasgQiCe", -- 10^1365 (Quattuorsexagintiquingentillion)
+    "QisgQiCe", -- 10^1368 (Quinsexagintiquingentillion)
+    "SxsgQiCe", -- 10^1371 (Sexsexagintiquingentillion)
+    "SpsgQiCe", -- 10^1374 (Septensexagintiquingentillion)
+    "OcsgQiCe", -- 10^1377 (Octosexagintiquingentillion)
+    "NosgQiCe", -- 10^1380 (Novemsexagintiquingentillion),
 
     -- Septuagintiquingentillion Group (10^1383-10^1410)
-    "SpgQg",   -- 10^1383 (Septuagintiquingentillion)
-    "USpgQg",  -- 10^1386 (Unseptuagintiquingentillion)
-    "DSpgQg",  -- 10^1389 (Duoseptuagintiquingentillion)
-    "TSpgQg",  -- 10^1392 (Treseptuagintiquingentillion)
-    "QaSpgQg", -- 10^1395 (Quattuorseptuagintiquingentillion)
-    "QiSpgQg", -- 10^1398 (Quinseptuagintiquingentillion)
-    "SxSpgQg", -- 10^1401 (Sexseptuagintiquingentillion)
-    "SpSpgQg", -- 10^1404 (Septenseptuagintiquingentillion)
-    "OcSpgQg", -- 10^1407 (Octoseptuagintiquingentillion)
-    "NnSpgQg", -- 10^1410 (Novemseptuagintiquingentillion),
+    "SgQiCe",   -- 10^1383 (Septuagintiquingentillion)
+    "USgQiCe",  -- 10^1386 (Unseptuagintiquingentillion)
+    "DSgQiCe",  -- 10^1389 (Duoseptuagintiquingentillion)
+    "TSgQiCe",  -- 10^1392 (Treseptuagintiquingentillion)
+    "QaSgQiCe", -- 10^1395 (Quattuorseptuagintiquingentillion)
+    "QiSgQiCe", -- 10^1398 (Quinseptuagintiquingentillion)
+    "SxSgQiCe", -- 10^1401 (Sexseptuagintiquingentillion)
+    "SpSgQiCe", -- 10^1404 (Septenseptuagintiquingentillion)
+    "OcSgQiCe", -- 10^1407 (Octoseptuagintiquingentillion)
+    "NoSgQiCe", -- 10^1410 (Novemseptuagintiquingentillion),
 
     -- Octogintiquingentillion Group (10^1413-10^1440)
-    "OcgQg",   -- 10^1413 (Octogintiquingentillion)
-    "UOcgQg",  -- 10^1416 (Unoctogintiquingentillion)
-    "DOcgQg",  -- 10^1419 (Duooctogintiquingentillion)
-    "TOcgQg",  -- 10^1422 (Treoctogintiquingentillion)
-    "QaOcgQg", -- 10^1425 (Quattuoroctogintiquingentillion)
-    "QiOcgQg", -- 10^1428 (Quinoctogintiquingentillion)
-    "SxOcgQg", -- 10^1431 (Sexoctogintiquingentillion)
-    "SpOcgQg", -- 10^1434 (Septenoctogintiquingentillion)
-    "OcOcgQg", -- 10^1437 (Octooctogintiquingentillion)
-    "NnOcgQg", -- 10^1440 (Novemoctogintiquingentillion),
+    "OgQiCe",   -- 10^1413 (Octogintiquingentillion)
+    "UOgQiCe",  -- 10^1416 (Unoctogintiquingentillion)
+    "DOgQiCe",  -- 10^1419 (Duooctogintiquingentillion)
+    "TOgQiCe",  -- 10^1422 (Treoctogintiquingentillion)
+    "QaOgQiCe", -- 10^1425 (Quattuoroctogintiquingentillion)
+    "QiOgQiCe", -- 10^1428 (Quinoctogintiquingentillion)
+    "SxOgQiCe", -- 10^1431 (Sexoctogintiquingentillion)
+    "SpOgQiCe", -- 10^1434 (Septenoctogintiquingentillion)
+    "OcOgQiCe", -- 10^1437 (Octooctogintiquingentillion)
+    "NoOgQiCe", -- 10^1440 (Novemoctogintiquingentillion),
 
     -- Nonagintiquingentillion Group (10^1443-10^1470)
-    "NogQg",   -- 10^1443 (Nonagintiquingentillion)
-    "UNogQg",  -- 10^1446 (Unnonagintiquingentillion)
-    "DNogQg",  -- 10^1449 (Duononagintiquingentillion)
-    "TNogQg",  -- 10^1452 (Trenonagintiquingentillion)
-    "QaNogQg", -- 10^1455 (Quattuornonagintiquingentillion)
-    "QiNogQg", -- 10^1458 (Quinnonagintiquingentillion)
-    "SxNogQg", -- 10^1461 (Sexnonagintiquingentillion)
-    "SpNogQg", -- 10^1464 (Septennonagintiquingentillion)
-    "OcNogQg", -- 10^1467 (Octononagintiquingentillion)
-    "NnNogQg", -- 10^1470 (Novemnonagintiquingentillion),
-
-    -- Centiquingentillion Group (10^1473-10^1500)
-    "CeQg",    -- 10^1473 (Centiquingentillion)
-    "UCeQg",   -- 10^1476 (Uncentiquingentillion)
-    "DCeQg",   -- 10^1479 (Duocentiquingentillion)
-    "TCeQg",   -- 10^1482 (Trescentiquingentillion)
-    "QaCeQg",  -- 10^1485 (Quattuorcentiquingentillion)
-    "QiCeQg",  -- 10^1488 (Quincentiquingentillion)
-    "SxCeQg",  -- 10^1491 (Sexcentiquingentillion)
-    "SpCeQg",  -- 10^1494 (Septencentiquingentillion)
-    "OcCeQg",  -- 10^1497 (Octocentiquingentillion)
-    "NvCeQg",  -- 10^1500 (Novemcentiquingentillion),
-
-    -- Quingentillion Group (10^1503-10^1530)
-    "Qg",     -- 10^1503 (Quingentillion)
-    "UQg",    -- 10^1506 (Unquingentillion)
-    "DQg",    -- 10^1509 (Duoquingentillion)
-    "TQg",    -- 10^1512 (Trequingentillion)
-    "QaQg",   -- 10^1515 (Quattuorquingentillion)
-    "QiQg",   -- 10^1518 (Quinquingentillion)
-    "SxQg",   -- 10^1521 (Sexquingentillion)
-    "SpQg",   -- 10^1524 (Septenquingentillion)
-    "OcQg",   -- 10^1527 (Octoquingentillion)
-    "NnQg",   -- 10^1530 (Novemquingentillion),
-
-    -- Vigintiquingentillion Group (10^1533-10^1560)
-    "ViQg",   -- 10^1533
-    "UViQg",  -- 10^1536
-    "DViQg",  -- 10^1539
-    "TViQg",  -- 10^1542
-    "QaViQg", -- 10^1545
-    "QiViQg", -- 10^1548
-    "SxViQg", -- 10^1551
-    "SpViQg", -- 10^1554
-    "OcViQg", -- 10^1557
-    "NnViQg", -- 10^1560,
-
-    -- Trigintiquingentillion (10^1563-10^1590)
-    "TgQg",    -- 10^1563
-    "UTgQg",   -- 10^1566
-    "DTgQg",   -- 10^1569
-    "TTgQg",   -- 10^1572
-    "QaTgQg",  -- 10^1575
-    "QiTgQg",  -- 10^1578
-    "SxTgQg",  -- 10^1581
-    "SpTgQg",  -- 10^1584
-    "OcTgQg",  -- 10^1587
-    "NnTgQg",  -- 10^1590,
-
-    -- Quadragintiquingentillion (10^1593-10^1620)
-    "QagQg",   -- 10^1593
-    "UQagQg",  -- 10^1596
-    "DQagQg",  -- 10^1599
-    "TQagQg",  -- 10^1602
-    "QaQagQg", -- 10^1605
-    "QiQagQg", -- 10^1608
-    "SxQagQg", -- 10^1611
-    "SpQagQg", -- 10^1614
-    "OcQagQg", -- 10^1617
-    "NnQagQg", -- 10^1620,
-
-    -- Quinquagintiquingentillion (10^1623-10^1650)
-    "QigQg",   -- 10^1623
-    "UQigQg",  -- 10^1626
-    "DQigQg",  -- 10^1629
-    "TQigQg",  -- 10^1632
-    "QaQigQg", -- 10^1635
-    "QiQigQg", -- 10^1638
-    "SxQigQg", -- 10^1641
-    "SpQigQg", -- 10^1644
-    "OcQigQg", -- 10^1647
-    "NnQigQg", -- 10^1650,
-
-    -- Sexagintiquingentillion (10^1653-10^1680)
-    "SxgQg",   -- 10^1653
-    "USxgQg",  -- 10^1656
-    "DSxgQg",  -- 10^1659
-    "TSxgQg",  -- 10^1662
-    "QaSxgQg", -- 10^1665
-    "QiSxgQg", -- 10^1668
-    "SxSxgQg", -- 10^1671
-    "SpSxgQg", -- 10^1674
-    "OcSxgQg", -- 10^1677
-    "NnSxgQg", -- 10^1680,
-
-    -- Septuagintiquingentillion (10^1683-10^1710)
-    "SpgQg",   -- 10^1683
-    "USpgQg",  -- 10^1686
-    "DSpgQg",  -- 10^1689
-    "TSpgQg",  -- 10^1692
-    "QaSpgQg", -- 10^1695
-    "QiSpgQg", -- 10^1698
-    "SxSpgQg", -- 10^1701
-    "SpSpgQg", -- 10^1704
-    "OcSpgQg", -- 10^1707
-    "NnSpgQg", -- 10^1710,
-
-    -- Octogintiquingentillion (10^1713-10^1740)
-    "OcgQg",   -- 10^1713
-    "UOcgQg",  -- 10^1716
-    "DOcgQg",  -- 10^1719
-    "TOcgQg",  -- 10^1722
-    "QaOcgQg", -- 10^1725
-    "QiOcgQg", -- 10^1728
-    "SxOcgQg", -- 10^1731
-    "SpOcgQg", -- 10^1734
-    "OcOcgQg", -- 10^1737
-    "NnOcgQg", -- 10^1740,
-
-    -- Nonagintiquingentillion (10^1743-10^1770)
-    "NogQg",   -- 10^1743
-    "UNogQg",  -- 10^1746
-    "DNogQg",  -- 10^1749
-    "TNogQg",  -- 10^1752
-    "QaNogQg", -- 10^1755
-    "QiNogQg", -- 10^1758
-    "SxNogQg", -- 10^1761
-    "SpNogQg", -- 10^1764
-    "OcNogQg", -- 10^1767
-    "NnNogQg", -- 10^1770,
-
-    -- Centiquingentillion (10^1773-10^1800)
-    "CeQg",    -- 10^1773
-    "UCeQg",   -- 10^1776
-    "DCeQg",   -- 10^1779
-    "TCeQg",   -- 10^1782
-    "QaCeQg",  -- 10^1785
-    "QiCeQg",  -- 10^1788
-    "SxCeQg",  -- 10^1791
-    "SpCeQg",  -- 10^1794
-    "OcCeQg",  -- 10^1797
-    "NvCeQg",  -- 10^1800,
+    "NgQiCe",   -- 10^1443 (Nonagintiquingentillion)
+    "UNgQiCe",  -- 10^1446 (Unnonagintiquingentillion)
+    "DNgQiCe",  -- 10^1449 (Duononagintiquingentillion)
+    "TNgQiCe",  -- 10^1452 (Trenonagintiquingentillion)
+    "QaNgQiCe", -- 10^1455 (Quattuornonagintiquingentillion)
+    "QiNgQiCe", -- 10^1458 (Quinnonagintiquingentillion)
+    "SxNgQiCe", -- 10^1461 (Sexnonagintiquingentillion)
+    "SpNgQiCe", -- 10^1464 (Septennonagintiquingentillion)
+    "OcNgQiCe", -- 10^1467 (Octononagintiquingentillion)
+    "NoNgQiCe", -- 10^1470 (Novemnonagintiquingentillion),
 
     -- ===== Sescentillion Family (10^1803-10^2103) =====
     -- Base Group (10^1803-10^1830)
-    "Sc",     -- 10^1803
-    "USc",    -- 10^1806
-    "DSc",    -- 10^1809
-    "TSc",    -- 10^1812
-    "QaSc",   -- 10^1815
-    "QiSc",   -- 10^1818
-    "SxSc",   -- 10^1821
-    "SpSc",   -- 10^1824
-    "OcSc",   -- 10^1827
-    "NnSc",   -- 10^1830,
+    "SxCe",     -- 10^1803
+    "USxCe",    -- 10^1806
+    "DSxCe",    -- 10^1809
+    "TSxCe",    -- 10^1812
+    "QaSxCe",   -- 10^1815
+    "QiSxCe",   -- 10^1818
+    "SxSxCe",   -- 10^1821
+    "SpSxCe",   -- 10^1824
+    "OcSxCe",   -- 10^1827
+    "NoSxCe",   -- 10^1830,
 
-    -- Vigintisescentillion (10^1833-10^1860)
-    "ViSc",   -- 10^1833
-    "UViSc",  -- 10^1836
-    "DViSc",  -- 10^1839
-    "TViSc",  -- 10^1842
-    "QaViSc", -- 10^1845
-    "QiViSc", -- 10^1848
-    "SxViSc", -- 10^1851
-    "SpViSc", -- 10^1854
-    "OcViSc", -- 10^1857
-    "NnViSc", -- 10^1860,
+    -- Vggintisescentillion (10^1833-10^1860)
+    "VgSxCe",   -- 10^1833
+    "UVgSxCe",  -- 10^1836
+    "DVgSxCe",  -- 10^1839
+    "TVgSxCe",  -- 10^1842
+    "QaVgSxCe", -- 10^1845
+    "QiVgSxCe", -- 10^1848
+    "SxVgSxCe", -- 10^1851
+    "SpVgSxCe", -- 10^1854
+    "OcVgSxCe", -- 10^1857
+    "NoVgSxCe", -- 10^1860,
 
     -- Trigintisescentillion Group (10^1863-10^1890)
-    "TgSc",    -- 10^1863 (Trigintisescentillion)
-    "UTgSc",   -- 10^1866 (Untrigintisescentillion)
-    "DTgSc",   -- 10^1869 (Duotrigintisescentillion)
-    "TTgSc",   -- 10^1872 (Tretrigintisescentillion)
-    "QaTgSc",  -- 10^1875 (Quattuortrigintisescentillion)
-    "QiTgSc",  -- 10^1878 (Quintrigintisescentillion)
-    "SxTgSc",  -- 10^1881 (Sextrigintisescentillion)
-    "SpTgSc",  -- 10^1884 (Septentrigintisescentillion)
-    "OcTgSc",  -- 10^1887 (Octotrigintisescentillion)
-    "NnTgSc",  -- 10^1890 (Novemtrigintisescentillion),
+    "TgSxCe",    -- 10^1863 (Trigintisescentillion)
+    "UTgSxCe",   -- 10^1866 (Untrigintisescentillion)
+    "DTgSxCe",   -- 10^1869 (Duotrigintisescentillion)
+    "TTgSxCe",   -- 10^1872 (Tretrigintisescentillion)
+    "QaTgSxCe",  -- 10^1875 (Quattuortrigintisescentillion)
+    "QiTgSxCe",  -- 10^1878 (Quintrigintisescentillion)
+    "SxTgSxCe",  -- 10^1881 (Sextrigintisescentillion)
+    "SpTgSxCe",  -- 10^1884 (Septentrigintisescentillion)
+    "OcTgSxCe",  -- 10^1887 (Octotrigintisescentillion)
+    "NoTgSxCe",  -- 10^1890 (Novemtrigintisescentillion),
 
     -- Quadragintisescentillion Group (10^1893-10^1920)
-    "QagSc",   -- 10^1893 (Quadragintisescentillion)
-    "UQagSc",  -- 10^1896 (Unquadragintisescentillion)
-    "DQagSc",  -- 10^1899 (Duoquadragintisescentillion)
-    "TQagSc",  -- 10^1902 (Trequadragintisescentillion)
-    "QaQagSc", -- 10^1905 (Quattuorquadragintisescentillion)
-    "QiQagSc", -- 10^1908 (Quinquadragintisescentillion)
-    "SxQagSc", -- 10^1911 (Sexquadragintisescentillion)
-    "SpQagSc", -- 10^1914 (Septenquadragintisescentillion)
-    "OcQagSc", -- 10^1917 (Octoquadragintisescentillion)
-    "NnQagSc", -- 10^1920 (Novemquadragintisescentillion),
+    "qgSxCe",   -- 10^1893 (Quadragintisescentillion)
+    "UqgSxCe",  -- 10^1896 (Unquadragintisescentillion)
+    "DqgSxCe",  -- 10^1899 (Duoquadragintisescentillion)
+    "TqgSxCe",  -- 10^1902 (Trequadragintisescentillion)
+    "QaqgSxCe", -- 10^1905 (Quattuorquadragintisescentillion)
+    "QiqgSxCe", -- 10^1908 (Quinquadragintisescentillion)
+    "SxqgSxCe", -- 10^1911 (Sexquadragintisescentillion)
+    "SpqgSxCe", -- 10^1914 (Septenquadragintisescentillion)
+    "OcqgSxCe", -- 10^1917 (Octoquadragintisescentillion)
+    "NoqgSxCe", -- 10^1920 (Novemquadragintisescentillion),
 
     -- Quinquagintisescentillion Group (10^1923-10^1950)
-    "QigSc",   -- 10^1923 (Quinquagintisescentillion)
-    "UQigSc",  -- 10^1926 (Unquinquagintisescentillion)
-    "DQigSc",  -- 10^1929 (Duoquinquagintisescentillion)
-    "TQigSc",  -- 10^1932 (Trequinquagintisescentillion)
-    "QaQigSc", -- 10^1935 (Quattuorquinquagintisescentillion)
-    "QiQigSc", -- 10^1938 (Quinquinquagintisescentillion)
-    "SxQigSc", -- 10^1941 (Sexquinquagintisescentillion)
-    "SpQigSc", -- 10^1944 (Septenquinquagintisescentillion)
-    "OcQigSc", -- 10^1947 (Octoquinquagintisescentillion)
-    "NnQigSc", -- 10^1950 (Novemquinquagintisescentillion),
+    "QgSxCe",   -- 10^1923 (Quinquagintisescentillion)
+    "UQgSxCe",  -- 10^1926 (Unquinquagintisescentillion)
+    "DQgSxCe",  -- 10^1929 (Duoquinquagintisescentillion)
+    "TQgSxCe",  -- 10^1932 (Trequinquagintisescentillion)
+    "QaQgSxCe", -- 10^1935 (Quattuorquinquagintisescentillion)
+    "QiQgSxCe", -- 10^1938 (Quinquinquagintisescentillion)
+    "SxQgSxCe", -- 10^1941 (Sexquinquagintisescentillion)
+    "SpQgSxCe", -- 10^1944 (Septenquinquagintisescentillion)
+    "OcQgSxCe", -- 10^1947 (Octoquinquagintisescentillion)
+    "NoQgSxCe", -- 10^1950 (Novemquinquagintisescentillion),
 
     -- Sexagintisescentillion Group (10^1953-10^1980)
-    "SxgSc",   -- 10^1953 (Sexagintisescentillion)
-    "USxgSc",  -- 10^1956 (Unsexagintisescentillion)
-    "DSxgSc",  -- 10^1959 (Duosexagintisescentillion)
-    "TSxgSc",  -- 10^1962 (Tresexagintisescentillion)
-    "QaSxgSc", -- 10^1965 (Quattuorsexagintisescentillion)
-    "QiSxgSc", -- 10^1968 (Quinsexagintisescentillion)
-    "SxSxgSc", -- 10^1971 (Sexsexagintisescentillion)
-    "SpSxgSc", -- 10^1974 (Septensexagintisescentillion)
-    "OcSxgSc", -- 10^1977 (Octosexagintisescentillion)
-    "NnSxgSc", -- 10^1980 (Novemsexagintisescentillion),
+    "sgSxCe",   -- 10^1953 (Sexagintisescentillion)
+    "UsgSxCe",  -- 10^1956 (Unsexagintisescentillion)
+    "DsgSxCe",  -- 10^1959 (Duosexagintisescentillion)
+    "TsgSxCe",  -- 10^1962 (Tresexagintisescentillion)
+    "QasgSxCe", -- 10^1965 (Quattuorsexagintisescentillion)
+    "QisgSxCe", -- 10^1968 (Quinsexagintisescentillion)
+    "SxsgSxCe", -- 10^1971 (Sexsexagintisescentillion)
+    "SpsgSxCe", -- 10^1974 (Septensexagintisescentillion)
+    "OcsgSxCe", -- 10^1977 (Octosexagintisescentillion)
+    "NosgSxCe", -- 10^1980 (Novemsexagintisescentillion),
 
     -- Septuagintisescentillion Group (10^1983-10^2010)
-    "SpgSc",   -- 10^1983 (Septuagintisescentillion)
-    "USpgSc",  -- 10^1986 (Unseptuagintisescentillion)
-    "DSpgSc",  -- 10^1989 (Duoseptuagintisescentillion)
-    "TSpgSc",  -- 10^1992 (Treseptuagintisescentillion)
-    "QaSpgSc", -- 10^1995 (Quattuorseptuagintisescentillion)
-    "QiSpgSc", -- 10^1998 (Quinseptuagintisescentillion)
-    "SxSpgSc", -- 10^2001 (Sexseptuagintisescentillion)
-    "SpSpgSc", -- 10^2004 (Septenseptuagintisescentillion)
-    "OcSpgSc", -- 10^2007 (Octoseptuagintisescentillion)
-    "NnSpgSc", -- 10^2010 (Novemseptuagintisescentillion),
+    "SgSxCe",   -- 10^1983 (Septuagintisescentillion)
+    "USgSxCe",  -- 10^1986 (Unseptuagintisescentillion)
+    "DSgSxCe",  -- 10^1989 (Duoseptuagintisescentillion)
+    "TSgSxCe",  -- 10^1992 (Treseptuagintisescentillion)
+    "QaSgSxCe", -- 10^1995 (Quattuorseptuagintisescentillion)
+    "QiSgSxCe", -- 10^1998 (Quinseptuagintisescentillion)
+    "SxSgSxCe", -- 10^2001 (Sexseptuagintisescentillion)
+    "SpSgSxCe", -- 10^2004 (Septenseptuagintisescentillion)
+    "OcSgSxCe", -- 10^2007 (Octoseptuagintisescentillion)
+    "NoSgSxCe", -- 10^2010 (Novemseptuagintisescentillion),
 
     -- Octogintisescentillion Group (10^2013-10^2040)
-    "OcgSc",   -- 10^2013 (Octogintisescentillion)
-    "UOcgSc",  -- 10^2016 (Unoctogintisescentillion)
-    "DOcgSc",  -- 10^2019 (Duooctogintisescentillion)
-    "TOcgSc",  -- 10^2022 (Treoctogintisescentillion)
-    "QaOcgSc", -- 10^2025 (Quattuoroctogintisescentillion)
-    "QiOcgSc", -- 10^2028 (Quinoctogintisescentillion)
-    "SxOcgSc", -- 10^2031 (Sexoctogintisescentillion)
-    "SpOcgSc", -- 10^2034 (Septenoctogintisescentillion)
-    "OcOcgSc", -- 10^2037 (Octooctogintisescentillion)
-    "NnOcgSc", -- 10^2040 (Novemoctogintisescentillion),
+    "OgSxCe",   -- 10^2013 (Octogintisescentillion)
+    "UOgSxCe",  -- 10^2016 (Unoctogintisescentillion)
+    "DOgSxCe",  -- 10^2019 (Duooctogintisescentillion)
+    "TOgSxCe",  -- 10^2022 (Treoctogintisescentillion)
+    "QaOgSxCe", -- 10^2025 (Quattuoroctogintisescentillion)
+    "QiOgSxCe", -- 10^2028 (Quinoctogintisescentillion)
+    "SxOgSxCe", -- 10^2031 (Sexoctogintisescentillion)
+    "SpOgSxCe", -- 10^2034 (Septenoctogintisescentillion)
+    "OcOgSxCe", -- 10^2037 (Octooctogintisescentillion)
+    "NoOgSxCe", -- 10^2040 (Novemoctogintisescentillion),
 
     -- Nonagintisescentillion Group (10^2043-10^2070)
-    "NogSc",   -- 10^2043 (Nonagintisescentillion)
-    "UNogSc",  -- 10^2046 (Unnonagintisescentillion)
-    "DNogSc",  -- 10^2049 (Duononagintisescentillion)
-    "TNogSc",  -- 10^2052 (Trenonagintisescentillion)
-    "QaNogSc", -- 10^2055 (Quattuornonagintisescentillion)
-    "QiNogSc", -- 10^2058 (Quinnonagintisescentillion)
-    "SxNogSc", -- 10^2061 (Sexnonagintisescentillion)
-    "SpNogSc", -- 10^2064 (Septennonagintisescentillion)
-    "OcNogSc", -- 10^2067 (Octononagintisescentillion)
-    "NnNogSc", -- 10^2070 (Novemnonagintisescentillion),
-
-    -- Centisescentillion Group (10^2073-10^2100)
-    "CeSc",    -- 10^2073 (Centisescentillion)
-    "UCeSc",   -- 10^2076 (Uncentisescentillion)
-    "DCeSc",   -- 10^2079 (Duocentisescentillion)
-    "TCeSc",   -- 10^2082 (Trescentisescentillion)
-    "QaCeSc",  -- 10^2085 (Quattuorcentisescentillion)
-    "QiCeSc",  -- 10^2088 (Quincentisescentillion)
-    "SxCeSc",  -- 10^2091 (Sexcentisescentillion)
-    "SpCeSc",  -- 10^2094 (Septencentisescentillion)
-    "OcCeSc",  -- 10^2097 (Octocentisescentillion)
-    "NvCeSc",  -- 10^2100 (Novemcentisescentillion),
+    "NgSxCe",   -- 10^2043 (Nonagintisescentillion)
+    "UNgSxCe",  -- 10^2046 (Unnonagintisescentillion)
+    "DNgSxCe",  -- 10^2049 (Duononagintisescentillion)
+    "TNgSxCe",  -- 10^2052 (Trenonagintisescentillion)
+    "QaNgSxCe", -- 10^2055 (Quattuornonagintisescentillion)
+    "QiNgSxCe", -- 10^2058 (Quinnonagintisescentillion)
+    "SxNgSxCe", -- 10^2061 (Sexnonagintisescentillion)
+    "SpNgSxCe", -- 10^2064 (Septennonagintisescentillion)
+    "OcNgSxCe", -- 10^2067 (Octononagintisescentillion)
+    "NoNgSxCe", -- 10^2070 (Novemnonagintisescentillion),
 
     -- Base Group (10^2103-10^2130)
-    "Spt",    -- 10^2103 (Septingentillion)
-    "USpt",   -- 10^2106 (Unseptingentillion)
-    "DSpt",   -- 10^2109 (Duoseptingentillion)
-    "TSpt",   -- 10^2112 (Treseptingentillion)
-    "QaSpt",  -- 10^2115 (Quattuorseptingentillion)
-    "QiSpt",  -- 10^2118 (Quinseptingentillion)
-    "SxSpt",  -- 10^2121 (Sexseptingentillion)
-    "SpSpt",  -- 10^2124 (Septenseptingentillion)
-    "OcSpt",  -- 10^2127 (Octoseptingentillion)
-    "NnSpt",  -- 10^2130 (Novemseptingentillion),
+    "SpCe",    -- 10^2103 (Septingentillion)
+    "USpCe",   -- 10^2106 (Unseptingentillion)
+    "DSpCe",   -- 10^2109 (Duoseptingentillion)
+    "TSpCe",   -- 10^2112 (Treseptingentillion)
+    "QaSpCe",  -- 10^2115 (Quattuorseptingentillion)
+    "QiSpCe",  -- 10^2118 (Quinseptingentillion)
+    "SxSpCe",  -- 10^2121 (Sexseptingentillion)
+    "SpSpCe",  -- 10^2124 (Septenseptingentillion)
+    "OcSpCe",  -- 10^2127 (Octoseptingentillion)
+    "NoSpCe",  -- 10^2130 (Novemseptingentillion),
 
-    -- Vigintiseptingentillion Group (10^2133-10^2160)
-    "ViSpt",  -- 10^2133 (Vigintiseptingentillion)
-    "UViSpt", -- 10^2136 (Unvigintiseptingentillion)
-    "DViSpt", -- 10^2139 (Duovigintiseptingentillion)
-    "TViSpt", -- 10^2142 (Trevigintiseptingentillion)
-    "QaViSpt",-- 10^2145 (Quattuorvigintiseptingentillion)
-    "QiViSpt",-- 10^2148 (Quinvigintiseptingentillion)
-    "SxViSpt",-- 10^2151 (Sexvigintiseptingentillion)
-    "SpViSpt",-- 10^2154 (Septenvigintiseptingentillion)
-    "OcViSpt",-- 10^2157 (Octovigintiseptingentillion)
-    "NnViSpt",-- 10^2160 (Novemvigintiseptingentillion),
+    -- Vggintiseptingentillion Group (10^2133-10^2160)
+    "VgSpCe",  -- 10^2133 (Vggintiseptingentillion)
+    "UVgSpCe", -- 10^2136 (Unvigintiseptingentillion)
+    "DVgSpCe", -- 10^2139 (Duovigintiseptingentillion)
+    "TVgSpCe", -- 10^2142 (Trevigintiseptingentillion)
+    "QaVgSpCe",-- 10^2145 (Quattuorvigintiseptingentillion)
+    "QiVgSpCe",-- 10^2148 (Quinvigintiseptingentillion)
+    "SxVgSpCe",-- 10^2151 (Sexvigintiseptingentillion)
+    "SpVgSpCe",-- 10^2154 (Septenvigintiseptingentillion)
+    "OcVgSpCe",-- 10^2157 (Octovigintiseptingentillion)
+    "NoVgSpCe",-- 10^2160 (Novemvigintiseptingentillion),
 
     -- Trigintiseptingentillion Group (10^2163-10^2190)
-    "TgSpt",    -- 10^2163
-    "UTgSpt",   -- 10^2166
-    "DTgSpt",   -- 10^2169
-    "TTgSpt",   -- 10^2172
-    "QaTgSpt",  -- 10^2175
-    "QiTgSpt",  -- 10^2178
-    "SxTgSpt",  -- 10^2181
-    "SpTgSpt",  -- 10^2184
-    "OcTgSpt",  -- 10^2187
-    "NnTgSpt",  -- 10^2190,
+    "TgSpCe",    -- 10^2163
+    "UTgSpCe",   -- 10^2166
+    "DTgSpCe",   -- 10^2169
+    "TTgSpCe",   -- 10^2172
+    "QaTgSpCe",  -- 10^2175
+    "QiTgSpCe",  -- 10^2178
+    "SxTgSpCe",  -- 10^2181
+    "SpTgSpCe",  -- 10^2184
+    "OcTgSpCe",  -- 10^2187
+    "NoTgSpCe",  -- 10^2190,
 
     -- Quadragintiseptingentillion (10^2193-10^2220)
-    "QagSpt",   -- 10^2193
-    "UQagSpt",  -- 10^2196
-    "DQagSpt",  -- 10^2199
-    "TQagSpt",  -- 10^2202
-    "QaQagSpt", -- 10^2205
-    "QiQagSpt", -- 10^2208
-    "SxQagSpt", -- 10^2211
-    "SpQagSpt", -- 10^2214
-    "OcQagSpt", -- 10^2217
-    "NnQagSpt", -- 10^2220,
+    "qgSpCe",   -- 10^2193
+    "UqgSpCe",  -- 10^2196
+    "DqgSpCe",  -- 10^2199
+    "TqgSpCe",  -- 10^2202
+    "QaqgSpCe", -- 10^2205
+    "QiqgSpCe", -- 10^2208
+    "SxqgSpCe", -- 10^2211
+    "SpqgSpCe", -- 10^2214
+    "OcqgSpCe", -- 10^2217
+    "NoqgSpCe", -- 10^2220,
 
     -- Quinquagintiseptingentillion (10^2223-10^2250)
-    "QigSpt",   -- 10^2223
-    "UQigSpt",  -- 10^2226
-    "DQigSpt",  -- 10^2229
-    "TQigSpt",  -- 10^2232
-    "QaQigSpt", -- 10^2235
-    "QiQigSpt", -- 10^2238
-    "SxQigSpt", -- 10^2241
-    "SpQigSpt", -- 10^2244
-    "OcQigSpt", -- 10^2247
-    "NnQigSpt", -- 10^2250,
+    "QgSpCe",   -- 10^2223
+    "UQgSpCe",  -- 10^2226
+    "DQgSpCe",  -- 10^2229
+    "TQgSpCe",  -- 10^2232
+    "QaQgSpCe", -- 10^2235
+    "QiQgSpCe", -- 10^2238
+    "SxQgSpCe", -- 10^2241
+    "SpQgSpCe", -- 10^2244
+    "OcQgSpCe", -- 10^2247
+    "NoQgSpCe", -- 10^2250,
 
     -- Sexagintiseptingentillion (10^2253-10^2280)
-    "SxgSpt",   -- 10^2253
-    "USxgSpt",  -- 10^2256
-    "DSxgSpt",  -- 10^2259
-    "TSxgSpt",  -- 10^2262
-    "QaSxgSpt", -- 10^2265
-    "QiSxgSpt", -- 10^2268
-    "SxSxgSpt", -- 10^2271
-    "SpSxgSpt", -- 10^2274
-    "OcSxgSpt", -- 10^2277
-    "NnSxgSpt", -- 10^2280,
+    "sgSpCe",   -- 10^2253
+    "UsgSpCe",  -- 10^2256
+    "DsgSpCe",  -- 10^2259
+    "TsgSpCe",  -- 10^2262
+    "QasgSpCe", -- 10^2265
+    "QisgSpCe", -- 10^2268
+    "SxsgSpCe", -- 10^2271
+    "SpsgSpCe", -- 10^2274
+    "OcsgSpCe", -- 10^2277
+    "NosgSpCe", -- 10^2280,
 
     -- Septuagintiseptingentillion (10^2283-10^2310)
-    "SpgSpt",   -- 10^2283
-    "USpgSpt",  -- 10^2286
-    "DSpgSpt",  -- 10^2289
-    "TSpgSpt",  -- 10^2292
-    "QaSpgSpt", -- 10^2295
-    "QiSpgSpt", -- 10^2298
-    "SxSpgSpt", -- 10^2301
-    "SpSpgSpt", -- 10^2304
-    "OcSpgSpt", -- 10^2307
-    "NnSpgSpt", -- 10^2310,
+    "SgSpCe",   -- 10^2283
+    "USgSpCe",  -- 10^2286
+    "DSgSpCe",  -- 10^2289
+    "TSgSpCe",  -- 10^2292
+    "QaSgSpCe", -- 10^2295
+    "QiSgSpCe", -- 10^2298
+    "SxSgSpCe", -- 10^2301
+    "SpSgSpCe", -- 10^2304
+    "OcSgSpCe", -- 10^2307
+    "NoSgSpCe", -- 10^2310,
 
     -- Octogintiseptingentillion (10^2313-10^2340)
-    "OcgSpt",   -- 10^2313
-    "UOcgSpt",  -- 10^2316
-    "DOcgSpt",  -- 10^2319
-    "TOcgSpt",  -- 10^2322
-    "QaOcgSpt", -- 10^2325
-    "QiOcgSpt", -- 10^2328
-    "SxOcgSpt", -- 10^2331
-    "SpOcgSpt", -- 10^2334
-    "OcOcgSpt", -- 10^2337
-    "NnOcgSpt", -- 10^2340,
+    "OgSpCe",   -- 10^2313
+    "UOgSpCe",  -- 10^2316
+    "DOgSpCe",  -- 10^2319
+    "TOgSpCe",  -- 10^2322
+    "QaOgSpCe", -- 10^2325
+    "QiOgSpCe", -- 10^2328
+    "SxOgSpCe", -- 10^2331
+    "SpOgSpCe", -- 10^2334
+    "OcOgSpCe", -- 10^2337
+    "NoOgSpCe", -- 10^2340,
 
     -- Nonagintiseptingentillion (10^2343-10^2370)
-    "NogSpt",   -- 10^2343
-    "UNogSpt",  -- 10^2346
-    "DNogSpt",  -- 10^2349
-    "TNogSpt",  -- 10^2352
-    "QaNogSpt", -- 10^2355
-    "QiNogSpt", -- 10^2358
-    "SxNogSpt", -- 10^2361
-    "SpNogSpt", -- 10^2364
-    "OcNogSpt", -- 10^2367
-    "NnNogSpt", -- 10^2370,
-
-    -- Centiseptingentillion (10^2373-10^2400)
-    "CeSpt",    -- 10^2373
-    "UCeSpt",   -- 10^2376
-    "DCeSpt",   -- 10^2379
-    "TCeSpt",   -- 10^2382
-    "QaCeSpt",  -- 10^2385
-    "QiCeSpt",  -- 10^2388
-    "SxCeSpt",  -- 10^2391
-    "SpCeSpt",  -- 10^2394
-    "OcCeSpt",  -- 10^2397
-    "NvCeSpt",  -- 10^2400,
+    "NgSpCe",   -- 10^2343
+    "UNgSpCe",  -- 10^2346
+    "DNgSpCe",  -- 10^2349
+    "TNgSpCe",  -- 10^2352
+    "QaNgSpCe", -- 10^2355
+    "QiNgSpCe", -- 10^2358
+    "SxNgSpCe", -- 10^2361
+    "SpNgSpCe", -- 10^2364
+    "OcNgSpCe", -- 10^2367
+    "NoNgSpCe", -- 10^2370,
 
     -- Octingentillion Group (10^2403-10^2430)
-    "Octg",   -- 10^2403
-    "UOctg",  -- 10^2406
-    "DOctg",  -- 10^2409
-    "TOctg",  -- 10^2412
-    "QaOctg", -- 10^2415
-    "QiOctg", -- 10^2418
-    "SxOctg", -- 10^2421
-    "SpOctg", -- 10^2424
-    "OcOctg", -- 10^2427
-    "NnOctg", -- 10^2430,
+    "OcCe",   -- 10^2403
+    "UOcCe",  -- 10^2406
+    "DOcCe",  -- 10^2409
+    "TOcCe",  -- 10^2412
+    "QaOcCe", -- 10^2415
+    "QiOcCe", -- 10^2418
+    "SxOcCe", -- 10^2421
+    "SpOcCe", -- 10^2424
+    "OcOcCe", -- 10^2427
+    "NoOcCe", -- 10^2430,
 
-    -- Vigintioctingentillion (10^2433-10^2460)
-    "ViOctg", -- 10^2433
-    "UViOctg",-- 10^2436
-    "DViOctg",-- 10^2439
-    "TViOctg",-- 10^2442
-    "QaViOctg",--10^2445
-    "QiViOctg",--10^2448
-    "SxViOctg",--10^2451
-    "SpViOctg",--10^2454
-    "OcViOctg",--10^2457
-    "NnViOctg",--10^2460,
+    -- Vggintioctingentillion (10^2433-10^2460)
+    "VgOcCe", -- 10^2433
+    "UVgOcCe",-- 10^2436
+    "DVgOcCe",-- 10^2439
+    "TVgOcCe",-- 10^2442
+    "QaVgOcCe",--10^2445
+    "QiVgOcCe",--10^2448
+    "SxVgOcCe",--10^2451
+    "SpVgOcCe",--10^2454
+    "OcVgOcCe",--10^2457
+    "NoVgOcCe",--10^2460,
 
     -- Trigintioctingentillion Group (10^2463-10^2490)
-    "TgOctg",    -- 10^2463 (Trigintioctingentillion)
-    "UTgOctg",   -- 10^2466 (Untrigintioctingentillion)
-    "DTgOctg",   -- 10^2469 (Duotrigintioctingentillion)
-    "TTgOctg",   -- 10^2472 (Tretrigintioctingentillion)
-    "QaTgOctg",  -- 10^2475 (Quattuortrigintioctingentillion)
-    "QiTgOctg",  -- 10^2478 (Quintrigintioctingentillion)
-    "SxTgOctg",  -- 10^2481 (Sextrigintioctingentillion)
-    "SpTgOctg",  -- 10^2484 (Septentrigintioctingentillion)
-    "OcTgOctg",  -- 10^2487 (Octotrigintioctingentillion)
-    "NnTgOctg",  -- 10^2490 (Novemtrigintioctingentillion),
+    "TgOcCe",    -- 10^2463 (Trigintioctingentillion)
+    "UTgOcCe",   -- 10^2466 (Untrigintioctingentillion)
+    "DTgOcCe",   -- 10^2469 (Duotrigintioctingentillion)
+    "TTgOcCe",   -- 10^2472 (Tretrigintioctingentillion)
+    "QaTgOcCe",  -- 10^2475 (Quattuortrigintioctingentillion)
+    "QiTgOcCe",  -- 10^2478 (Quintrigintioctingentillion)
+    "SxTgOcCe",  -- 10^2481 (Sextrigintioctingentillion)
+    "SpTgOcCe",  -- 10^2484 (Septentrigintioctingentillion)
+    "OcTgOcCe",  -- 10^2487 (Octotrigintioctingentillion)
+    "NoTgOcCe",  -- 10^2490 (Novemtrigintioctingentillion),
 
     -- Quadragintioctingentillion Group (10^2493-10^2520)
-    "QagOctg",   -- 10^2493 (Quadragintioctingentillion)
-    "UQagOctg",  -- 10^2496 (Unquadragintioctingentillion)
-    "DQagOctg",  -- 10^2499 (Duoquadragintioctingentillion)
-    "TQagOctg",  -- 10^2502 (Trequadragintioctingentillion)
-    "QaQagOctg", -- 10^2505 (Quattuorquadragintioctingentillion)
-    "QiQagOctg", -- 10^2508 (Quinquadragintioctingentillion)
-    "SxQagOctg", -- 10^2511 (Sexquadragintioctingentillion)
-    "SpQagOctg", -- 10^2514 (Septenquadragintioctingentillion)
-    "OcQagOctg", -- 10^2517 (Octoquadragintioctingentillion)
-    "NnQagOctg", -- 10^2520 (Novemquadragintioctingentillion),
+    "qgOcCe",   -- 10^2493 (Quadragintioctingentillion)
+    "UqgOcCe",  -- 10^2496 (Unquadragintioctingentillion)
+    "DqgOcCe",  -- 10^2499 (Duoquadragintioctingentillion)
+    "TqgOcCe",  -- 10^2502 (Trequadragintioctingentillion)
+    "QaqgOcCe", -- 10^2505 (Quattuorquadragintioctingentillion)
+    "QiqgOcCe", -- 10^2508 (Quinquadragintioctingentillion)
+    "SxqgOcCe", -- 10^2511 (Sexquadragintioctingentillion)
+    "SpqgOcCe", -- 10^2514 (Septenquadragintioctingentillion)
+    "OcqgOcCe", -- 10^2517 (Octoquadragintioctingentillion)
+    "NoqgOcCe", -- 10^2520 (Novemquadragintioctingentillion),
 
     -- Quinquagintioctingentillion Group (10^2523-10^2550)
-    "QigOctg",   -- 10^2523 (Quinquagintioctingentillion)
-    "UQigOctg",  -- 10^2526 (Unquinquagintioctingentillion)
-    "DQigOctg",  -- 10^2529 (Duoquinquagintioctingentillion)
-    "TQigOctg",  -- 10^2532 (Trequinquagintioctingentillion)
-    "QaQigOctg", -- 10^2535 (Quattuorquinquagintioctingentillion)
-    "QiQigOctg", -- 10^2538 (Quinquinquagintioctingentillion)
-    "SxQigOctg", -- 10^2541 (Sexquinquagintioctingentillion)
-    "SpQigOctg", -- 10^2544 (Septenquinquagintioctingentillion)
-    "OcQigOctg", -- 10^2547 (Octoquinquagintioctingentillion)
-    "NnQigOctg", -- 10^2550 (Novemquinquagintioctingentillion),
+    "QgOcCe",   -- 10^2523 (Quinquagintioctingentillion)
+    "UQgOcCe",  -- 10^2526 (Unquinquagintioctingentillion)
+    "DQgOcCe",  -- 10^2529 (Duoquinquagintioctingentillion)
+    "TQgOcCe",  -- 10^2532 (Trequinquagintioctingentillion)
+    "QaQgOcCe", -- 10^2535 (Quattuorquinquagintioctingentillion)
+    "QiQgOcCe", -- 10^2538 (Quinquinquagintioctingentillion)
+    "SxQgOcCe", -- 10^2541 (Sexquinquagintioctingentillion)
+    "SpQgOcCe", -- 10^2544 (Septenquinquagintioctingentillion)
+    "OcQgOcCe", -- 10^2547 (Octoquinquagintioctingentillion)
+    "NoQgOcCe", -- 10^2550 (Novemquinquagintioctingentillion),
 
     -- Sexagintioctingentillion Group (10^2553-10^2580)
-    "SxgOctg",   -- 10^2553 (Sexagintioctingentillion)
-    "USxgOctg",  -- 10^2556 (Unsexagintioctingentillion)
-    "DSxgOctg",  -- 10^2559 (Duosexagintioctingentillion)
-    "TSxgOctg",  -- 10^2562 (Tresexagintioctingentillion)
-    "QaSxgOctg", -- 10^2565 (Quattuorsexagintioctingentillion)
-    "QiSxgOctg", -- 10^2568 (Quinsexagintioctingentillion)
-    "SxSxgOctg", -- 10^2571 (Sexsexagintioctingentillion)
-    "SpSxgOctg", -- 10^2574 (Septensexagintioctingentillion)
-    "OcSxgOctg", -- 10^2577 (Octosexagintioctingentillion)
-    "NnSxgOctg", -- 10^2580 (Novemsexagintioctingentillion),
+    "sgOcCe",   -- 10^2553 (Sexagintioctingentillion)
+    "UsgOcCe",  -- 10^2556 (Unsexagintioctingentillion)
+    "DsgOcCe",  -- 10^2559 (Duosexagintioctingentillion)
+    "TsgOcCe",  -- 10^2562 (Tresexagintioctingentillion)
+    "QasgOcCe", -- 10^2565 (Quattuorsexagintioctingentillion)
+    "QisgOcCe", -- 10^2568 (Quinsexagintioctingentillion)
+    "SxsgOcCe", -- 10^2571 (Sexsexagintioctingentillion)
+    "SpsgOcCe", -- 10^2574 (Septensexagintioctingentillion)
+    "OcsgOcCe", -- 10^2577 (Octosexagintioctingentillion)
+    "NosgOcCe", -- 10^2580 (Novemsexagintioctingentillion),
 
     -- Septuagintioctingentillion Group (10^2583-10^2610)
-    "SpgOctg",   -- 10^2583 (Septuagintioctingentillion)
-    "USpgOctg",  -- 10^2586 (Unseptuagintioctingentillion)
-    "DSpgOctg",  -- 10^2589 (Duoseptuagintioctingentillion)
-    "TSpgOctg",  -- 10^2592 (Treseptuagintioctingentillion)
-    "QaSpgOctg", -- 10^2595 (Quattuorseptuagintioctingentillion)
-    "QiSpgOctg", -- 10^2598 (Quinseptuagintioctingentillion)
-    "SxSpgOctg", -- 10^2601 (Sexseptuagintioctingentillion)
-    "SpSpgOctg", -- 10^2604 (Septenseptuagintioctingentillion)
-    "OcSpgOctg", -- 10^2607 (Octoseptuagintioctingentillion)
-    "NnSpgOctg", -- 10^2610 (Novemseptuagintioctingentillion),
+    "SgOcCe",   -- 10^2583 (Septuagintioctingentillion)
+    "USgOcCe",  -- 10^2586 (Unseptuagintioctingentillion)
+    "DSgOcCe",  -- 10^2589 (Duoseptuagintioctingentillion)
+    "TSgOcCe",  -- 10^2592 (Treseptuagintioctingentillion)
+    "QaSgOcCe", -- 10^2595 (Quattuorseptuagintioctingentillion)
+    "QiSgOcCe", -- 10^2598 (Quinseptuagintioctingentillion)
+    "SxSgOcCe", -- 10^2601 (Sexseptuagintioctingentillion)
+    "SpSgOcCe", -- 10^2604 (Septenseptuagintioctingentillion)
+    "OcSgOcCe", -- 10^2607 (Octoseptuagintioctingentillion)
+    "NoSgOcCe", -- 10^2610 (Novemseptuagintioctingentillion),
 
     -- Octogintioctingentillion Group (10^2613-10^2640)
-    "OcgOctg",   -- 10^2613 (Octogintioctingentillion)
-    "UOcgOctg",  -- 10^2616 (Unoctogintioctingentillion)
-    "DOcgOctg",  -- 10^2619 (Duooctogintioctingentillion)
-    "TOcgOctg",  -- 10^2622 (Treoctogintioctingentillion)
-    "QaOcgOctg", -- 10^2625 (Quattuoroctogintioctingentillion)
-    "QiOcgOctg", -- 10^2628 (Quinoctogintioctingentillion)
-    "SxOcgOctg", -- 10^2631 (Sexoctogintioctingentillion)
-    "SpOcgOctg", -- 10^2634 (Septenoctogintioctingentillion)
-    "OcOcgOctg", -- 10^2637 (Octooctogintioctingentillion)
-    "NnOcgOctg", -- 10^2640 (Novemoctogintioctingentillion),
+    "OgOcCe",   -- 10^2613 (Octogintioctingentillion)
+    "UOgOcCe",  -- 10^2616 (Unoctogintioctingentillion)
+    "DOgOcCe",  -- 10^2619 (Duooctogintioctingentillion)
+    "TOgOcCe",  -- 10^2622 (Treoctogintioctingentillion)
+    "QaOgOcCe", -- 10^2625 (Quattuoroctogintioctingentillion)
+    "QiOgOcCe", -- 10^2628 (Quinoctogintioctingentillion)
+    "SxOgOcCe", -- 10^2631 (Sexoctogintioctingentillion)
+    "SpOgOcCe", -- 10^2634 (Septenoctogintioctingentillion)
+    "OcOgOcCe", -- 10^2637 (Octooctogintioctingentillion)
+    "NoOgOcCe", -- 10^2640 (Novemoctogintioctingentillion),
 
     -- Nonagintioctingentillion Group (10^2643-10^2670)
-    "NogOctg",   -- 10^2643 (Nonagintioctingentillion)
-    "UNogOctg",  -- 10^2646 (Unnonagintioctingentillion)
-    "DNogOctg",  -- 10^2649 (Duononagintioctingentillion)
-    "TNogOctg",  -- 10^2652 (Trenonagintioctingentillion)
-    "QaNogOctg", -- 10^2655 (Quattuornonagintioctingentillion)
-    "QiNogOctg", -- 10^2658 (Quinnonagintioctingentillion)
-    "SxNogOctg", -- 10^2661 (Sexnonagintioctingentillion)
-    "SpNogOctg", -- 10^2664 (Septennonagintioctingentillion)
-    "OcNogOctg", -- 10^2667 (Octononagintioctingentillion)
-    "NnNogOctg", -- 10^2670 (Novemnonagintioctingentillion),
-
-    -- Centioctingentillion Group (10^2673-10^2700)
-    "CeOctg",    -- 10^2673 (Centioctingentillion)
-    "UCeOctg",   -- 10^2676 (Uncentioctingentillion)
-    "DCeOctg",   -- 10^2679 (Duocentioctingentillion)
-    "TCeOctg",   -- 10^2682 (Trescentioctingentillion)
-    "QaCeOctg",  -- 10^2685 (Quattuorcentioctingentillion)
-    "QiCeOctg",  -- 10^2688 (Quincentioctingentillion)
-    "SxCeOctg",  -- 10^2691 (Sexcentioctingentillion)
-    "SpCeOctg",  -- 10^2694 (Septencentioctingentillion)
-    "OcCeOctg",  -- 10^2697 (Octocentioctingentillion)
-    "NvCeOctg",  -- 10^2700 (Novemcentioctingentillion),
+    "NgOcCe",   -- 10^2643 (Nonagintioctingentillion)
+    "UNgOcCe",  -- 10^2646 (Unnonagintioctingentillion)
+    "DNgOcCe",  -- 10^2649 (Duononagintioctingentillion)
+    "TNgOcCe",  -- 10^2652 (Trenonagintioctingentillion)
+    "QaNgOcCe", -- 10^2655 (Quattuornonagintioctingentillion)
+    "QiNgOcCe", -- 10^2658 (Quinnonagintioctingentillion)
+    "SxNgOcCe", -- 10^2661 (Sexnonagintioctingentillion)
+    "SpNgOcCe", -- 10^2664 (Septennonagintioctingentillion)
+    "OcNgOcCe", -- 10^2667 (Octononagintioctingentillion)
+    "NoNgOcCe", -- 10^2670 (Novemnonagintioctingentillion),
     
     -- Nongentillion Group (10^2703-10^2730)
-    "NnG",     -- 10^2703 (Nongentillion)
-    "UNnG",    -- 10^2706 (Unnongentillion)
-    "DNnG",    -- 10^2709 (Duonongentillion)
-    "TNnG",    -- 10^2712 (Trenongentillion)
-    "QaNnG",   -- 10^2715 (Quattuornongentillion)
-    "QiNnG",   -- 10^2718 (Quinnongentillion)
-    "SxNnG",   -- 10^2721 (Sexnongentillion)
-    "SpNnG",   -- 10^2724 (Septennongentillion)
-    "OcNnG",   -- 10^2727 (Octonongentillion)
-    "NnNnG",   -- 10^2730 (Novemnongentillion),
+    "NoCe",     -- 10^2703 (Nongentillion)
+    "UNoCe",    -- 10^2706 (Unnongentillion)
+    "DNoCe",    -- 10^2709 (Duonongentillion)
+    "TNoCe",    -- 10^2712 (Trenongentillion)
+    "QaNoCe",   -- 10^2715 (Quattuornongentillion)
+    "QiNoCe",   -- 10^2718 (Quinnongentillion)
+    "SxNoCe",   -- 10^2721 (Sexnongentillion)
+    "SpNoCe",   -- 10^2724 (Septennongentillion)
+    "OcNoCe",   -- 10^2727 (Octonongentillion)
+    "NoNoCe",   -- 10^2730 (Novemnongentillion),
 
-    -- Vigintinongentillion Group (10^2733-10^2760)
-    "ViNnG",   -- 10^2733 (Vigintinongentillion)
-    "UViNnG",  -- 10^2736 (Unvigintinongentillion)
-    "DViNnG",  -- 10^2739 (Duovigintinongentillion)
-    "TViNnG",  -- 10^2742 (Trevigintinongentillion)
-    "QaViNnG", -- 10^2745 (Quattuorvigintinongentillion)
-    "QiViNnG", -- 10^2748 (Quinvigintinongentillion)
-    "SxViNnG", -- 10^2751 (Sexvigintinongentillion)
-    "SpViNnG", -- 10^2754 (Septenvigintinongentillion)
-    "OcViNnG", -- 10^2757 (Octovigintinongentillion)
-    "NnViNnG", -- 10^2760 (Novemvigintinongentillion),
+    -- Vggintinongentillion Group (10^2733-10^2760)
+    "VgNoCe",   -- 10^2733 (Vggintinongentillion)
+    "UVgNoCe",  -- 10^2736 (Unvigintinongentillion)
+    "DVgNoCe",  -- 10^2739 (Duovigintinongentillion)
+    "TVgNoCe",  -- 10^2742 (Trevigintinongentillion)
+    "QaVgNoCe", -- 10^2745 (Quattuorvigintinongentillion)
+    "QiVgNoCe", -- 10^2748 (Quinvigintinongentillion)
+    "SxVgNoCe", -- 10^2751 (Sexvigintinongentillion)
+    "SpVgNoCe", -- 10^2754 (Septenvigintinongentillion)
+    "OcVgNoCe", -- 10^2757 (Octovigintinongentillion)
+    "NoVgNoCe", -- 10^2760 (Novemvigintinongentillion),
 
     -- Trigintinongentillion Group (10^2763-10^2790)
-    "TgNnG",    -- 10^2763 (Trigintinongentillion)
-    "UTgNnG",   -- 10^2766 (Untrigintinongentillion)
-    "DTgNnG",   -- 10^2769 (Duotrigintinongentillion)
-    "TTgNnG",   -- 10^2772 (Tretrigintinongentillion)
-    "QaTgNnG",  -- 10^2775 (Quattuortrigintinongentillion)
-    "QiTgNnG",  -- 10^2778 (Quintrigintinongentillion)
-    "SxTgNnG",  -- 10^2781 (Sextrigintinongentillion)
-    "SpTgNnG",  -- 10^2784 (Septentrigintinongentillion)
-    "OcTgNnG",  -- 10^2787 (Octotrigintinongentillion)
-    "NnTgNnG",  -- 10^2790 (Novemtrigintinongentillion),
+    "TgNoCe",    -- 10^2763 (Trigintinongentillion)
+    "UTgNoCe",   -- 10^2766 (Untrigintinongentillion)
+    "DTgNoCe",   -- 10^2769 (Duotrigintinongentillion)
+    "TTgNoCe",   -- 10^2772 (Tretrigintinongentillion)
+    "QaTgNoCe",  -- 10^2775 (Quattuortrigintinongentillion)
+    "QiTgNoCe",  -- 10^2778 (Quintrigintinongentillion)
+    "SxTgNoCe",  -- 10^2781 (Sextrigintinongentillion)
+    "SpTgNoCe",  -- 10^2784 (Septentrigintinongentillion)
+    "OcTgNoCe",  -- 10^2787 (Octotrigintinongentillion)
+    "NoTgNoCe",  -- 10^2790 (Novemtrigintinongentillion),
 
     -- Quadragintinongentillion Group (10^2793-10^2820)
-    "QagNnG",   -- 10^2793 (Quadragintinongentillion)
-    "UQagNnG",  -- 10^2796 (Unquadragintinongentillion)
-    "DQagNnG",  -- 10^2799 (Duoquadragintinongentillion)
-    "TQagNnG",  -- 10^2802 (Trequadragintinongentillion)
-    "QaQagNnG", -- 10^2805 (Quattuorquadragintinongentillion)
-    "QiQagNnG", -- 10^2808 (Quinquadragintinongentillion)
-    "SxQagNnG", -- 10^2811 (Sexquadragintinongentillion)
-    "SpQagNnG", -- 10^2814 (Septenquadragintinongentillion)
-    "OcQagNnG", -- 10^2817 (Octoquadragintinongentillion)
-    "NnQagNnG", -- 10^2820 (Novemquadragintinongentillion),
+    "qgNoCe",   -- 10^2793 (Quadragintinongentillion)
+    "UqgNoCe",  -- 10^2796 (Unquadragintinongentillion)
+    "DqgNoCe",  -- 10^2799 (Duoquadragintinongentillion)
+    "TqgNoCe",  -- 10^2802 (Trequadragintinongentillion)
+    "QaqgNoCe", -- 10^2805 (Quattuorquadragintinongentillion)
+    "QiqgNoCe", -- 10^2808 (Quinquadragintinongentillion)
+    "SxqgNoCe", -- 10^2811 (Sexquadragintinongentillion)
+    "SpqgNoCe", -- 10^2814 (Septenquadragintinongentillion)
+    "OcqgNoCe", -- 10^2817 (Octoquadragintinongentillion)
+    "NoqgNoCe", -- 10^2820 (Novemquadragintinongentillion),
 
     -- Quinquagintinongentillion Group (10^2823-10^2850)
-    "QigNnG",   -- 10^2823 (Quinquagintinongentillion)
-    "UQigNnG",  -- 10^2826 (Unquinquagintinongentillion)
-    "DQigNnG",  -- 10^2829 (Duoquinquagintinongentillion)
-    "TQigNnG",  -- 10^2832 (Trequinquagintinongentillion)
-    "QaQigNnG", -- 10^2835 (Quattuorquinquagintinongentillion)
-    "QiQigNnG", -- 10^2838 (Quinquinquagintinongentillion)
-    "SxQigNnG", -- 10^2841 (Sexquinquagintinongentillion)
-    "SpQigNnG", -- 10^2844 (Septenquinquagintinongentillion)
-    "OcQigNnG", -- 10^2847 (Octoquinquagintinongentillion)
-    "NnQigNnG", -- 10^2850 (Novemquinquagintinongentillion),
+    "QgNoCe",   -- 10^2823 (Quinquagintinongentillion)
+    "UQgNoCe",  -- 10^2826 (Unquinquagintinongentillion)
+    "DQgNoCe",  -- 10^2829 (Duoquinquagintinongentillion)
+    "TQgNoCe",  -- 10^2832 (Trequinquagintinongentillion)
+    "QaQgNoCe", -- 10^2835 (Quattuorquinquagintinongentillion)
+    "QiQgNoCe", -- 10^2838 (Quinquinquagintinongentillion)
+    "SxQgNoCe", -- 10^2841 (Sexquinquagintinongentillion)
+    "SpQgNoCe", -- 10^2844 (Septenquinquagintinongentillion)
+    "OcQgNoCe", -- 10^2847 (Octoquinquagintinongentillion)
+    "NoQgNoCe", -- 10^2850 (Novemquinquagintinongentillion),
 
     -- Sexagintinongentillion Group (10^2853-10^2880)
-    "SxgNnG",   -- 10^2853 (Sexagintinongentillion)
-    "USxgNnG",  -- 10^2856 (Unsexagintinongentillion)
-    "DSxgNnG",  -- 10^2859 (Duosexagintinongentillion)
-    "TSxgNnG",  -- 10^2862 (Tresexagintinongentillion)
-    "QaSxgNnG", -- 10^2865 (Quattuorsexagintinongentillion)
-    "QiSxgNnG", -- 10^2868 (Quinsexagintinongentillion)
-    "SxSxgNnG", -- 10^2871 (Sexsexagintinongentillion)
-    "SpSxgNnG", -- 10^2874 (Septensexagintinongentillion)
-    "OcSxgNnG", -- 10^2877 (Octosexagintinongentillion)
-    "NnSxgNnG", -- 10^2880 (Novemsexagintinongentillion),
+    "sgNoCe",   -- 10^2853 (Sexagintinongentillion)
+    "UsgNoCe",  -- 10^2856 (Unsexagintinongentillion)
+    "DsgNoCe",  -- 10^2859 (Duosexagintinongentillion)
+    "TsgNoCe",  -- 10^2862 (Tresexagintinongentillion)
+    "QasgNoCe", -- 10^2865 (Quattuorsexagintinongentillion)
+    "QisgNoCe", -- 10^2868 (Quinsexagintinongentillion)
+    "SxsgNoCe", -- 10^2871 (Sexsexagintinongentillion)
+    "SpsgNoCe", -- 10^2874 (Septensexagintinongentillion)
+    "OcsgNoCe", -- 10^2877 (Octosexagintinongentillion)
+    "NosgNoCe", -- 10^2880 (Novemsexagintinongentillion),
 
     -- Septuagintinongentillion Group (10^2883-10^2910)
-    "SpgNnG",   -- 10^2883 (Septuagintinongentillion)
-    "USpgNnG",  -- 10^2886 (Unseptuagintinongentillion)
-    "DSpgNnG",  -- 10^2889 (Duoseptuagintinongentillion)
-    "TSpgNnG",  -- 10^2892 (Treseptuagintinongentillion)
-    "QaSpgNnG", -- 10^2895 (Quattuorseptuagintinongentillion)
-    "QiSpgNnG", -- 10^2898 (Quinseptuagintinongentillion)
-    "SxSpgNnG", -- 10^2901 (Sexseptuagintinongentillion)
-    "SpSpgNnG", -- 10^2904 (Septenseptuagintinongentillion)
-    "OcSpgNnG", -- 10^2907 (Octoseptuagintinongentillion)
-    "NnSpgNnG", -- 10^2910 (Novemseptuagintinongentillion),
+    "SgNoCe",   -- 10^2883 (Septuagintinongentillion)
+    "USgNoCe",  -- 10^2886 (Unseptuagintinongentillion)
+    "DSgNoCe",  -- 10^2889 (Duoseptuagintinongentillion)
+    "TSgNoCe",  -- 10^2892 (Treseptuagintinongentillion)
+    "QaSgNoCe", -- 10^2895 (Quattuorseptuagintinongentillion)
+    "QiSgNoCe", -- 10^2898 (Quinseptuagintinongentillion)
+    "SxSgNoCe", -- 10^2901 (Sexseptuagintinongentillion)
+    "SpSgNoCe", -- 10^2904 (Septenseptuagintinongentillion)
+    "OcSgNoCe", -- 10^2907 (Octoseptuagintinongentillion)
+    "NoSgNoCe", -- 10^2910 (Novemseptuagintinongentillion),
 
     -- Octogintinongentillion Group (10^2913-10^2940)
-    "OcgNnG",   -- 10^2913 (Octogintinongentillion)
-    "UOcgNnG",  -- 10^2916 (Unoctogintinongentillion)
-    "DOcgNnG",  -- 10^2919 (Duooctogintinongentillion)
-    "TOcgNnG",  -- 10^2922 (Treoctogintinongentillion)
-    "QaOcgNnG", -- 10^2925 (Quattuoroctogintinongentillion)
-    "QiOcgNnG", -- 10^2928 (Quinoctogintinongentillion)
-    "SxOcgNnG", -- 10^2931 (Sexoctogintinongentillion)
-    "SpOcgNnG", -- 10^2934 (Septenoctogintinongentillion)
-    "OcOcgNnG", -- 10^2937 (Octooctogintinongentillion)
-    "NnOcgNnG", -- 10^2940 (Novemoctogintinongentillion),
+    "OgNoCe",   -- 10^2913 (Octogintinongentillion)
+    "UOgNoCe",  -- 10^2916 (Unoctogintinongentillion)
+    "DOgNoCe",  -- 10^2919 (Duooctogintinongentillion)
+    "TOgNoCe",  -- 10^2922 (Treoctogintinongentillion)
+    "QaOgNoCe", -- 10^2925 (Quattuoroctogintinongentillion)
+    "QiOgNoCe", -- 10^2928 (Quinoctogintinongentillion)
+    "SxOgNoCe", -- 10^2931 (Sexoctogintinongentillion)
+    "SpOgNoCe", -- 10^2934 (Septenoctogintinongentillion)
+    "OcOgNoCe", -- 10^2937 (Octooctogintinongentillion)
+    "NoOgNoCe", -- 10^2940 (Novemoctogintinongentillion),
 
     -- Nonagintinongentillion Group (10^2943-10^2970)
-    "NogNnG",   -- 10^2943 (Nonagintinongentillion)
-    "UNogNnG",  -- 10^2946 (Unnonagintinongentillion)
-    "DNogNnG",  -- 10^2949 (Duononagintinongentillion)
-    "TNogNnG",  -- 10^2952 (Trenonagintinongentillion)
-    "QaNogNnG", -- 10^2955 (Quattuornonagintinongentillion)
-    "QiNogNnG", -- 10^2958 (Quinnonagintinongentillion)
-    "SxNogNnG", -- 10^2961 (Sexnonagintinongentillion)
-    "SpNogNnG", -- 10^2964 (Septennonagintinongentillion)
-    "OcNogNnG", -- 10^2967 (Octononagintinongentillion)
-    "NnNogNnG", -- 10^2970 (Novemnonagintinongentillion),
-
-    -- Centinongentillion Group (10^2973-10^3000)
-    "CeNnG",    -- 10^2973 (Centinongentillion)
-    "UCeNnG",   -- 10^2976 (Uncentinongentillion)
-    "DCeNnG",   -- 10^2979 (Duocentinongentillion)
-    "TCeNnG",   -- 10^2982 (Trescentinongentillion)
-    "QaCeNnG",  -- 10^2985 (Quattuorcentinongentillion)
-    "QiCeNnG",  -- 10^2988 (Quincentinongentillion)
-    "SxCeNnG",  -- 10^2991 (Sexcentinongentillion)
-    "SpCeNnG",  -- 10^2994 (Septencentinongentillion)
-    "OcCeNnG",  -- 10^2997 (Octocentinongentillion)
-    "NvCeNnG",  -- 10^3000 (Novemcentinongentillion),
+    "NgNoCe",   -- 10^2943 (Nonagintinongentillion)
+    "UNgNoCe",  -- 10^2946 (Unnonagintinongentillion)
+    "DNgNoCe",  -- 10^2949 (Duononagintinongentillion)
+    "TNgNoCe",  -- 10^2952 (Trenonagintinongentillion)
+    "QaNgNoCe", -- 10^2955 (Quattuornonagintinongentillion)
+    "QiNgNoCe", -- 10^2958 (Quinnonagintinongentillion)
+    "SxNgNoCe", -- 10^2961 (Sexnonagintinongentillion)
+    "SpNgNoCe", -- 10^2964 (Septennonagintinongentillion)
+    "OcNgNoCe", -- 10^2967 (Octononagintinongentillion)
+    "NoNgNoCe", -- 10^2970 (Novemnonagintinongentillion),
 
     -- ===== Millinillion (10^3003) =====
     "Mi",     -- 10^3003 (Millinillion)
