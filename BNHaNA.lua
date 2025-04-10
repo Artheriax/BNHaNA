@@ -1330,6 +1330,44 @@ function Banana.getShort(num)
 end
 
 --------------------------------------------------------------------------------
+-- Formatting: getMedium (2 decimals)
+-- Purpose:    Balanced precision with 2 decimal places
+-- Example:    {15, 123} → "15.12K", {20, 450} → "20.45K"
+--------------------------------------------------------------------------------
+function Banana.getMedium(num)
+    if #num == 0 then return "0" end
+    local suffixIndex = #num
+    if suffixIndex > #NOTATION then return "Infinity" end
+    
+    local main = num[#num]
+    local sub = num[#num-1] or 0
+    local value = main + sub / 1000
+    local rounded = math_floor(value * 100 + 0.5) / 100
+    
+    return (rounded % 1 == 0 and "%.0f%s" or "%.2f%s")
+        :format(rounded, NOTATION[suffixIndex])
+end
+
+--------------------------------------------------------------------------------
+-- Formatting: getDetailed (3 decimals)
+-- Purpose:    High precision with 3 decimal places
+-- Example:    {15, 123} → "15.123K", {20, 499} → "20.499K"
+--------------------------------------------------------------------------------
+function Banana.getDetailed(num)
+    if #num == 0 then return "0" end
+    local suffixIndex = #num
+    if suffixIndex > #NOTATION then return "Infinity" end
+    
+    local main = num[#num]
+    local sub = num[#num-1] or 0
+    local value = main + sub / 1000
+    local rounded = math_floor(value * 1000 + 0.5) / 1000
+    
+    return (rounded % 1 == 0 and "%.0f%s" or "%.3f%s")
+        :format(rounded, NOTATION[suffixIndex])
+end
+
+--------------------------------------------------------------------------------
 -- Base Conversion: decodeNumber
 -- Purpose:    Convert custom base-94 string to decimal string
 -- Parameters: value (string) - Encoded string
