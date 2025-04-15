@@ -1327,6 +1327,53 @@ function Banana.subtract(a, b)
 end
 
 --------------------------------------------------------------------------------
+-- Arithmetic: multiply
+-- Purpose: Multiply two normalized numbers together.
+--
+-- Parameters:
+--   a, b - normalized number tables (each with sign and blocks).
+--
+-- Returns:
+--   A new normalized number representing the product.
+--
+-- Example:
+--   a = { sign = 1, blocks = {500} }  -- representing 500
+--   b = { sign = -1, blocks = {300} } -- representing -300
+--   multiply(a, b) returns { sign = -1, blocks = {0, 150} } representing -150000.
+--------------------------------------------------------------------------------
+function Banana.multiply(a, b)
+    local result = {}
+    local aLen = #a.blocks
+    local bLen = #b.blocks
+
+    -- Multiply each block of a with each block of b.
+    for i = 1, aLen do
+        for j = 1, bLen do
+            local index = i + j - 1
+            result[index] = (result[index] or 0) + a.blocks[i] * b.blocks[j]
+        end
+    end
+
+    -- Propagate carry across blocks.
+    local carry = 0
+    for k = 1, #result do
+        local total = result[k] + carry
+        result[k] = total % 1000
+        carry = math_floor(total / 1000)
+    end
+    while carry > 0 do
+        table_insert(result, carry % 1000)
+        carry = math_floor(carry / 1000)
+    end
+
+    -- The resulting sign is the product of the signs.
+    local sign = a.sign * b.sign
+
+    -- Normalize the result to update magnitude and ensure consistency.
+    return Banana.normalizeNumber({ sign = sign, blocks = result })
+end
+
+--------------------------------------------------------------------------------
 -- Conversion: stringToNumber
 -- Purpose: Convert a decimal string into a normalized number.
 --          This also tracks the magnitude (number of digits) accurately.
