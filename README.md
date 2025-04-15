@@ -84,7 +84,7 @@ BNHaNA supports an extensive notation system with 500+ prefixes:
 | Oc, No, De, Ud         | 10²⁷ – 10³⁶        |
 | Vg, Tg, Qg, Sg         | 10⁶³ – 10²¹³       |
 | ... up to Mi           | 10³⁰⁰³             |
-Full notation list available in [NOTATION.lua](NOTATION.lua)
+Full notation list available in [NOTATION.lua](LUA/NOTATION.lua)
 
 ## API Reference 📚
 
