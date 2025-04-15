@@ -105,7 +105,7 @@ print("\n=== Test 8: Encode/Decode Round Trip ===")
     testEncodeDecode("987654321")
     testEncodeDecode("-123456789")
     
--- print("\n=== Test 9: configureNotation ===")
+-- print("\n=== Test 9: configureNotation ===") -- needs to be disabled for the tests beyond this to work.
 --     -- Backup original notation (hypothetical since NOTATION isn't exposed)
 --     Banana.configureNotation({"", "k", "m", "b"})
 --     local testNum = Banana.stringToNumber("2500") 
