@@ -1,4 +1,4 @@
-local Banana = require("BNHaNA")
+local Banana = require("LUA/BNHaNA")
 
 -- Utility to print number objects
 local function printNumber(label, num)
