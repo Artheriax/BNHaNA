@@ -33,6 +33,11 @@ BNHaNA (Banana) is a robust Lua module for handling extremely large numbers with
   - Minimal garbage collection impact
   - Carry/borrow propagation optimization
 
+## Support
+| Language       | Supported         |
+|----------------|-------------------|
+| Lua            | Yes               |
+
 ---
 
 ## Installation 📦
