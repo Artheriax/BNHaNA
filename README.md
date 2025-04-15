@@ -1,6 +1,6 @@
 # BNHaNA (Big Number Handlers and Number Abbreviations) 🍌
 
-BNHaNA (Banana) is a robust Lua module for handling extremely large numbers with precision and efficiency. Originally created for Roblox game development, it supports numbers up to **10³⁰⁰³** and beyond with extensive notation support.
+BNHaNA (Banana) is a robust module for handling extremely large numbers with precision and efficiency. Originally created for Roblox game development, it supports numbers up to **10³⁰⁰³** and beyond with extensive notation support.
 
 **GitHub**: https://github.com/Artheriax/BNHaNA  
 **Inspired by**: [Gigantix](https://github.com/DavldMA/Gigantix)
@@ -69,7 +69,7 @@ print(Banana.getShort(bigNum))   --> "1.2T"
 print(Banana.getMedium(bigNum))  --> "1.23T"
 print(Banana.getDetailed(bigNum)) --> "1.234T"
 ```
-### Encode (Decode soon)
+### Encode/Decode
 ```lua
 local encoded = Banana.encodeNumber("9876543210") --> "2nZ4q"
 local decoded = Banana.decodeNumber("2nZ4q") --> 9876543210
