@@ -1,8 +1,9 @@
 import math
 import re
+import Python.NotationModule as NotationModule
 
 # Default suffix notation (you can customize later via configure_notation)
-NOTATION = ["", "K", "M", "B", "T", "Qa", "Qi", "Sx", "Sp", "Oc", "No", "Dc"]
+NOTATION = NotationModule.GetNotations()
 MAX_TIER = len(NOTATION)
 
 # Base-90 character set (exactly 90 printable ASCII characters)

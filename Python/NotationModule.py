@@ -1100,5 +1100,5 @@ def GetNotations():
     "OcNgNoCe",
     "NoNgNoCe",
     
-    "Mi",
-]
+    "Mi"]
+    return NOTATION
