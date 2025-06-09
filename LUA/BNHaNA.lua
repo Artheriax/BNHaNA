@@ -5,14 +5,14 @@
 local Banana = {}
 
 -- Notation table for suffixes used in short notation
-local NOTATION = require("LUA/NOTATION")
+local NOTATION = require("LUA.NOTATION")
 
 -- Base-90 character set (exactly 90 printable ASCII characters)
 local CHARACTERS = {
-    "0","1","2","3","4","5","6","7","8","9",
-    "a","b","c","d","e","f","g","h","i","j","k","l","m","n","o","p","q","r","s","t","u","v","w","x","y","z",
-    "A","B","C","D","E","F","G","H","I","J","K","L","M","N","O","P","Q","R","S","T","U","V","W","X","Y","Z",
-    "!","#","$","%","&","'","(",")","*","+",".","/",":",";","<","=",">","?","@","[","]","^","_","`","{","}","|","~"
+	"0","1","2","3","4","5","6","7","8","9",
+	"a","b","c","d","e","f","g","h","i","j","k","l","m","n","o","p","q","r","s","t","u","v","w","x","y","z",
+	"A","B","C","D","E","F","G","H","I","J","K","L","M","N","O","P","Q","R","S","T","U","V","W","X","Y","Z",
+	"!","#","$","%","&","'","(",")","*","+",".","/",":",";","<","=",">","?","@","[","]","^","_","`","{","}","|","~"
 }
 
 local MAX_TIER = #NOTATION
@@ -33,6 +33,36 @@ local table_create  = table.create or function(size) return {} end
 
 local base = #CHARACTERS  -- Base-90 encoding
 
+function Banana.toNumber(num)
+	local str = Banana.toDecimalString(num)
+	return tonumber(str) or 0
+end
+
+function Banana.toDecimalString(num)
+	if #num.blocks == 0 then
+		return "0"
+	end
+
+	local parts = {}
+	for i = #num.blocks, 1, -1 do
+		if i == #num.blocks then
+			table_insert(parts, tostring(num.blocks[i]))
+		else
+			table_insert(parts, string_format("%03d", num.blocks[i]))
+		end
+	end
+
+	local str = table_concat(parts)
+	str = string_gsub(str, "^0+", "")
+	if str == "" then
+		return "0"
+	end
+	if num.sign < 0 and str ~= "0" then
+		str = "-" .. str
+	end
+	return str
+end
+
 --------------------------------------------------------------------------------
 -- Utility: normalizeNumber
 -- Purpose: Normalize a number represented as blocks (groups of up to 3 digits) by 
@@ -50,40 +80,33 @@ local base = #CHARACTERS  -- Base-90 encoding
 --   Output: { sign = 1, blocks = {500, 1}, magnitude = 4 }   (since "1500" has 4 digits)
 --------------------------------------------------------------------------------
 function Banana.normalizeNumber(num)
-    local blocks = num.blocks or {}
-    local sign = num.sign or 1
-    local magnitude = num.magnitude
+	local blocks = num.blocks or {}
+	local sign = num.sign or 1
+	local magnitude = num.magnitude
 
-    if not magnitude then
-        local firstNonZero = nil
-        for i = #blocks, 1, -1 do
-            if blocks[i] ~= 0 then
-                firstNonZero = i
-                -- Use the sign of the most significant non-zero block
-                sign = blocks[i] < 0 and -1 or 1
-                break
-            end
-        end
-        
-        if not firstNonZero then
-            magnitude = 1  -- Represents zero
-        else
-            magnitude = (firstNonZero - 1) * 3
-            for i = firstNonZero, 1, -1 do
-                local absVal = math_abs(blocks[i])
-                if absVal > 0 then
-                    magnitude = magnitude + math_floor(math_log10(absVal)) + 1
-                    break
-                end
-            end
-        end
-    end
+	if not magnitude then
+		local firstNonZero = nil
+		for i = #blocks, 1, -1 do
+			if blocks[i] ~= 0 then
+				firstNonZero = i
+				break
+			end
+		end
 
-    return {
-        sign = sign,
-        blocks = blocks,
-        magnitude = magnitude
-    }
+		if not firstNonZero then
+			magnitude = 1  -- Represents zero
+		else
+			magnitude = (firstNonZero - 1) * 3
+			local absVal = math_abs(blocks[firstNonZero])
+			magnitude = magnitude + math_floor(math_log10(absVal)) + 1
+		end
+	end
+
+	return {
+		sign = sign,
+		blocks = blocks,
+		magnitude = magnitude
+	}
 end
 
 --------------------------------------------------------------------------------
@@ -104,22 +127,22 @@ end
 --   compare(a,b) returns -1 because 3500 < 7300.
 --------------------------------------------------------------------------------
 function Banana.compare(a, b)
-    if a.sign ~= b.sign then
-        return a.sign > b.sign and 1 or -1
-    end
+	if a.sign ~= b.sign then
+		return a.sign > b.sign and 1 or -1
+	end
 
-    local lenA, lenB = #a.blocks, #b.blocks
-    if lenA ~= lenB then
-        return (lenA > lenB and 1 or -1) * a.sign
-    end
+	local lenA, lenB = #a.blocks, #b.blocks
+	if lenA ~= lenB then
+		return (lenA > lenB and 1 or -1) * a.sign
+	end
 
-    for i = lenA, 1, -1 do
-        if a.blocks[i] ~= b.blocks[i] then
-            return (a.blocks[i] > b.blocks[i] and 1 or -1) * a.sign
-        end
-    end
+	for i = lenA, 1, -1 do
+		if a.blocks[i] ~= b.blocks[i] then
+			return (a.blocks[i] > b.blocks[i] and 1 or -1) * a.sign
+		end
+	end
 
-    return 0  -- They are equal.
+	return 0  -- They are equal.
 end
 
 --------------------------------------------------------------------------------
@@ -138,31 +161,29 @@ end
 --   add(a,b) returns { sign = 1, blocks = {200} } representing 200.
 --------------------------------------------------------------------------------
 function Banana.add(a, b)
-    -- If signs differ, perform subtraction instead.
-    if a.sign ~= b.sign then
-        -- Create a copy of b with flipped sign to avoid mutating the input.
-        local bNeg = { sign = -b.sign, blocks = {} }
-        for i = 1, #b.blocks do
-            bNeg.blocks[i] = b.blocks[i]
-        end
-        return Banana.subtract(a, bNeg)
-    end
+	if a.sign ~= b.sign then
+		local bNeg = { sign = -b.sign, blocks = {} }
+		for i = 1, #b.blocks do
+			bNeg.blocks[i] = b.blocks[i]
+		end
+		return Banana.subtract(a, bNeg)
+	end
 
-    local result = {}
-    local carry = 0
-    local maxLen = math.max(#a.blocks, #b.blocks)
+	local result = {}
+	local carry = 0
+	local maxLen = math.max(#a.blocks, #b.blocks)
 
-    for i = 1, maxLen do
-        local sum = (a.blocks[i] or 0) + (b.blocks[i] or 0) + carry
-        carry = math_floor(sum / 1000)
-        result[i] = sum % 1000
-    end
+	for i = 1, maxLen do
+		local sum = (a.blocks[i] or 0) + (b.blocks[i] or 0) + carry
+		carry = math_floor(sum / 1000)
+		result[i] = sum % 1000
+	end
 
-    if carry > 0 then
-        result[maxLen + 1] = carry
-    end
+	if carry > 0 then
+		result[maxLen + 1] = carry
+	end
 
-    return Banana.normalizeNumber({ sign = a.sign, blocks = result })
+	return Banana.normalizeNumber({ sign = a.sign, blocks = result })
 end
 
 --------------------------------------------------------------------------------
@@ -181,46 +202,44 @@ end
 --   subtract(a, b) returns { sign = 1, blocks = {200} } (200)
 --------------------------------------------------------------------------------
 function Banana.subtract(a, b)
-    if a.sign ~= b.sign then
-        -- If signs differ, treat it as addition.
-        local bNeg = { sign = -b.sign, blocks = {} }
-        for i = 1, #b.blocks do
-            bNeg.blocks[i] = b.blocks[i]
-        end
-        return Banana.add(a, bNeg)
-    end
+	if a.sign ~= b.sign then
+		local bNeg = { sign = -b.sign, blocks = {} }
+		for i = 1, #b.blocks do
+			bNeg.blocks[i] = b.blocks[i]
+		end
+		return Banana.add(a, bNeg)
+	end
 
-    local absCompare = Banana.compare(
-        { sign = 1, blocks = a.blocks },
-        { sign = 1, blocks = b.blocks }
-    )
+	local absCompare = Banana.compare(
+		{ sign = 1, blocks = a.blocks },
+		{ sign = 1, blocks = b.blocks }
+	)
 
-    if absCompare < 0 then
-        -- If |a| < |b|, swap arguments and flip the sign of the result.
-        local result = Banana.subtract(b, a)
-        result.sign = -result.sign
-        return result
-    end
+	if absCompare < 0 then
+		local result = Banana.subtract(b, a)
+		result.sign = -result.sign
+		return result
+	end
 
-    local result = {}
-    local borrow = 0
+	local result = {}
+	local borrow = 0
 
-    for i = 1, #a.blocks do
-        local aVal = a.blocks[i]
-        local bVal = b.blocks[i] or 0
-        local diff = aVal - bVal - borrow
+	for i = 1, #a.blocks do
+		local aVal = a.blocks[i]
+		local bVal = b.blocks[i] or 0
+		local diff = aVal - bVal - borrow
 
-        if diff < 0 then
-            diff = diff + 1000
-            borrow = 1
-        else
-            borrow = 0
-        end
+		if diff < 0 then
+			diff = diff + 1000
+			borrow = 1
+		else
+			borrow = 0
+		end
 
-        result[i] = diff
-    end
+		result[i] = diff
+	end
 
-    return Banana.normalizeNumber({ sign = a.sign, blocks = result })
+	return Banana.normalizeNumber({ sign = a.sign, blocks = result })
 end
 
 --------------------------------------------------------------------------------
@@ -239,35 +258,30 @@ end
 --   multiply(a, b) returns { sign = -1, blocks = {0, 150} } representing -150000.
 --------------------------------------------------------------------------------
 function Banana.multiply(a, b)
-    local result = {}
-    local aLen = #a.blocks
-    local bLen = #b.blocks
+	local result = {}
+	local aLen = #a.blocks
+	local bLen = #b.blocks
 
-    -- Multiply each block of a with each block of b.
-    for i = 1, aLen do
-        for j = 1, bLen do
-            local index = i + j - 1
-            result[index] = (result[index] or 0) + a.blocks[i] * b.blocks[j]
-        end
-    end
+	for i = 1, aLen do
+		for j = 1, bLen do
+			local index = i + j - 1
+			result[index] = (result[index] or 0) + a.blocks[i] * b.blocks[j]
+		end
+	end
 
-    -- Propagate carry across blocks.
-    local carry = 0
-    for k = 1, #result do
-        local total = result[k] + carry
-        result[k] = total % 1000
-        carry = math_floor(total / 1000)
-    end
-    while carry > 0 do
-        table_insert(result, carry % 1000)
-        carry = math_floor(carry / 1000)
-    end
+	local carry = 0
+	for k = 1, #result do
+		local total = result[k] + carry
+		result[k] = total % 1000
+		carry = math_floor(total / 1000)
+	end
+	while carry > 0 do
+		table_insert(result, carry % 1000)
+		carry = math_floor(carry / 1000)
+	end
 
-    -- The resulting sign is the product of the signs.
-    local sign = a.sign * b.sign
-
-    -- Normalize the result to update magnitude and ensure consistency.
-    return Banana.normalizeNumber({ sign = sign, blocks = result })
+	local sign = a.sign * b.sign
+	return Banana.normalizeNumber({ sign = sign, blocks = result })
 end
 
 --------------------------------------------------------------------------------
@@ -286,39 +300,34 @@ end
 --   Output: { sign = 1, blocks = {calculated blocks}, magnitude = 15 }
 --------------------------------------------------------------------------------
 function Banana.stringToNumber(str)
-    str = string_gsub(str, "[%s,]", "")
-    local sign = 1
+	str = string_gsub(str, "[%s,]", "")
+	local sign = 1
 
-    -- Handle negative sign
-    if string_sub(str, 1, 1) == "-" then
-        sign = -1
-        str = string_sub(str, 2)
-    end
+	if string_sub(str, 1, 1) == "-" then
+		sign = -1
+		str = string_sub(str, 2)
+	end
 
-    -- Split into whole and optional decimal parts
-    local whole, decimal = str:match("^(%d*)%.?(%d*)")
-    whole = whole or ""
-    decimal = decimal or ""
+	local whole, decimal = str:match("^(%d*)%.?(%d*)")
+	whole = whole or ""
+	decimal = decimal or ""
 
-    -- Combine the parts and remove leading zeros.
-    local combined = whole .. decimal
-    combined = string_gsub(combined, "^0+", "")
-    if combined == "" then combined = "0" end
+	local combined = whole .. decimal
+	combined = string_gsub(combined, "^0+", "")
+	if combined == "" then
+		return Banana.normalizeNumber({ sign = 1, blocks = {0} })
+	end
 
-    -- Calculate the magnitude (number of digits)
-    local magnitude = #combined + (#decimal > 0 and #decimal or 0) - 1
+	local padded = combined:reverse()
+	padded = padded .. string_rep("0", (3 - #padded % 3) % 3)
 
-    -- Break the number into 3-digit blocks (least-significant first)
-    local padded = combined:reverse()
-    padded = padded .. string_rep("0", (3 - #padded % 3) % 3)
+	local blocks = {}
+	for i = 1, #padded, 3 do
+		local chunk = string_sub(padded, i, i + 2):reverse()
+		table_insert(blocks, tonumber(chunk))
+	end
 
-    local blocks = {}
-    for i = 1, #padded, 3 do
-        local chunk = string_sub(padded, i, i + 2):reverse()
-        table_insert(blocks, tonumber(chunk))
-    end
-
-    return Banana.normalizeNumber({ sign = sign, blocks = blocks, magnitude = magnitude })
+	return Banana.normalizeNumber({ sign = sign, blocks = blocks })
 end
 
 --[[
@@ -333,86 +342,65 @@ end
     If the input format is not as expected or the suffix is unknown, returns the input unmodified.
 --]]
 function Banana.notationToString(str)
-    -- Remove spaces and commas for easy parsing.
-    str = str:gsub("[%s,]", "")
-    
-    -- Check for and extract an optional leading negative sign.
-    local sign = ""
-    if str:sub(1, 1) == "-" then
-        sign = "-"
-        str = str:sub(2)
-    end
-    
-    -- Extract the numeric part (which can include a decimal point) and the suffix.
-    local numberPart, suffix = str:match("^([%d%.]+)(%a+)$")
-    if not numberPart or not suffix then
-        -- If the pattern doesn't match, return the original string (with sign reattached).
-        return sign .. str
-    end
+	str = str:gsub("[%s,]", "")
+	local sign = ""
+	if str:sub(1, 1) == "-" then
+		sign = "-"
+		str = str:sub(2)
+		if str == "" then
+			return "0"
+		end
+	end
 
-    -- Normalize the suffix to lower-case.
-    suffix = suffix:lower()
+	local numberPart, suffix = str:match("^([%d%.]+)(%a+)$")
+	if not numberPart or not suffix then
+		return sign .. str
+	end
 
-    -- Find the index of the suffix in the NOTATION table.
-    local index
-    if NOTATION and type(NOTATION) == "table" then
-        for i, s in ipairs(NOTATION) do
-            -- Compare case-insensitively.
-            if s:lower() == suffix then
-                index = i
-                break
-            end
-        end
-    end
+	suffix = suffix:lower()
+	local index
+	if NOTATION and type(NOTATION) == "table" then
+		for i, s in ipairs(NOTATION) do
+			if s:lower() == suffix then
+				index = i
+				break
+			end
+		end
+	end
 
-    -- If suffix not found in NOTATION, return the original string.
-    if not index then
-        return sign .. str
-    end
+	if not index then
+		return sign .. str
+	end
 
-    -- Each tier (index-1) represents a factor of 10^3 (i.e., three orders of magnitude).
-    local exponent = (index - 1) * 3
+	local exponent = (index - 1) * 3
+	local integerPart, fractionalPart = numberPart:match("^(%d*)%.?(%d*)$")
+	fractionalPart = fractionalPart or ""
+	local fractionalDigits = #fractionalPart
+	local effectiveExponent = exponent - fractionalDigits
 
-    -- Separate the number part into integer and fractional components.
-    local integerPart, fractionalPart = numberPart:match("^(%d*)%.?(%d*)$")
-    fractionalPart = fractionalPart or ""
-    
-    -- Count the digits after the decimal.
-    local fractionalDigits = #fractionalPart
+	local combined = (integerPart or "") .. fractionalPart
+	combined = combined:gsub("^0+", "")
+	if combined == "" then
+		return "0"
+	end
 
-    -- Calculate how many zeros must be appended or adjust decimal placement.
-    local effectiveExponent = exponent - fractionalDigits
+	if effectiveExponent < 0 then
+		local totalDigits = #combined
+		local decimalPosition = totalDigits + effectiveExponent
+		if decimalPosition <= 0 then
+			combined = "0." .. string.rep("0", -decimalPosition) .. combined
+		else
+			combined = combined:sub(1, decimalPosition) .. "." .. combined:sub(decimalPosition + 1)
+		end
+		combined = combined:gsub("%.?0+$", "")
+		if combined:sub(-1) == "." then
+			combined = combined:sub(1, -2)
+		end
+	else
+		combined = combined .. string.rep("0", effectiveExponent)
+	end
 
-    -- Combine integer and fractional parts, removing leading zeros.
-    local combined = (integerPart or "") .. fractionalPart
-    combined = combined:gsub("^0+", "")
-    if combined == "" then combined = "0" end
-
-    if effectiveExponent < 0 then
-        -- Handle negative effectiveExponent by inserting decimal point
-        local totalDigits = #combined
-        local decimalPosition = totalDigits + effectiveExponent
-
-        if decimalPosition <= 0 then
-            -- Case where we need leading zeros: e.g., "0.00123"
-            combined = "0." .. string.rep("0", -decimalPosition) .. combined
-        else
-            -- Insert decimal point within the combined digits
-            combined = combined:sub(1, decimalPosition) .. "." .. combined:sub(decimalPosition + 1)
-        end
-
-        -- Trim trailing zeros after decimal
-        combined = combined:gsub("%.?0+$", "")
-        if combined:sub(-1) == "." then
-            combined = combined:sub(1, -2)
-        end
-    else
-        -- Append zeros for positive effectiveExponent
-        combined = combined .. string.rep("0", effectiveExponent)
-    end
-
-    -- Reattach the negative sign if necessary
-    return sign .. combined
+	return sign .. combined
 end
 
 --------------------------------------------------------------------------------
@@ -429,8 +417,8 @@ end
 --   If blockCount is 4 and NOTATION[5] is "T", then getSuffix(4) returns "T".
 --------------------------------------------------------------------------------
 local function getSuffix(blockCount)
-    local tier = math.min(blockCount, MAX_TIER)
-    return NOTATION[tier] or ""
+	local tier = math.min(blockCount, MAX_TIER)
+	return NOTATION[tier] or ""
 end
 
 --------------------------------------------------------------------------------
@@ -450,46 +438,39 @@ end
 --   if NOTATION[6] is "Qa".
 --------------------------------------------------------------------------------
 local function formatNumber(num, decimals)
-    if #num.blocks == 0 or (num.blocks[1] == 0 and #num.blocks == 1) then
-        return "0"
-    end
+	if #num.blocks == 0 or (num.blocks[1] == 0 and #num.blocks == 1) then
+		return "0"
+	end
 
-    -- Calculate tier based on the magnitude.
-    local tier = math.floor(num.magnitude / 3)
-    tier = math.min(tier + 1, #NOTATION)  -- Adjust for 1-based index
+	local tier = math.floor((num.magnitude - 1) / 3) + 1
+	tier = math.min(tier, #NOTATION)
 
-    -- If the magnitude exceeds our notation definitions, handle overflow.
-    if tier > #NOTATION then
-        local overflowTier = #NOTATION
-        local overflowValue = num.magnitude - (overflowTier - 1) * 3
-        return string_format("%.1f%se+%d", 
-            10^(overflowValue % 3), 
-            NOTATION[overflowTier],
-            math_floor(overflowValue / 3) * 3
-        )
-    end
+	if tier > #NOTATION then
+		local overflowTier = #NOTATION
+		local overflowValue = num.magnitude - (overflowTier - 1) * 3
+		return string_format("%.1f%se+%d", 
+			10^(overflowValue % 3), 
+			NOTATION[overflowTier],
+			math_floor(overflowValue / 3) * 3
+		)
+	end
 
-    local suffix = NOTATION[tier]
+	local suffix = NOTATION[tier]
+	local most = num.blocks[#num.blocks] or 0
+	local next = #num.blocks >= 2 and num.blocks[#num.blocks-1] or 0
+	local value = (most * 1000 + next) / 1000
 
-    -- Calculate the displayed value starting with the most significant block.
-    local value = num.blocks[#num.blocks] or 0
-    if num.magnitude % 3 ~= 0 then
-        value = value * 10^(3 - (num.magnitude % 3))
-    end
+	if value >= 1000 and tier < #NOTATION then
+		tier = tier + 1
+		suffix = NOTATION[tier]
+		value = value / 1000
+	end
 
-    -- Incorporate a sub-block (if available) to show decimals.
-    local subBlock = num.blocks[#num.blocks - 1] or 0
-    value = value + subBlock / 1000
-    if value >= 1000 and tier < #NOTATION then
-        tier = tier + 1
-        suffix = NOTATION[tier]
-        value = value / 1000
-    end
+	local formatted = string_format("%." .. decimals .. "f", value)
+	formatted = string_gsub(formatted, "%.?0+$", "")
+	formatted = string_gsub(formatted, "%.$", "")  -- Remove trailing decimal point
 
-    local formatted = string_format("%." .. decimals .. "f", value)
-    formatted = string_gsub(formatted, "%.?0+$", "")
-
-    return (num.sign < 0 and "-" or "") .. formatted .. suffix
+	return (num.sign < 0 and "-" or "") .. formatted .. (suffix or "")
 end
 
 --------------------------------------------------------------------------------
@@ -500,7 +481,7 @@ end
 --   Given a normalized number for 1500, getShort returns something like "1.5K".
 --------------------------------------------------------------------------------
 function Banana.getShort(num)
-    return formatNumber(num, 1)
+	return formatNumber(num, 1)
 end
 
 --------------------------------------------------------------------------------
@@ -511,7 +492,7 @@ end
 --   For 1500, getMedium might return "1.50K" (showing two decimals).
 --------------------------------------------------------------------------------
 function Banana.getMedium(num)
-    return formatNumber(num, 2)
+	return formatNumber(num, 2)
 end
 
 --------------------------------------------------------------------------------
@@ -522,7 +503,7 @@ end
 --   For 1500, getDetailed might return "1.500K" (showing three decimals).
 --------------------------------------------------------------------------------
 function Banana.getDetailed(num)
-    return formatNumber(num, 3)
+	return formatNumber(num, 3)
 end
 
 --------------------------------------------------------------------------------
@@ -541,128 +522,125 @@ end
 --   Output: "a1" (assuming "a" maps to 10 in the CHARACTERS array).
 --------------------------------------------------------------------------------
 function Banana.encodeNumber(value)
-    local num = Banana.stringToNumber(value)
-    if num.blocks[1] == 0 and #num.blocks == 1 then
-        return "0"
-    end
+	local num = Banana.stringToNumber(value)
+	if num.blocks[1] == 0 and #num.blocks == 1 then
+		return "0"
+	end
 
-    local current = num.blocks
-    local chars = {}
+	local current = num.blocks
+	local chars = {}
 
-    while Banana.compare({ sign = 1, blocks = current }, { sign = 1, blocks = {0} }) > 0 do
-        local remainder = 0
-        local newBlocks = {}
+	while Banana.compare({ sign = 1, blocks = current }, { sign = 1, blocks = {0} }) > 0 do
+		local remainder = 0
+		local newBlocks = {}
 
-        for i = #current, 1, -1 do
-            local val = current[i] + remainder * 1000
-            local quotient = math_floor(val / base)
-            remainder = val % base
+		for i = #current, 1, -1 do
+			local val = current[i] + remainder * 1000
+			local quotient = math_floor(val / base)
+			remainder = val % base
 
-            if #newBlocks > 0 or quotient > 0 then
-                table_insert(newBlocks, 1, quotient)
-            end
-        end
+			if #newBlocks > 0 or quotient > 0 then
+				table_insert(newBlocks, 1, quotient)
+			end
+		end
 
-        table_insert(chars, 1, CHARACTERS[remainder + 1])
-        current = newBlocks
-    end
+		table_insert(chars, 1, CHARACTERS[remainder + 1])
+		current = newBlocks
+	end
 
-    return (num.sign < 0 and "-" or "") .. table_concat(chars)
+	return (num.sign < 0 and "-" or "") .. table_concat(chars)
 end
 
 function Banana.decodeNumber(encodedStr)
-    if encodedStr == "0" then
-        return "0"
-    end
+	if encodedStr == "0" then
+		return "0"
+	end
 
-    local sign = 1
-    local str = encodedStr
-    if str:sub(1, 1) == "-" then
-        sign = -1
-        str = str:sub(2)
-        if str == "" then
-            return "0"
-        end
-    end
+	local sign = 1
+	local str = encodedStr
+	if str:sub(1, 1) == "-" then
+		sign = -1
+		str = str:sub(2)
+		if str == "" then
+			return "0"
+		end
+	end
 
-    local blocks = {0}
+	local blocks = {0}
 
-    for i = 1, #str do
-        local c = str:sub(i, i)
-        local charIndex
-        for idx, ch in ipairs(CHARACTERS) do
-            if ch == c then
-                charIndex = idx
-                break
-            end
-        end
-        if not charIndex then
-            error("Invalid character in encoded string: " .. c)
-        end
-        local value = charIndex - 1
+	for i = 1, #str do
+		local c = str:sub(i, i)
+		local charIndex
+		for idx, ch in ipairs(CHARACTERS) do
+			if ch == c then
+				charIndex = idx
+				break
+			end
+		end
+		if not charIndex then
+			error("Invalid character in encoded string: " .. c)
+		end
+		local value = charIndex - 1
 
-        -- Multiply current blocks by 90
-        local newBlocks = {}
-        local carry = 0
-        for j = 1, #blocks do
-            local product = blocks[j] * 90 + carry
-            carry = math_floor(product / 1000)
-            newBlocks[j] = product % 1000
-        end
-        local len = #newBlocks
-        while carry > 0 do
-            len = len + 1
-            newBlocks[len] = carry % 1000
-            carry = math_floor(carry / 1000)
-        end
-        blocks = newBlocks
+		local newBlocks = {}
+		local carry = 0
+		for j = 1, #blocks do
+			local product = blocks[j] * 90 + carry
+			carry = math_floor(product / 1000)
+			newBlocks[j] = product % 1000
+		end
+		local len = #newBlocks
+		while carry > 0 do
+			len = len + 1
+			newBlocks[len] = carry % 1000
+			carry = math_floor(carry / 1000)
+		end
+		blocks = newBlocks
 
-        -- Add value to the first block and handle carry
-        if #blocks == 0 then
-            blocks[1] = value
-        else
-            blocks[1] = blocks[1] + value
-            carry = math_floor(blocks[1] / 1000)
-            blocks[1] = blocks[1] % 1000
-            local j = 2
-            while carry > 0 and j <= #blocks do
-                blocks[j] = blocks[j] + carry
-                carry = math_floor(blocks[j] / 1000)
-                blocks[j] = blocks[j] % 1000
-                j = j + 1
-            end
-            if carry > 0 then
-                blocks[j] = carry
-            end
-        end
-    end
+		if #blocks == 0 then
+			blocks[1] = value
+		else
+			blocks[1] = blocks[1] + value
+			carry = math_floor(blocks[1] / 1000)
+			blocks[1] = blocks[1] % 1000
+			local j = 2
+			while carry > 0 and j <= #blocks do
+				blocks[j] = blocks[j] + carry
+				carry = math_floor(blocks[j] / 1000)
+				blocks[j] = blocks[j] % 1000
+				j = j + 1
+			end
+			if carry > 0 then
+				blocks[j] = carry
+			end
+		end
+	end
 
-    -- Convert blocks to string
-    local reversedBlocks = {}
-    for i = #blocks, 1, -1 do
-        table_insert(reversedBlocks, blocks[i])
-    end
+	local reversedBlocks = {}
+	for i = #blocks, 1, -1 do
+		table_insert(reversedBlocks, blocks[i])
+	end
 
-    local parts = {}
-    for i, block in ipairs(reversedBlocks) do
-        if i == 1 then
-            table_insert(parts, string_format("%d", block))
-        else
-            table_insert(parts, string_format("%03d", block))
-        end
-    end
+	local parts = {}
+	for i, block in ipairs(reversedBlocks) do
+		if i == 1 then
+			table_insert(parts, string_format("%d", block))
+		else
+			table_insert(parts, string_format("%03d", block))
+		end
+	end
 
-    local numberStr = table_concat(parts)
-    numberStr = numberStr:gsub("^0+", "")
-    if numberStr == "" then
-        numberStr = "0"
-    end
+	local numberStr = table_concat(parts)
+	numberStr = numberStr:gsub("^0+", "")
+	if numberStr == "" then
+		numberStr = "0"
+	end
 
-    if sign == -1 and numberStr ~= "0" then
-        numberStr = "-" .. numberStr
-    end
+	if sign == -1 and numberStr ~= "0" then
+		numberStr = "-" .. numberStr
+	end
 
-    return numberStr
+	return numberStr
 end
 
 --------------------------------------------------------------------------------
@@ -678,16 +656,8 @@ end
 --   so that the second suffix ("K") corresponds to a magnitude level of 6 instead of 3.
 --------------------------------------------------------------------------------
 function Banana.configureNotation(newNotation, suffixMap)
-    NOTATION = newNotation or NOTATION
-    MAX_TIER = #NOTATION
-
-    -- Rebuild suffix lookup (useful for possible future extensions)
-    local suffixLookup = {}
-    for i, v in ipairs(NOTATION) do
-        if v ~= "" then
-            suffixLookup[v:lower()] = suffixMap and suffixMap[i] or (i - 1) * 3
-        end
-    end
+	NOTATION = newNotation or NOTATION
+	MAX_TIER = #NOTATION
 end
 
 --------------------------------------------------------------------------------
@@ -698,7 +668,7 @@ end
 -- Returns: true if a > b, false otherwise.
 --------------------------------------------------------------------------------
 function Banana.IsGreater(a, b)
-    return Banana.compare(a, b) == 1
+	return Banana.compare(a, b) == 1
 end
 
 --------------------------------------------------------------------------------
@@ -709,7 +679,7 @@ end
 -- Returns: true if a < b, false otherwise.
 --------------------------------------------------------------------------------
 function Banana.IsLesser(a, b)
-    return Banana.compare(a, b) == -1
+	return Banana.compare(a, b) == -1
 end
 
 --------------------------------------------------------------------------------
@@ -720,7 +690,7 @@ end
 -- Returns: true if a == b, false otherwise.
 --------------------------------------------------------------------------------
 function Banana.IsEqual(a, b)
-    return Banana.compare(a, b) == 0
+	return Banana.compare(a, b) == 0
 end
 
 --------------------------------------------------------------------------------
@@ -731,7 +701,7 @@ end
 -- Returns: true if a >= b, false otherwise.
 --------------------------------------------------------------------------------
 function Banana.IsGreaterThanOrEqual(a, b)
-    return Banana.compare(a, b) >= 0
+	return Banana.compare(a, b) >= 0
 end
 
 --------------------------------------------------------------------------------
@@ -742,7 +712,7 @@ end
 -- Returns: true if a <= b, false otherwise.
 --------------------------------------------------------------------------------
 function Banana.IsLesserThanOrEqual(a, b)
-    return Banana.compare(a, b) <= 0
+	return Banana.compare(a, b) <= 0
 end
 
 return Banana
