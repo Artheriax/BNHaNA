@@ -1,129 +1,148 @@
-local Banana = require("LUA/BNHaNA")
+local Banana = require("LUA/BNHaNA")  -- Adjust path as needed
 
--- Utility to print number objects
-local function printNumber(label, num)
-    local sign = num.sign < 0 and "-" or ""
-    local blocks = {}
-    for i = #num.blocks, 1, -1 do
-        table.insert(blocks, string.format("%03d", num.blocks[i]))
+local function runTests()
+    local passed = 0
+    local failed = 0
+    local total = 0
+    
+    local function test(name, condition)
+        total = total + 1
+        if condition then
+            passed = passed + 1
+            print("✅ PASS: " .. name)
+        else
+            failed = failed + 1
+            print("❌ FAIL: " .. name)
+        end
     end
-    blocks[1] = tostring(tonumber(blocks[1]))  -- remove leading zeroes
-    print(label .. ": " .. sign .. table.concat(blocks))
+    
+    local function testValue(name, actual, expected)
+        total = total + 1
+        if actual == expected then
+            passed = passed + 1
+            print("✅ PASS: " .. name)
+        else
+            failed = failed + 1
+            print(string.format("❌ FAIL: %s (Expected: %s, Actual: %s)", name, tostring(expected), tostring(actual)))
+        end
+    end
+    
+    local function testNumber(name, num, expectedStr)
+        total = total + 1
+        local actualStr = Banana.toDecimalString(num)
+        if actualStr == expectedStr then
+            passed = passed + 1
+            print("✅ PASS: " .. name)
+        else
+            failed = failed + 1
+            print(string.format("❌ FAIL: %s (Expected: %s, Actual: %s)", name, expectedStr, actualStr))
+        end
+    end
+    
+    print("\n===== Starting BNHaNA Tests =====\n")
+    
+    -- Basic number creation and conversion
+    local zero = Banana.stringToNumber("0")
+    local smallNum = Banana.stringToNumber("123")
+    local mediumNum = Banana.stringToNumber("123456")
+    local largeNum = Banana.stringToNumber("1234567890123456")
+    local negativeNum = Banana.stringToNumber("-1234")
+    
+    test("Zero creation", zero.blocks[1] == 0 and #zero.blocks == 1)
+    testValue("Small number creation", Banana.toDecimalString(smallNum), "123")
+    testValue("Medium number creation", Banana.toDecimalString(mediumNum), "123456")
+    testValue("Large number creation", Banana.toDecimalString(largeNum), "1234567890123456")
+    testValue("Negative number creation", Banana.toDecimalString(negativeNum), "-1234")
+    
+    -- Magnitude tests
+    testValue("Zero magnitude", zero.magnitude, 1)
+    testValue("Small number magnitude", smallNum.magnitude, 3)
+    testValue("Medium number magnitude", mediumNum.magnitude, 6)
+    testValue("Large number magnitude", largeNum.magnitude, 16)
+    testValue("Negative number magnitude", negativeNum.magnitude, 4)
+    
+    -- Arithmetic operations
+    local numA = Banana.stringToNumber("1500000000000000")
+    local numB = Banana.stringToNumber("500000000000000")
+    
+    -- Addition
+    local sum = Banana.add(numA, numB)
+    testNumber("Addition test", sum, "2000000000000000")
+    
+    -- Subtraction
+    local diff1 = Banana.subtract(numA, numB)
+    local diff2 = Banana.subtract(numB, numA)
+    testNumber("Subtraction (positive result)", diff1, "1000000000000000")
+    testNumber("Subtraction (negative result)", diff2, "-1000000000000000")
+    
+    -- Edge cases
+    local negAdd = Banana.add(negativeNum, Banana.stringToNumber("1234"))
+    testNumber("Negative + Positive = Zero", negAdd, "0")
+    
+    -- Multiplication
+    local mult = Banana.multiply(smallNum, mediumNum)
+    testNumber("Multiplication test", mult, "15185088")
+    
+    -- Formatting tests
+    testValue("Small number formatting (short)", Banana.getShort(smallNum), "123")
+    testValue("Medium number formatting (short)", Banana.getShort(mediumNum), "123.5K")
+    testValue("Large number formatting (short)", Banana.getShort(largeNum), "1.2Qa")
+    testValue("Negative number formatting (short)", Banana.getShort(negativeNum), "-1.2K")
+    
+    testValue("Small number formatting (medium)", Banana.getMedium(smallNum), "123")
+    testValue("Medium number formatting (medium)", Banana.getMedium(mediumNum), "123.46K")
+    testValue("Large number formatting (medium)", Banana.getMedium(largeNum), "1.23Qa")
+    
+    testValue("Small number formatting (detailed)", Banana.getDetailed(smallNum), "123")
+    testValue("Medium number formatting (detailed)", Banana.getDetailed(mediumNum), "123.456K")
+    testValue("Large number formatting (detailed)", Banana.getDetailed(largeNum), "1.235Qa")
+    
+    -- Notation conversion
+    testValue("Notation to string (K)", Banana.notationToString("1.5K"), "1500")
+    testValue("Notation to string (M)", Banana.notationToString("2.5M"), "2500000")
+    testValue("Notation to string (B)", Banana.notationToString("3.1415B"), "3141500000")
+    testValue("Notation to string (negative)", Banana.notationToString("-4.2Qa"), "-4200000000000000")
+    testValue("Notation to string (no suffix)", Banana.notationToString("123.456"), "123.456")
+    
+    -- Encoding/decoding
+    testValue("Encode/decode zero", Banana.decodeNumber(Banana.encodeNumber("0")), "0")
+    testValue("Encode/decode small number", Banana.decodeNumber(Banana.encodeNumber("12345")), "12345")
+    testValue("Encode/decode large number", Banana.decodeNumber(Banana.encodeNumber("987654321")), "987654321")
+    testValue("Encode/decode negative", Banana.decodeNumber(Banana.encodeNumber("-123456789")), "-123456789")
+    
+    -- Comparison tests
+    test("Comparison: greater", Banana.IsGreater(numA, numB))
+    test("Comparison: lesser", Banana.IsLesser(numB, numA))
+    test("Comparison: equal", Banana.IsEqual(numA, numA))
+    test("Comparison: negative vs positive", Banana.IsGreater(numB, negativeNum))
+    test("Comparison: equal with different signs", not Banana.IsEqual(numA, negativeNum))
+    
+    -- Edge case tests
+    local veryLarge = Banana.stringToNumber("1" .. string.rep("0", 100))  -- 10^100
+    testValue("Very large number magnitude", veryLarge.magnitude, 101)
+    testValue("Very large number formatting", Banana.getShort(veryLarge), "1e+100")
+    
+    local decimalNum = Banana.stringToNumber("0.000001")
+    testValue("Small decimal formatting", Banana.getDetailed(decimalNum), "0.000001")
+    
+    local negativeZero = Banana.stringToNumber("-0")
+    testValue("Negative zero handling", Banana.toDecimalString(negativeZero), "0")
+    
+    -- Summary
+    print("\n===== Test Results =====")
+    print(string.format("Total: %d, Passed: %d, Failed: %d", total, passed, failed))
+    print("=======================")
+    
+    return failed == 0
 end
 
+-- Run the tests
+local success = runTests()
 
--- Test Case 1: String to Number Conversion
-print("=== Test 1: stringToNumber ===")
-local num1 = Banana.stringToNumber("1500000000000000")
-local num2 = Banana.stringToNumber("500000000000000")
-printNumber("Num1", num1)
-print("Magnitude:", num1.magnitude)
-printNumber("Num2", num2)
-print("Magnitude:", num2.magnitude)
-print()
-
--- Test Case 2: Addition
-print("=== Test 2: Addition ===")
-local result_add = Banana.add(num1, num2)
-printNumber("Result (Add)", result_add)
-print("Magnitude:", result_add.magnitude)
-print()
-
--- Test Case 3: Subtraction (num1 - num2)
-print("=== Test 3: Subtraction (num1 - num2) ===")
-local result_sub = Banana.subtract(num1, num2)
-printNumber("Result (Sub)", result_sub)
-print("Magnitude:", result_sub.magnitude)
-print()
-
--- Test Case 4: Subtraction (num2 - num1, expect negative result)
-print("=== Test 4: Subtraction (num2 - num1) ===")
-local result_sub2 = Banana.subtract(num2, num1)
-printNumber("Result (Sub2)", result_sub2)
-print("Magnitude:", result_sub2.magnitude)
-print()
-
--- Test Case 5: Edge Cases
-print("=== Test 5: Edge Cases ===")
-local zero = Banana.stringToNumber("0")
-local result_zero = Banana.add(zero, zero)
-printNumber("Zero + Zero", result_zero)
-print("Magnitude:", result_zero.magnitude)
-
-local neg = Banana.stringToNumber("-123456789")
-printNumber("Negative Test", neg)
-print("Magnitude:", neg.magnitude)
-
-local neg_add = Banana.add(neg, Banana.stringToNumber("123456789"))
-printNumber("Negative + Positive", neg_add)
-print("Magnitude:", neg_add.magnitude)
-
-print("\n=== Test 6: getShort, getMedium, getDetailed ===")
-
--- Helper to display all formats for a given number
-local function testDisplayFormats(label, str)
-    local num = Banana.stringToNumber(str)
-    print("Raw input: " .. str)
-    print(label .. " - Short:    " .. Banana.getShort(num))
-    print(label .. " - Medium:   " .. Banana.getMedium(num))
-    print(label .. " - Detailed: " .. Banana.getDetailed(num))
-    print()
+if success then
+    print("All tests passed successfully!")
+else
+    print("Some tests failed. Please review the output.")
 end
 
--- Test cases with different magnitudes
-testDisplayFormats("Test A", "123")
-testDisplayFormats("Test B", "123456")
-testDisplayFormats("Test C", "123456789")
-testDisplayFormats("Test D", "123456789012")
-testDisplayFormats("Test E", "1234567890123456")
-testDisplayFormats("Test F", "-98765432109876543210")
-
--- Edge cases
-testDisplayFormats("Zero", "0")
-testDisplayFormats("Negative Small", "-1234")
-
-print("\n=== Test 7: notationToString ===")
-
-    print(Banana.notationToString("1M"))
-    print(Banana.notationToString("2.5B"))
-    print(Banana.notationToString("3.1415K"))
-    print(Banana.notationToString("-4.2Qa"))
-    print(Banana.notationToString("0.0001T"))
-    print(Banana.notationToString("123.456"))
-    print(Banana.notationToString("1.234e3"))
-
-print("\n=== Test 8: Encode/Decode Round Trip ===")
-    local function testEncodeDecode(value)
-        local encoded = Banana.encodeNumber(value)
-        local decoded = Banana.decodeNumber(encoded)
-        print(string.format("Encode '%s' → '%s'; Decode → '%s'", value, encoded, decoded))
-    end
-    testEncodeDecode("0")
-    testEncodeDecode("10")
-    testEncodeDecode("90")
-    testEncodeDecode("12345")
-    testEncodeDecode("987654321")
-    testEncodeDecode("-123456789")
-    
--- print("\n=== Test 9: configureNotation ===") -- needs to be disabled for the tests beyond this to work.
---     -- Backup original notation (hypothetical since NOTATION isn't exposed)
---     Banana.configureNotation({"", "k", "m", "b"})
---     local testNum = Banana.stringToNumber("2500") 
---     print("Formatted with custom notation: " .. Banana.getShort(testNum)) -- Should show "2.5k"
---     Banana.configureNotation() -- Reset to default
-    
-print("\n=== Test 10: Comparison Functions ===")
-    local a = Banana.stringToNumber("1000")
-    local b = Banana.stringToNumber("500")
-    local c = Banana.stringToNumber("-500")
-    print("IsGreater(1000, 500):", Banana.IsGreater(a, b)) -- true
-    print("IsLesser(500, 1000):", Banana.IsLesser(b, a))   -- true
-    print("IsEqual(1000, 1000):", Banana.IsEqual(a, a))    -- true
-    print("IsGreater(500, -500):", Banana.IsGreater(b, c)) -- true
-    print("IsLesser(-500, 500):", Banana.IsLesser(c, b))   -- true
-    
-print("\n=== Test 11: notationToString Edge Cases ===")
-    print("Invalid suffix:", Banana.notationToString("1.2X")) -- "1.2X"
-    print("No suffix:", Banana.notationToString("123"))       -- "123"
-    print("Precision overflow:", Banana.notationToString("1.234567K")) -- "1.234567K"
-    print("Large suffix:", Banana.notationToString("1NoOgUCe")) -- Handled if suffix exists
+return runTests

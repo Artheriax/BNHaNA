@@ -284,6 +284,101 @@ function Banana.multiply(a, b)
 	return Banana.normalizeNumber({ sign = sign, blocks = result })
 end
 
+function Banana.divide(a, b)
+	-- Handle division by zero
+	if #b.blocks == 1 and b.blocks[1] == 0 then
+		error("Division by zero")
+	end
+
+	-- Handle zero dividend
+	if #a.blocks == 1 and a.blocks[1] == 0 then
+		return Banana.normalizeNumber({ sign = 1, blocks = {0} })
+	end
+
+	local sign = a.sign * b.sign
+	local absA = { sign = 1, blocks = a.blocks }
+	local absB = { sign = 1, blocks = b.blocks }
+
+	-- Fast path for |a| < |b|
+	if Banana.IsLesser(absA, absB) then
+		if sign == 1 then
+			return Banana.normalizeNumber({ sign = 1, blocks = {0} })
+		else
+			if not Banana.IsEqual(a, Banana.normalizeNumber({ sign = 1, blocks = {0} })) then
+				return Banana.normalizeNumber({ sign = -1, blocks = {1} }) -- -1
+			else
+				return Banana.normalizeNumber({ sign = 1, blocks = {0} })
+			end
+		end
+	end
+
+	-- Convert to most-significant-first order
+	local A = {}
+	for i = #absA.blocks, 1, -1 do
+		table.insert(A, absA.blocks[i])
+	end
+
+	local R = Banana.normalizeNumber({ sign = 1, blocks = {0} }) -- Remainder
+	local Q = {} -- Quotient digits (most-significant first)
+
+	for i = 1, #A do
+		-- Multiply remainder by 1000 and add next digit
+		R = Banana.multiply(R, Banana.normalizeNumber({ sign = 1, blocks = {1000} }))
+		R = Banana.add(R, Banana.normalizeNumber({ sign = 1, blocks = {A[i]} }))
+
+		if Banana.IsGreaterThanOrEqual(R, absB) then
+			-- Binary search for quotient digit (0-999)
+			local low, high = 0, 999
+			while low < high do
+				local mid = math.floor((low + high + 1) / 2)
+				local midBN = Banana.normalizeNumber({ sign = 1, blocks = {mid} })
+				local test = Banana.multiply(absB, midBN)
+
+				if Banana.IsGreater(test, R) then
+					high = mid - 1
+				else
+					low = mid
+				end
+			end
+
+			local q = low
+			local qBN = Banana.normalizeNumber({ sign = 1, blocks = {q} })
+			local product = Banana.multiply(absB, qBN)
+			R = Banana.subtract(R, product)
+			table.insert(Q, q)
+		else
+			table.insert(Q, 0)
+		end
+	end
+
+	-- Convert to least-significant-first blocks
+	local quotientBlocks = {}
+	for i = #Q, 1, -1 do
+		table.insert(quotientBlocks, Q[i])
+	end
+
+	-- Trim trailing zeros (most-significant end)
+	while #quotientBlocks > 1 and quotientBlocks[#quotientBlocks] == 0 do
+		table.remove(quotientBlocks)
+	end
+
+	local absQ = Banana.normalizeNumber({ sign = 1, blocks = quotientBlocks })
+
+	-- Apply sign and adjust for negative division
+	if sign == 1 then
+		return absQ
+	else
+		if Banana.IsEqual(R, Banana.normalizeNumber({ sign = 1, blocks = {0} })) then
+			return Banana.normalizeNumber({ sign = -1, blocks = absQ.blocks })
+		else
+			local one = Banana.normalizeNumber({ sign = 1, blocks = {1} })
+			local qValue = Banana.add(absQ, one)
+			qValue.sign = -1
+			return qValue
+		end
+	end
+end
+
 --------------------------------------------------------------------------------
 -- Conversion: stringToNumber
 -- Purpose: Convert a decimal string into a normalized number.
