@@ -1,7 +1,7 @@
--- Made by Artheriax (Enhanced)
+-- Made by Artheriax
 -- Github: https://github.com/Artheriax/BNHaNA
 -- Took inspiration from Gigantix: https://github.com/DavldMA/Gigantix/tree/main
--- Handles numbers up to 10^3003 with improved infinity handling
+-- Handles numbers up to 10^3003 with infinity handling
 
 local Banana = {}
 
