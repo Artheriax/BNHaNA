@@ -65,7 +65,7 @@ print(BNHaNA.getScientific(cashValue))                  -- "1.5e+9"
 local baseGain    = BNHaNA.stringToNumber("1000000")    -- 10^6
 local multiplier  = BNHaNA.power(baseGain, BNHaNA.stringToNumber("3"))
 -- 10^6 ^ 3 = 10^18
-print(BNHaNA.getMedium(multiplier))                     -- "1.00Qi" (quadrillion)
+print(BNHaNA.getMedium(multiplier))                     -- "1.00Qi" (Quintillion)
 ```
 
 ### 3. Leaderboard Sorting with Big Numbers
