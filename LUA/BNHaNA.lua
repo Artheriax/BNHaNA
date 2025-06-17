@@ -6,7 +6,7 @@
 local Banana = {}
 
 -- Notation table for suffixes used in short notation
-local NOTATION = require('LUA.BNHaNA')
+local NOTATION = require("LUA.NOTATION")
 
 local POS_INF = { sign = 1, blocks = {}, magnitude = math.huge, isInf = true }
 local NEG_INF = { sign = -1, blocks = {}, magnitude = math.huge, isInf = true }
