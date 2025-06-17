@@ -5,123 +5,154 @@ BNHaNA (Banana) is a robust module for handling extremely large numbers with pre
 **GitHub**: https://github.com/Artheriax/BNHaNA  
 **Inspired by**: [Gigantix](https://github.com/DavldMA/Gigantix)
 
----
-
-## Why Use BNHaNA?
-- ✅ **Intuitive API**: Simple functions for complex operations
-- ✅ **Massive Range**: Handle numbers up to 10³⁰⁰³ and beyond
-- ✅ **Human-Friendly Formatting**: Automatic abbreviation system (K, M, B, ...)
-- ✅ **Base-90 Encoding**: 30% more compact than hexadecimal
-- ✅ **Compatibility**: Works with Lua 5.1/LuaJIT
+BNHaNA (Big Number Handling and Notation for Anything) is a pure‑Lua library designed to work seamlessly in Roblox (or any Lua 5.1+ environment). It enables representation, arithmetic, and formatting of integers up to 10^3003, with proper handling of “infinite” values beyond that threshold.
 
 ---
 
-## Features 🌟
-- **Arbitrary-Precision Arithmetic**
-  - Addition, subtraction, and comparisons
-  - Block-based storage (3-digit chunks)
-  - Signed number support
-- **Advanced Notation System**
-  - 500+ suffixes (K, M, B, T, Qa, Qi... up to Mi = 10³⁰⁰³)
-  - Automatic magnitude scaling
-  - Multiple formatting precision levels
-- **Efficient Encoding**
-  - Base-90 encoding using 90 ASCII characters
-  - Lossless compression for storage/transmission
-- **Optimized Performance**
-  - Preallocated buffers for block operations
-  - Minimal garbage collection impact
-  - Carry/borrow propagation optimization
+## 📖 Introduction
 
-## Support
-| Language                      | Supported         |
-|-------------------------------|-------------------|
-| LUA (Roblox LUAU Experimental)| Yes               |
+When building games or applications that involve extremely large counters—such as idle‑style clickers, prestige systems, or economies—standard Lua numbers (`double` precision) quickly overflow or lose precision beyond ~1e308. BNHaNA solves this by:
+
+- Storing numbers in 3‑digit blocks (base‑1000) internally.
+- Supporting addition, subtraction, multiplication, division, exponentiation, modulo, GCD/LCM, square root, factorial, and more.
+- Converting between decimal strings, scientific notation, and tiered suffix notation (`K`, `M`, …).
+- Encoding/decoding numbers into a compact Base‑90 string.
+- Representing values above 10^3003 as positive or negative infinity.
 
 ---
 
-## Installation 📦
-1. Download [BNHaNA.lua](https://github.com/Artheriax/BNHaNA/releases)
-2. Place in your project directory
-3. Require in your code:
+## 🚀 Setup
+
+1. **Clone or download** this repo into your Roblox project (e.g. under `ReplicatedStorage/Modules/BNHaNA`).
+2. **Require** the module in your script:
+
+   ```lua
+   local BNHaNA = require(game:GetService("ReplicatedStorage").Modules.BNHaNA)
+   ```
+
+3. **(Optional)** Modify `MAX_SUPPORTED_MAGNITUDE` or `NOTATION` table if you wish to extend beyond 10^3003 or customize suffix tiers.
+
+---
+
+## 🛠️ Dependencies
+
+- **Lua 5.1+** (works out‑of‑the‑box in Roblox).
+- A `LUA/NOTATION` module providing a sequence of suffix strings, e.g.:
+
+  ```lua
+  -- example NOTATION.lua
+  return {
+    "", "K", "M", "B", "T", "Qa", "Qi", "Sx", "Sp", "Oc", "No", … 
+  }
+  ```
+
+---
+
+## 🎯 Use Cases (Roblox Example)
+
+### 1. Formatting Player Currency
+
 ```lua
-local Banana = require(BNHaNA)
+-- Suppose leaderstats.Cash holds a BNHaNA number
+local cashValue = BNHaNA.stringToNumber("1500000000")   -- 1.5 billion
+print(BNHaNA.getShort(cashValue))                       -- "1.5B"
+print(BNHaNA.getScientific(cashValue))                  -- "1.5e+9"
 ```
 
-## Usage 🚀
-### Basic Operations
+### 2. Prestige/Exponential Growth
+
 ```lua
--- String to internal format
-local num = Banana.stringToNumber("1500000") --> {0, 1500}
+local baseGain    = BNHaNA.stringToNumber("1000000")    -- 10^6
+local multiplier  = BNHaNA.power(baseGain, BNHaNA.stringToNumber("3"))
+-- 10^6 ^ 3 = 10^18
+print(BNHaNA.getMedium(multiplier))                     -- "1.00Qi" (quadrillion)
+```
+
+### 3. Leaderboard Sorting with Big Numbers
+
+```lua
+local scores = {
+  BNHaNA.stringToNumber("2e3000"),
+  BNHaNA.stringToNumber("5e2500"),
+  BNHaNA.stringToNumber("1e3003"),
+}
+
+table.sort(scores, function(a, b)
+  return BNHaNA.IsGreater(a, b)
+end)
+
+for _, v in ipairs(scores) do
+  print(BNHaNA.getScientific(v))
+end
+-- Sorted descending
+```
+
+---
+
+## 📝 API Reference
+
+| Function                          | Description                                                                                  |
+|-----------------------------------|----------------------------------------------------------------------------------------------|
+| `stringToNumber(str)`             | Convert decimal/scientific string to internal BNHaNA number                                  |
+| `toDecimalString(num)`            | Convert BNHaNA number back to plain decimal string                                           |
+| `toNumber(num)`                   | Convert to Lua `number` (may lose precision if >1e308)                                       |
+| `add(a, b)`                       | Return `a + b`                                                                                |
+| `subtract(a, b)`                  | Return `a - b`                                                                                |
+| `multiply(a, b)`                  | Return `a * b`                                                                                |
+| `divide(a, b)`                    | Return integer division `a ÷ b`                                                               |
+| `power(a, b)`                     | Return `a^b` (integer exponentiation)                                                         |
+| `modulo(a, b)`                    | Return `a % b`                                                                                |
+| `sqrt(a)`                         | Integer square root of `a`                                                                    |
+| `factorial(a)`                    | Factorial (up to 1000!, returns ∞ beyond)                                                     |
+| `gcd(a, b)` / `lcm(a, b)`         | Greatest common divisor / least common multiple                                               |
+| `IsGreater(a, b)`                 | `true` if `a > b`                                                                             |
+| `IsLesser(a, b)`                  | `true` if `a < b`                                                                             |
+| `IsEqual(a, b)`                   | `true` if `a == b`                                                                            |
+| `getShort(a)`                     | Format with 1 decimal place + suffix (e.g. `1.5K`)                                            |
+| `getMedium(a)`                    | Format with 2 decimals + suffix                                                               |
+| `getDetailed(a)`                  | Format with 3 decimals + suffix                                                               |
+| `getScientific(a)`                | Scientific notation (e.g. `1.234e+3003`)                                                      |
+| `notationToString(str)`           | Expand shorthand (`"1.2K" → "1200"`)                                                          |
+| `encodeNumber(str)`               | Encode decimal string into Base‑90 string                                                     |
+| `decodeNumber(encodedStr)`        | Decode Base‑90 string back to decimal string                                                  |
+| `isValidNumber(str)`              | Validate if string is a supported number format                                               |
+| `batchAdd(numbers)` / `batchMultiply(numbers)` | Efficient batch operations                                                     |
+
+---
+
+## 🔧 Detailed Usage
+
+```lua
+-- Parse user input
+local input = "3.14e2000"
+assert(BNHaNA.isValidNumber(input), "Invalid number!")
+local bigNum = BNHaNA.stringToNumber(input)
 
 -- Arithmetic
-local sum = Banana.add(num, {500}) --> {500, 1500}
-local diff = Banana.subtract(sum, {200}) --> {300, 1500}
+local doubled = BNHaNA.multiply(bigNum, BNHaNA.stringToNumber("2"))
+local decremented = BNHaNA.subtract(doubled, BNHaNA.stringToNumber("1"))
 
--- Comparisons
-print(Banana.IsGreater(sum, diff)) --> true
+-- Formatting
+print(BNHaNA.getShort(decremented))      -- e.g. "6.3e+2000" (if tier not available)
+print(BNHaNA.getScientific(decremented)) -- "6.28e+2000"
+
+-- Encoding for compact storage
+local code = BNHaNA.encodeNumber(BNHaNA.toDecimalString(doubled))
+local decoded = BNHaNA.decodeNumber(code)
+assert(decoded == BNHaNA.toDecimalString(doubled))
 ```
-### Number Formatting
-```lua
-local bigNum = Banana.stringToNumber("1234567890123")
 
-print(Banana.getShort(bigNum))   --> "1.2T"
-print(Banana.getMedium(bigNum))  --> "1.23T"
-print(Banana.getDetailed(bigNum)) --> "1.234T"
+---
+
+## 🤝 Contributing
+
+Contributions, issues, and feature requests are welcome!  
+Feel free to open an issue or submit a PR on GitHub.
+
+---
+
+## 📜 License
+
+This project is licensed under the [MIT License](LICENSE).
+
 ```
-### Encode/Decode
-```lua
-local encoded = Banana.encodeNumber("9876543210") --> "2nZ4q"
-local decoded = Banana.decodeNumber("2nZ4q") --> 9876543210
-```
-## Notation System 🔢
-BNHaNA supports an extensive notation system with 500+ prefixes:
-
-| Example Suffixes       | Magnitude         |
-|------------------------|-------------------|
-| K, M, B, T             | 10³, 10⁶, 10⁹      |
-| Qa, Qi, Sx, Sp         | 10¹⁵ – 10²⁴        |
-| Oc, No, De, Ud         | 10²⁷ – 10³⁶        |
-| Vg, Tg, Qg, Sg         | 10⁶³ – 10²¹³       |
-| ... up to Mi           | 10³⁰⁰³             |
-Full notation list available in [NOTATION.lua](LUA/NOTATION.lua)
-
-## API Reference 📚
-
-### Core Functions
-
-| Function  | Parameters | Returns | Description                 |
-|-----------|------------|---------|-----------------------------|
-| add       | (a, b)     | blocks  | Safe addition with carry    |
-| subtract  | (a, b)     | blocks  | Subtract two numbers        |
-| compare   | (a, b)     | -1/0/1  | Compare two numbers (-1/0/1)|
-
-### Conversion
-
-| Function         | Parameters | Returns | Description                           |
-|------------------|------------|---------|---------------------------------------|
-| stringToNumber   | string     | blocks  | Parse numeric string                  |
-| notationToString | string     | string  | Converts notation to string number    |
-
-### Formatting
-
-| Function    | Parameters | Returns |           Description           |
-|-------------|------------|---------|---------------------------------|
-| getShort    | string     | string  | Compact notation(1 decimal)     |
-| getMedium   | string     | string  | Compact notation(2 decimals)    |
-| getDetailed | string     | string  | Compact notation(3 decimals)    |
-
-### Encoding
-
-| Function         | Parameters | Returns | Description             |
-|------------------|------------|---------|-------------------------|
-| encodeNumber     | string     | string  | Encode number (base-90) |
-| decodeNumber     | string     | string  | Decode number (base-90) |
-
-## Performance 💨
-
-- 📉 Memory Efficient : Uses 3-digit block compression
-- ⚡ LUAJIT Optimized : Up to 5x faster with JIT compilation
-
-## License
-MIT License - see [LICENSE](LICENSE) for details
