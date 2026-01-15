@@ -78,7 +78,7 @@ local scores = {
 }
 
 table.sort(scores, function(a, b)
-  return BNHaNA.IsGreater(a, b)
+  return BNHaNA.isGreater(a, b)
 end)
 
 for _, v in ipairs(scores) do
@@ -96,27 +96,29 @@ end
 | `stringToNumber(str)`             | Convert decimal/scientific string to internal BNHaNA number                                  |
 | `toDecimalString(num)`            | Convert BNHaNA number back to plain decimal string                                           |
 | `toNumber(num)`                   | Convert to Lua `number` (may lose precision if >1e308)                                       |
-| `add(a, b)`                       | Return `a + b`                                                                                |
-| `subtract(a, b)`                  | Return `a - b`                                                                                |
-| `multiply(a, b)`                  | Return `a * b`                                                                                |
-| `divide(a, b)`                    | Return integer division `a ÷ b`                                                               |
-| `power(a, b)`                     | Return `a^b` (integer exponentiation)                                                         |
-| `modulo(a, b)`                    | Return `a % b`                                                                                |
-| `sqrt(a)`                         | Integer square root of `a`                                                                    |
-| `factorial(a)`                    | Factorial (up to 1000!, returns ∞ beyond)                                                     |
-| `gcd(a, b)` / `lcm(a, b)`         | Greatest common divisor / least common multiple                                               |
-| `IsGreater(a, b)`                 | `true` if `a > b`                                                                             |
-| `IsLesser(a, b)`                  | `true` if `a < b`                                                                             |
-| `IsEqual(a, b)`                   | `true` if `a == b`                                                                            |
-| `getShort(a)`                     | Format with 1 decimal place + suffix (e.g. `1.5K`)                                            |
-| `getMedium(a)`                    | Format with 2 decimals + suffix                                                               |
-| `getDetailed(a)`                  | Format with 3 decimals + suffix                                                               |
-| `getScientific(a)`                | Scientific notation (e.g. `1.234e+3003`)                                                      |
-| `notationToString(str)`           | Expand shorthand (`"1.2K" → "1200"`)                                                          |
-| `encodeNumber(str)`               | Encode decimal string into Base‑90 string                                                     |
-| `decodeNumber(encodedStr)`        | Decode Base‑90 string back to decimal string                                                  |
-| `isValidNumber(str)`              | Validate if string is a supported number format                                               |
-| `batchAdd(numbers)` / `batchMultiply(numbers)` | Efficient batch operations                                                     |
+| `add(a, b)`                       | Return `a + b`                                                                               |
+| `subtract(a, b)`                  | Return `a - b`                                                                               |
+| `multiply(a, b)`                  | Return `a * b`                                                                               |
+| `divide(a, b)`                    | Return integer division `a ÷ b`                                                              |
+| `power(a, b)`                     | Return `a^b` (integer exponentiation)                                                        |
+| `modulo(a, b)`                    | Return `a % b`                                                                               |
+| `sqrt(a)`                         | Integer square root of `a`                                                                   |
+| `factorial(a)`                    | Factorial (up to 1000!, returns ∞ beyond)                                                    |
+| `gcd(a, b)` / `lcm(a, b)`         | Greatest common divisor / least common multiple                                              |
+| `isGreater(a, b)`                 | `true` if `a > b`                                                                            |
+| `isLesser(a, b)`                  | `true` if `a < b`                                                                            |
+| `isEqual(a, b)`                   | `true` if `a == b`                                                                           |
+| `isGreaterThanOrEqual(a, b)`      | `true` if `a >= b`                                                                           |
+| `isLesserThanOrEqual(a, b)`       | `true` if `a <= b`                                                                           |
+| `getShort(a)`                     | Format with 1 decimal place + suffix (e.g. `1.5K`)                                           |
+| `getMedium(a)`                    | Format with 2 decimals + suffix                                                              |
+| `getDetailed(a)`                  | Format with 3 decimals + suffix                                                              |
+| `getScientific(a)`                | Scientific notation (e.g. `1.234e+3003`)                                                     |
+| `notationToString(str)`           | Expand shorthand (`"1.2K" → "1200"`)                                                         |
+| `encodeNumber(str)`               | Encode decimal string into Base‑90 string                                                    |
+| `decodeNumber(encodedStr)`        | Decode Base‑90 string back to decimal string                                                 |
+| `isValidNumber(str)`              | Validate if string is a supported number format                                              |
+| `batchAdd(numbers)` / `batchMultiply(numbers)` | Efficient batch operations                                                      |
 
 ---
 
