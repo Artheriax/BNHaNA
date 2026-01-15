@@ -154,5 +154,3 @@ Feel free to open an issue or submit a PR on GitHub.
 ## 📜 License
 
 This project is licensed under the [MIT License](LICENSE).
-
-```
