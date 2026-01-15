@@ -1,5 +1,4 @@
-def GetNotations():
-    NOTATION = [
+NOTATION = [
     "",
     "K",
     "M",
@@ -1101,4 +1100,3 @@ def GetNotations():
     "NoNgNoCe",
     
     "Mi"]
-    return NOTATION
